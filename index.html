@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js">script.js</script>
+</head>
+
+<body>
+  <div class="quiz__rapper">
+    
+    <div class="quiz__container">
+      <div class="quiz__top">
+        <button type=""><</button>
+        <span><span class="num__answerd">1</span> / <span class="total__ques">5</span></span>
+        
+        <button type="">></button>
+      </div>
+      
+      
+      <form class="selectForm" action="Pick-Surah" method="get" accept-charset="utf-8">
+      <select name="Surahs" id="Surahs">
+<!--         <option value="Fatiha">Fatiha</option> -->
+      </select>
+      
+      <button type="submit">Start</button>
+      </form>
+
+      
+      <div class="quiz__body">
+        <h3>Question:</h3>
+        <div>
+           <h4>What is the next verse?</h4>
+           <span class="ques__ayah"></span>
+        </div>
+
+        
+        <div class="options">
+            <span for="Ismail">Ismail</span>
+            <span for="Idris">Idris</span>
+            <span for="Yahya">Yahya</span>
+            <span for="Nuh">Nuh</span>
+        
+        </div>
+        
+        
+        <div class="navigator">
+          <button type="">Next</button>
+          <button type="">Skip</button>
+          <button type="">Previous</button>
+        </div>
+      </div>
+    </div>
+    
+   </div> 
+</body>
+
+</html>
