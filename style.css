@@ -44,14 +44,19 @@ width: 20rem;
   background: red;
 }
 
+.options span{
+  color: #FFFFFF;
+  
+}
 
-.options label::before {
-  content: "⭕";
+
+.options span::before {
+  content: url(/assests/images/circle.svg.html);
 }
 
 
 .options .correct__answer::before {
-  content: "🟢";
+  content: "<i class="uil uil-check-circle"></i>";
 }
 
 

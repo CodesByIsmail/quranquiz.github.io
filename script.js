@@ -3,12 +3,22 @@ const quesTion = document.querySelector('.ques__ayah')
 const surahSelectOptions = document.querySelector('#surahs__options');
 const numOfQuestionSelectOptions = document.querySelector('#NumberOfQuestions')
 
+
+const questionOptions = document.querySelector('.options')
+
+
+
+
+
 const selectForm = document.querySelector('.selectForm')
 const quizContainer = document.querySelector('.quiz__container')
 const loadingText = document.querySelector('.load')
 const totalQuestionNum = document.querySelector('.total__ques')
 
-const quranQuiz = {}
+const quranQuiz = {
+  ayahs: [],
+  options: []
+}
 
 
 function rndNumber(max, min = 1) {
@@ -18,13 +28,15 @@ function rndNumber(max, min = 1) {
 console.log('loading...')
 
 let SURAH_INDEX;
+let CUR_QUES_NUM;
+let CUR_AYAH_QUES;
 
-async function first() {
+async function getAllSurahs() {
   try {
-    let chapter2 = await fetch('https://api.qurani.ai/gw/qh/v1/surah?limit=2000&offset=0')
+    let res = await fetch('https://api.qurani.ai/gw/qh/v1/surah?limit=2000&offset=0')
   
-    let data2 = await chapter2.json();
-    getSurahsToSelect(data2)
+    let allSurahs = await res.json();
+    addAllSurahToSelectOption(allSurahs)
   } catch (e) {
     console.error(e.message, 'and')
     loadingText.classList.remove('hidden');
@@ -32,20 +44,21 @@ async function first() {
   }
 }
 
-first();
+getAllSurahs();
 
 
 async function getQuranFromAPI(surahIndex) {
   try {
-      let chapters = await fetch(`https://api.qurani.ai/gw/qh/v1/surah/${surahIndex + 1}/quran-uthmani?limit=2000&offset=0`)
+      let res = await fetch(`https://api.qurani.ai/gw/qh/v1/surah/${surahIndex + 1}/quran-uthmani?limit=2000&offset=0`)
   
-  let chapter = await chapters.json();
-  let datas = chapter.data.ayahs
+  let chapter = await res.json();
+  let ayahsInChapter = chapter.data.ayahs
   
-  quranQuiz.ayahs = datas.map(data => data.text)
+  quranQuiz.ayahs = ayahsInChapter.map(data => data.text)
+  
   addAyahToPoll(quranQuiz.ayahs)
   console.log(quranQuiz.ayahs)
-  console.log(quranQuiz.ayahs);
+
   } catch (e) {
     console.error(e.message, 'fhrhfh')
     loadingText.classList.remove('hidden');
@@ -55,7 +68,7 @@ async function getQuranFromAPI(surahIndex) {
 }
 
 
-function getSurahsToSelect(surahDataApi) {
+function addAllSurahToSelectOption(surahDataApi) {
   const allSurahs = surahDataApi.data.map(data => data.englishName)
   allSurahs.forEach(surah => {
   const html = `<option value="${surah}">${surah}</option>`
@@ -81,7 +94,10 @@ selectForm.addEventListener('submit', (e) => {
 }
 
 function addAyahToPoll(ayahArr) {
-  quesTion.innerHTML = getAyah(ayahArr);
+  CUR_AYAH_QUES = getAyah(ayahArr)
+  quesTion.innerHTML = CUR_AYAH_QUES;
+  AddToOptionsToQuestion(ayahArr, CUR_QUES_NUM)
+  
 }
 
 
@@ -95,9 +111,31 @@ function getAyah(ayahArr) {
 }
 
 
-function GetAddToOptions(surahIndex) {
-  const optionA = surahIndex--
-  const optionB = surahIndex + rnd
+function AddToOptionsToQuestion(ayahs, curQues = 1) {
+  
+const arrayOfOptions = [];
+
+  
+  arrayOfOptions.push(getAyah(ayahs))
+  arrayOfOptions.push(CUR_AYAH_QUES)
+  arrayOfOptions.push(getAyah(ayahs))
+  arrayOfOptions.push(getAyah(ayahs))
+  
+  
+  quranQuiz.options[curQues] = arrayOfOptions;
+  
+  // quranQuiz.options.curQues.push(getAyah(ayahs))
+  // quranQuiz.options[curQues].push(getAyah(ayahs))
+  // quranQuiz.options[curQues].push(getAyah(ayahs))
+  // quranQuiz.options[curQues].push(getAyah(ayahs))
+  
+  console.log(quranQuiz.options, 'fjfnjfjjfjfjfkfkfk')
+  console.log(curQues)
+  quranQuiz.options[curQues].forEach(opt => {
+    questionOptions.innerHTML += `<span>${opt}</span>`;
+    console.log(opt)
+  })
+  
 }
 
 
@@ -139,6 +177,8 @@ console.log(newArr)
 
 
 document.querySelector('.next__ques').addEventListener('click', (e) => {
+  +CUR_QUES_NUM++
+  questionOptions.innerHTML = '';
   getAyah(quranQuiz.ayahs)
   addAyahToPoll(quranQuiz.ayahs)
   
