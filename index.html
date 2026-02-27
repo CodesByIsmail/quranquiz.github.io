@@ -10,24 +10,34 @@
 </head>
 
 <body>
-  <div class="quiz__rapper">
+  <div class="quiz__wrapper">
     
-    <div class="quiz__container">
+    
+    <span class="load hidden">Loading...</span>
+          
+      <form class="selectForm" action="Pick-Surah" method="get" accept-charset="utf-8">
+      <select name="Surahs" id="surahs__options">
+<!--         <option value="Fatiha">Fatiha</option> -->
+      </select>
+      
+      
+      <select name="NumberOfQuestions" id="NumberOfQuestions">
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+      </select>
+      <button type="submit">Start</button>
+      </form>
+    
+    
+    <div class="quiz__container hidden">
       <div class="quiz__top">
         <button type=""><</button>
         <span><span class="num__answerd">1</span> / <span class="total__ques">5</span></span>
         
         <button type="">></button>
       </div>
-      
-      
-      <form class="selectForm" action="Pick-Surah" method="get" accept-charset="utf-8">
-      <select name="Surahs" id="Surahs">
-<!--         <option value="Fatiha">Fatiha</option> -->
-      </select>
-      
-      <button type="submit">Start</button>
-      </form>
 
       
       <div class="quiz__body">
@@ -39,18 +49,14 @@
 
         
         <div class="options">
-            <span for="Ismail">Ismail</span>
-            <span for="Idris">Idris</span>
-            <span for="Yahya">Yahya</span>
-            <span for="Nuh">Nuh</span>
-        
+            <span>Ismail</span>
         </div>
         
         
         <div class="navigator">
-          <button type="">Next</button>
+          <button  type="">Previous</button>
           <button type="">Skip</button>
-          <button type="">Previous</button>
+          <button class="next__ques" type="">Next</button>
         </div>
       </div>
     </div>
