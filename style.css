@@ -45,8 +45,24 @@ width: 20rem;
 }
 
 .options span{
-  color: #FFFFFF;
+  /* color: #FFFFFF; */
   
+}
+
+.options .option__div{
+  background: white;
+  padding: .2rem;
+  text-align: right;
+  border: 1px brown;
+  border-radius: 14px;
+  color: black;
+  
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 1rem;
+  justify-content: left;
+  align-items: center;
+  font-size: .8rem;
 }
 
 

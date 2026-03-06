@@ -17,6 +17,7 @@ const totalQuestionNum = document.querySelector('.total__ques')
 
 const quranQuiz = {
   ayahs: [],
+  questions: [],
   options: []
 }
 
@@ -56,7 +57,8 @@ async function getQuranFromAPI(surahIndex) {
   
   quranQuiz.ayahs = ayahsInChapter.map(data => data.text)
   
-  addAyahToPoll(quranQuiz.ayahs)
+  renderAyahQuestion(quranQuiz.ayahs) // takes array of all ayah in thr surah and select specific ayah randomly 
+  
   console.log(quranQuiz.ayahs)
 
   } catch (e) {
@@ -93,11 +95,10 @@ selectForm.addEventListener('submit', (e) => {
 
 }
 
-function addAyahToPoll(ayahArr) {
+function renderAyahQuestion(ayahArr) {
   CUR_AYAH_QUES = getAyah(ayahArr)
   quesTion.innerHTML = CUR_AYAH_QUES;
-  AddToOptionsToQuestion(ayahArr, CUR_QUES_NUM)
-  
+  getOptionsForQuestion(ayahArr, CUR_QUES_NUM)
 }
 
 
@@ -105,38 +106,83 @@ function getAyah(ayahArr) {
   let newRndNum = rndNumber(ayahArr.length - 1);
   // console.log(quranQuiz.ayah[rndNumber(ayahArr.length)])
   const ayah = quranQuiz.ayahs[newRndNum].split(' ').slice(0, 10).join(' ');
-  
+  quranQuiz.questions.push(ayah)
   console.error(ayah)
   return ayah
 }
 
 
-function AddToOptionsToQuestion(ayahs, curQues = 1) {
+function getOptionsForQuestion(ayahs, curQues = 1) {
   
 const arrayOfOptions = [];
 
+
+for (let i = 0; i < 10; i++) {
+  let newAyah = getAyah(ayahs)
+  if(arrayOfOptions.includes(newAyah) || newAyah === quesTion.textContent) newAyah = getAyah(ayahs)
+  arrayOfOptions[i] = newAyah;
+}
+  console.log(arrayOfOptions)
   
-  arrayOfOptions.push(getAyah(ayahs))
-  arrayOfOptions.push(CUR_AYAH_QUES)
-  arrayOfOptions.push(getAyah(ayahs))
-  arrayOfOptions.push(getAyah(ayahs))
+  
+  let optionSet = new Set(arrayOfOptions)
+  
+  if(optionSet.size < 4) {
+    let anoAyah = getAyah(ayahs)
+if (!optionSet.has(anoAyah)) optionSet.add(anoAyah)
+
+}
+    
+  
+  console.log(optionSet)
+  optionSet.forEach(a =>  {
+    console.log(a, '***********')
+  })
+  // arrayOfOptions.push(getAyah(ayahs))
+  // arrayOfOptions.push(CUR_AYAH_QUES)
+  // arrayOfOptions.push(getAyah(ayahs))
+  // arrayOfOptions.push(getAyah(ayahs))
   
   
-  quranQuiz.options[curQues] = arrayOfOptions;
+  quranQuiz.options[curQues] = Array.from(optionSet);
+  // quranQuiz.options[curQues][rndNumber(4)] = getNextAyah()
+  
+  
+//   if (quranQuiz.options[curQues].length > 4) {
+// quranQuiz.options[curQues].pop()
+//   }
+  
+  const letters = ['A', 'B', 'C', 'D'];
+  
+  renderOptions(letters, quranQuiz.options[curQues])
   
   // quranQuiz.options.curQues.push(getAyah(ayahs))
   // quranQuiz.options[curQues].push(getAyah(ayahs))
   // quranQuiz.options[curQues].push(getAyah(ayahs))
   // quranQuiz.options[curQues].push(getAyah(ayahs))
   
-  console.log(quranQuiz.options, 'fjfnjfjjfjfjfkfkfk')
-  console.log(curQues)
-  quranQuiz.options[curQues].forEach(opt => {
-    questionOptions.innerHTML += `<span>${opt}</span>`;
-    console.log(opt)
-  })
+  // console.log(quranQuiz.options, 'fjfnjfjjfjfjfkfkfk')
+  // console.log(curQues)
+  // renderOptions(quranQuiz.options[curQues])
   
 }
+
+
+
+function renderOptions(optionArr, optionText) {
+  optionArr.forEach((opt, i) => {
+      const optionDiv = document.createElement('div');
+      optionDiv.className = 'option__div'
+      optionDiv.innerHTML = `
+   <span>${optionText[i]}</span>
+      <span>${opt}</span>`
+      // const html =`<span>${opt}</span>`
+      questionOptions.append(optionDiv)
+      console.log(opt)
+    })
+}
+
+
 
 
 
@@ -174,14 +220,21 @@ newArr.task = 'yesssss'
 
 console.log(newArr)
 
-
+function getNextAyah() {
+  const indexOfAyahQues = quranQuiz.ayahs.indexOf(CUR_AYAH_QUES);
+  return nextAyah = quranQuiz.ayahs[indexOfAyahQues + 1]
+}
 
 document.querySelector('.next__ques').addEventListener('click', (e) => {
   +CUR_QUES_NUM++
   questionOptions.innerHTML = '';
   getAyah(quranQuiz.ayahs)
-  addAyahToPoll(quranQuiz.ayahs)
-  
+  renderAyahQuestion(quranQuiz.ayahs)
+  console.log(CUR_AYAH_QUES)
   
   console.log('okay')
 })
+
+
+
+fetch('https://apis-prelive.quran.foundation/content/api/v4').then(res => res.json).then(data => console.log(data))
