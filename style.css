@@ -46,11 +46,17 @@
 }
 
 .container{
-  
+  background: linear-gradient(to left, var(--green-900), var(--green-300));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  margin: 0 auto;
+  height: 100vh;
 }
 
 .quiz__wrapper{
-  background: green;
+  /* background: green; */
 
   height: 100vh;
   display: flex;
