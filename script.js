@@ -97,6 +97,7 @@ selectForm.addEventListener('submit', (e) => {
 
 function renderAyahQuestion(ayahArr) {
   CUR_AYAH_QUES = getAyah(ayahArr)
+  quranQuiz.questions.push(CUR_AYAH_QUES)
   quesTion.innerHTML = CUR_AYAH_QUES;
   getOptionsForQuestion(ayahArr, CUR_QUES_NUM)
 }
@@ -106,7 +107,7 @@ function getAyah(ayahArr) {
   let newRndNum = rndNumber(ayahArr.length - 1);
   // console.log(quranQuiz.ayah[rndNumber(ayahArr.length)])
   const ayah = quranQuiz.ayahs[newRndNum].split(' ').slice(0, 10).join(' ');
-  quranQuiz.questions.push(ayah)
+  
   console.error(ayah)
   return ayah
 }
@@ -145,6 +146,7 @@ if (!optionSet.has(anoAyah)) optionSet.add(anoAyah)
   
   
   quranQuiz.options[curQues] = Array.from(optionSet);
+  quranQuiz.options[curQues] = quranQuiz.options[curQues].slice(0,4)
   // quranQuiz.options[curQues][rndNumber(4)] = getNextAyah()
   
   
