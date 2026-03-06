@@ -68,14 +68,10 @@ select{
   border-radius: var(--radius-sm);
 }
 
-.container{
-  background: var(--gray-50);
-  
+.container{  
   width: 70%;
   margin: 0 auto;
-  
-  /* height: 100vh; */
-}
+  }
 
 .start__page__container{
 display: flex;
@@ -85,9 +81,10 @@ display: flex;
   color: var(--green-900);
   /* align-items: center; */
   flex-direction: column;
-  padding: 3rem 0;
+  padding: 10rem 0;
+  /* background: red; */
   background: var(--white);
-  border: 1rem solid var(--green-300);
+  /* border: 1rem solid var(--green-300); */
   border-radius: var(--radius-lg);
 }
 
