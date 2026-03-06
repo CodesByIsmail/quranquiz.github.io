@@ -1,0 +1,787 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3200 2200" width="3200" height="2200" font-family="Inter, system-ui, sans-serif">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b"/>
+      <stop offset="60%" stop-color="#047857"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="headerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#065f46"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="btnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="desktopBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b"/>
+      <stop offset="60%" stop-color="#047857"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <linearGradient id="desktopHeader" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#065f46"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="desktopBtn" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="20" flood-color="#00000028"/>
+    </filter>
+    <filter id="btnShadow" x="-20%" y="-20%" width="150%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="14" flood-color="#10b98145"/>
+    </filter>
+    <filter id="monitorShadow" x="-5%" y="-5%" width="115%" height="130%">
+      <feDropShadow dx="0" dy="16" stdDeviation="32" flood-color="#00000035"/>
+    </filter>
+  </defs>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!--           CANVAS BACKGROUND             -->
+  <!-- ═══════════════════════════════════════ -->
+  <rect width="3200" height="2200" fill="#EAECF0"/>
+
+  <!-- Section divider lines -->
+  <line x1="0" y1="1100" x2="3200" y2="1100" stroke="#D1D5DB" stroke-width="1" stroke-dasharray="8,6"/>
+  <line x1="1480" y1="0" x2="1480" y2="1100" stroke="#D1D5DB" stroke-width="1" stroke-dasharray="8,6"/>
+
+  <!-- Section labels -->
+  <text x="740" y="44" text-anchor="middle" font-size="11" fill="#9CA3AF" font-weight="700" letter-spacing="3">MOBILE SCREENS</text>
+  <text x="2340" y="44" text-anchor="middle" font-size="11" fill="#9CA3AF" font-weight="700" letter-spacing="3">DESKTOP SCREEN</text>
+  <text x="1600" y="1140" text-anchor="middle" font-size="11" fill="#9CA3AF" font-weight="700" letter-spacing="3">DESIGN TOKENS  ·  COLOR PALETTE  &amp;  TYPOGRAPHY SCALE</text>
+
+  <!-- Master title -->
+  <text x="1600" y="26" text-anchor="middle" font-size="12" fill="#6B7280" font-weight="600" letter-spacing="2">QURAN QUIZ  ·  UI DESIGN CANVAS  ·  FIGMA READY  ·  v2</text>
+
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  MOBILE  SCREEN 1  —  HOME / SETUP                 -->
+  <!-- ═══════════════════════════════════════════════════ -->
+
+  <!-- Phone shell -->
+  <rect x="60" y="70" width="370" height="800" rx="42" fill="#111827" stroke="#374151" stroke-width="5" filter="url(#monitorShadow)"/>
+  <rect x="70" y="80" width="350" height="780" rx="36" fill="url(#bgGrad)"/>
+  <!-- Notch -->
+  <rect x="185" y="82" width="110" height="22" rx="11" fill="#111827"/>
+  <!-- BG circles -->
+  <circle cx="350" cy="140" r="130" fill="white" opacity="0.055"/>
+  <circle cx="95" cy="790" r="85" fill="white" opacity="0.055"/>
+  <circle cx="115" cy="450" r="46" fill="white" opacity="0.045"/>
+
+  <!-- Setup Card -->
+  <rect x="95" y="200" width="280" height="460" rx="22" fill="white" filter="url(#cardShadow)"/>
+
+  <!-- Icon -->
+  <circle cx="235" cy="255" r="33" fill="#ECFDF5"/>
+  <text x="235" y="267" text-anchor="middle" font-size="26">☪</text>
+
+  <!-- Title  → 22px -->
+  <text x="235" y="308" text-anchor="middle" font-size="22" font-weight="700" fill="#064E3B" letter-spacing="-0.4">Quran Quiz</text>
+  <!-- annotation -->
+  <line x1="348" y1="308" x2="385" y2="308" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="388" y="312" font-size="9" fill="#6B7280" font-weight="600">22px / Bold / #064E3B</text>
+
+  <!-- Subtitle  → 11px -->
+  <text x="235" y="328" text-anchor="middle" font-size="11" fill="#9CA3AF">Test your knowledge of the Holy Quran</text>
+  <line x1="348" y1="328" x2="385" y2="328" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="388" y="332" font-size="9" fill="#6B7280" font-weight="600">11px / Regular / #9CA3AF</text>
+
+  <!-- Divider -->
+  <line x1="115" y1="346" x2="355" y2="346" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Label Surah  → 9px -->
+  <text x="115" y="368" font-size="9" font-weight="700" fill="#4B5563" letter-spacing="0.9">SELECT SURAH</text>
+  <line x1="348" y1="368" x2="385" y2="368" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="388" y="372" font-size="9" fill="#6B7280" font-weight="600">9px / Bold / #4B5563</text>
+
+  <!-- Select 1 -->
+  <rect x="115" y="374" width="240" height="40" rx="8" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.5"/>
+  <!-- Select value  → 13px -->
+  <text x="130" y="399" font-size="13" fill="#374151">Al-Fatiha</text>
+  <line x1="348" y1="398" x2="385" y2="398" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="388" y="402" font-size="9" fill="#6B7280" font-weight="600">13px / Regular / #374151</text>
+  <polyline points="338,387 344,393 350,387" fill="none" stroke="#9CA3AF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Label Questions  → 9px -->
+  <text x="115" y="433" font-size="9" font-weight="700" fill="#4B5563" letter-spacing="0.9">NUMBER OF QUESTIONS</text>
+
+  <!-- Select 2 -->
+  <rect x="115" y="439" width="240" height="40" rx="8" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="130" y="464" font-size="13" fill="#374151">10 Questions</text>
+  <polyline points="338,452 344,458 350,452" fill="none" stroke="#9CA3AF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Button  → 14px -->
+  <rect x="115" y="498" width="240" height="48" rx="13" fill="url(#btnGrad)" filter="url(#btnShadow)"/>
+  <polygon points="132,522 132,513 141,517.5" fill="white"/>
+  <text x="248" y="527" text-anchor="middle" font-size="14" font-weight="600" fill="white">Start Quiz</text>
+  <line x1="348" y1="522" x2="385" y2="522" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="388" y="526" font-size="9" fill="#6B7280" font-weight="600">14px / SemiBold / #FFFFFF</text>
+
+  <!-- Hint text  → 10px -->
+  <text x="235" y="600" text-anchor="middle" font-size="10" fill="#D1FAE5" opacity="0.85">114 Surahs available</text>
+  <line x1="285" y1="600" x2="322" y2="600" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <text x="325" y="604" font-size="9" fill="#D1FAE5" opacity="0.7" font-weight="600">10px / Regular / #D1FAE5</text>
+
+  <!-- Screen footer label -->
+  <text x="245" y="890" text-anchor="middle" font-size="10" fill="#6B7280" font-weight="700" letter-spacing="1.2">SCREEN 1  ·  HOME / SETUP</text>
+
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  MOBILE  SCREEN 2  —  QUIZ ANSWERING               -->
+  <!-- ═══════════════════════════════════════════════════ -->
+
+  <!-- Phone shell -->
+  <rect x="520" y="70" width="370" height="800" rx="42" fill="#111827" stroke="#374151" stroke-width="5" filter="url(#monitorShadow)"/>
+  <rect x="530" y="80" width="350" height="780" rx="36" fill="url(#bgGrad)"/>
+  <rect x="645" y="82" width="110" height="22" rx="11" fill="#111827"/>
+  <circle cx="810" cy="140" r="130" fill="white" opacity="0.055"/>
+  <circle cx="555" cy="790" r="85" fill="white" opacity="0.055"/>
+
+  <!-- Quiz card -->
+  <rect x="540" y="125" width="340" height="635" rx="22" fill="white" filter="url(#cardShadow)"/>
+
+  <!-- Header bar -->
+  <path d="M562,125 Q540,125 540,147 L540,200 L880,200 L880,147 Q880,125 858,125 Z" fill="url(#headerGrad)"/>
+  <rect x="540" y="165" width="340" height="35" fill="url(#headerGrad)"/>
+
+  <!-- Nav btns -->
+  <circle cx="572" cy="172" r="17" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+  <polyline points="578,167 570,172 578,177" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="848" cy="172" r="17" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+  <polyline points="842,167 850,172 842,177" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Progress text  → 11px -->
+  <text x="710" y="166" text-anchor="middle" font-size="11" fill="white" opacity="0.9" font-weight="500">Question 3 of 10</text>
+  <!-- annotation -->
+  <line x1="760" y1="166" x2="800" y2="166" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+  <text x="803" y="170" font-size="9" fill="white" opacity="0.7" font-weight="600">11px / Medium / #FFFFFF</text>
+
+  <!-- Progress bar -->
+  <rect x="600" y="179" width="220" height="5" rx="2.5" fill="rgba(255,255,255,0.22)"/>
+  <rect x="600" y="179" width="66" height="5" rx="2.5" fill="#FCD34D"/>
+
+  <!-- Question label  → 9px -->
+  <text x="558" y="225" font-size="9" font-weight="700" fill="#059669" letter-spacing="0.9">WHAT IS THE NEXT VERSE?</text>
+  <line x1="760" y1="225" x2="800" y2="225" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="803" y="229" font-size="9" fill="#6B7280" font-weight="600">9px / Bold / #059669</text>
+
+  <!-- Ayah box -->
+  <rect x="550" y="234" width="300" height="74" rx="13" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1.5"/>
+  <!-- Arabic text  → 17px -->
+  <text x="838" y="263" text-anchor="end" font-size="16" fill="#064E3B" font-weight="500">بِسْمِ اللَّهِ الرَّحْمَٰنِ</text>
+  <text x="838" y="290" text-anchor="end" font-size="16" fill="#064E3B" font-weight="500">الرَّحِيمِ</text>
+  <line x1="760" y1="270" x2="800" y2="270" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="803" y="274" font-size="9" fill="#6B7280" font-weight="600">16px / Medium / #064E3B</text>
+
+  <!-- Option 1 — Default -->
+  <rect x="550" y="320" width="300" height="50" rx="8" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <circle cx="573" cy="345" r="8" fill="white" stroke="#D1D5DB" stroke-width="1.8"/>
+  <!-- option text  → 13px -->
+  <text x="812" y="349" text-anchor="end" font-size="12.5" fill="#1F2937">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</text>
+  <line x1="760" y1="345" x2="800" y2="345" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="803" y="349" font-size="9" fill="#6B7280" font-weight="600">13px / Regular / #1F2937</text>
+
+  <!-- Option 2 — Hovered -->
+  <rect x="550" y="378" width="300" height="50" rx="8" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="1.5"/>
+  <circle cx="573" cy="403" r="8" fill="white" stroke="#10B981" stroke-width="1.8"/>
+  <text x="812" y="407" text-anchor="end" font-size="12.5" fill="#064E3B">الرَّحْمَٰنِ الرَّحِيمِ</text>
+  <!-- State tag -->
+  <rect x="690" y="370" width="44" height="14" rx="4" fill="#D1FAE5"/>
+  <text x="712" y="381" text-anchor="middle" font-size="7.5" fill="#065F46" font-weight="700">HOVER</text>
+
+  <!-- Option 3 — Correct -->
+  <rect x="550" y="436" width="300" height="50" rx="8" fill="#ECFDF5" stroke="#10B981" stroke-width="2"/>
+  <circle cx="573" cy="461" r="8" fill="#10B981" stroke="#10B981" stroke-width="2"/>
+  <text x="569" y="465" text-anchor="middle" font-size="9" fill="white" font-weight="700">✓</text>
+  <text x="812" y="465" text-anchor="end" font-size="12.5" fill="#065F46">مَالِكِ يَوْمِ الدِّينِ</text>
+  <rect x="690" y="428" width="52" height="14" rx="4" fill="#D1FAE5"/>
+  <text x="716" y="439" text-anchor="middle" font-size="7.5" fill="#065F46" font-weight="700">CORRECT</text>
+
+  <!-- Option 4 — Wrong -->
+  <rect x="550" y="494" width="300" height="50" rx="8" fill="#FEF2F2" stroke="#F87171" stroke-width="1.5"/>
+  <circle cx="573" cy="519" r="8" fill="#EF4444" stroke="#EF4444" stroke-width="2"/>
+  <text x="569" y="523" text-anchor="middle" font-size="9" fill="white" font-weight="700">✕</text>
+  <text x="812" y="523" text-anchor="end" font-size="12.5" fill="#991B1B">إِيَّاكَ نَعْبُدُ وَإِيَّاكَ</text>
+  <rect x="690" y="486" width="44" height="14" rx="4" fill="#FEE2E2"/>
+  <text x="712" y="497" text-anchor="middle" font-size="7.5" fill="#991B1B" font-weight="700">WRONG</text>
+
+  <!-- Divider -->
+  <line x1="550" y1="558" x2="850" y2="558" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Navigator buttons -->
+  <rect x="550" y="568" width="84" height="38" rx="8" fill="white" stroke="#A7F3D0" stroke-width="1.5"/>
+  <polyline points="567,590 561,587 567,584" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- btn text  → 12px -->
+  <text x="580" y="591" font-size="12" fill="#059669" font-weight="600">Prev</text>
+  <line x1="550" y1="616" x2="550" y2="630" stroke="#D1D5DB" stroke-width="1"/>
+  <line x1="550" y1="630" x2="520" y2="630" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="518" y="634" text-anchor="end" font-size="9" fill="#6B7280" font-weight="600">12px / SemiBold / #059669</text>
+
+  <rect x="648" y="568" width="70" height="38" rx="8" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="683" y="591" text-anchor="middle" font-size="12" fill="#9CA3AF" font-weight="500">Skip</text>
+
+  <rect x="732" y="568" width="118" height="38" rx="8" fill="white" stroke="#A7F3D0" stroke-width="1.5"/>
+  <text x="762" y="591" font-size="12" fill="#059669" font-weight="600">Next</text>
+  <polyline points="800,584 806,587 800,590" fill="none" stroke="#059669" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Screen footer label -->
+  <text x="705" y="890" text-anchor="middle" font-size="10" fill="#6B7280" font-weight="700" letter-spacing="1.2">SCREEN 2  ·  QUIZ — ANSWERING</text>
+
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!--  MOBILE  SCREEN 3  —  LOADING / ERROR              -->
+  <!-- ═══════════════════════════════════════════════════ -->
+
+  <!-- Phone shell -->
+  <rect x="980" y="70" width="370" height="800" rx="42" fill="#111827" stroke="#374151" stroke-width="5" filter="url(#monitorShadow)"/>
+  <rect x="990" y="80" width="350" height="780" rx="36" fill="url(#bgGrad)"/>
+  <rect x="1105" y="82" width="110" height="22" rx="11" fill="#111827"/>
+  <circle cx="1270" cy="140" r="130" fill="white" opacity="0.055"/>
+  <circle cx="1015" cy="790" r="85" fill="white" opacity="0.055"/>
+
+  <!-- Loading pill  → 14px -->
+  <rect x="1070" y="380" width="200" height="48" rx="24" fill="rgba(255,255,255,0.14)" stroke="rgba(255,255,255,0.24)" stroke-width="1"/>
+  <circle cx="1097" cy="404" r="10" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="2.2"/>
+  <path d="M1097,394 A10,10 0 0,1 1107,404" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <text x="1175" y="409" text-anchor="middle" font-size="14" fill="white" font-weight="500">Connecting...</text>
+  <line x1="1210" y1="404" x2="1250" y2="404" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+  <text x="1253" y="408" font-size="9" fill="white" opacity="0.7" font-weight="600">14px / Medium / #FFFFFF</text>
+
+  <!-- Error card -->
+  <rect x="1020" y="450" width="300" height="180" rx="20" fill="white" filter="url(#cardShadow)"/>
+  <circle cx="1170" cy="498" r="28" fill="#FEF3C7"/>
+  <text x="1170" y="507" text-anchor="middle" font-size="24">⚠️</text>
+
+  <!-- Error title  → 15px -->
+  <text x="1170" y="548" text-anchor="middle" font-size="15" font-weight="600" fill="#1F2937">No Connection</text>
+  <line x1="1232" y1="548" x2="1265" y2="548" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="1268" y="552" font-size="9" fill="#6B7280" font-weight="600">15px / SemiBold / #1F2937</text>
+
+  <!-- Error sub  → 11px -->
+  <text x="1170" y="568" text-anchor="middle" font-size="11" fill="#9CA3AF">Connect to Internet 🛜</text>
+  <line x1="1232" y1="568" x2="1265" y2="568" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="1268" y="572" font-size="9" fill="#6B7280" font-weight="600">11px / Regular / #9CA3AF</text>
+
+  <!-- Retry pill  → 10px -->
+  <rect x="1110" y="588" width="120" height="26" rx="13" fill="#ECFDF5"/>
+  <text x="1170" y="605" text-anchor="middle" font-size="10" fill="#059669" font-weight="700">Tap to Retry</text>
+  <line x1="1232" y1="601" x2="1265" y2="601" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="1268" y="605" font-size="9" fill="#6B7280" font-weight="600">10px / Bold / #059669</text>
+
+  <!-- Screen footer label -->
+  <text x="1165" y="890" text-anchor="middle" font-size="10" fill="#6B7280" font-weight="700" letter-spacing="1.2">SCREEN 3  ·  LOADING / ERROR STATE</text>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+  <!--  DESKTOP  SCREEN  —  QUIZ ANSWERING (full browser view)        -->
+  <!-- ═══════════════════════════════════════════════════════════════ -->
+
+  <!-- Monitor bezel -->
+  <rect x="1540" y="65" width="1600" height="980" rx="16" fill="#1F2937" filter="url(#monitorShadow)"/>
+  <!-- Monitor stand -->
+  <rect x="2270" y="1046" width="60" height="28" rx="4" fill="#374151"/>
+  <rect x="2210" y="1072" width="180" height="10" rx="5" fill="#374151"/>
+  <!-- Screen inner -->
+  <rect x="1556" y="80" width="1568" height="950" rx="8" fill="url(#desktopBg)"/>
+  <!-- Browser chrome bar -->
+  <rect x="1556" y="80" width="1568" height="44" rx="8" fill="#111827"/>
+  <rect x="1556" y="102" width="1568" height="22" fill="#111827"/>
+  <!-- Browser dots -->
+  <circle cx="1580" cy="102" r="6" fill="#EF4444"/>
+  <circle cx="1600" cy="102" r="6" fill="#F59E0B"/>
+  <circle cx="1620" cy="102" r="6" fill="#10B981"/>
+  <!-- Address bar -->
+  <rect x="1660" y="90" width="800" height="24" rx="12" fill="#1F2937"/>
+  <text x="2060" y="107" text-anchor="middle" font-size="11" fill="#6B7280">quranquiz.app/quiz</text>
+  <!-- Browser bg circles -->
+  <circle cx="2900" cy="200" r="280" fill="white" opacity="0.045"/>
+  <circle cx="1600" cy="900" r="200" fill="white" opacity="0.04"/>
+  <circle cx="1650" cy="350" r="90" fill="white" opacity="0.035"/>
+
+  <!-- ── DESKTOP NAVBAR ── -->
+  <rect x="1556" y="124" width="1568" height="64" fill="rgba(0,0,0,0.20)"/>
+  <!-- Nav logo  → 20px -->
+  <text x="1600" y="164" font-size="20" font-weight="700" fill="white" letter-spacing="-0.3">☪ Quran Quiz</text>
+  <line x1="1720" y1="175" x2="1720" y2="195" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <text x="1723" y="192" font-size="9" fill="white" opacity="0.6" font-weight="600">20px / Bold / #FFFFFF</text>
+
+  <!-- Nav links  → 13px -->
+  <text x="2700" y="162" font-size="13" fill="rgba(255,255,255,0.75)" font-weight="500">Home</text>
+  <text x="2760" y="162" font-size="13" fill="white" font-weight="600">Quiz</text>
+  <text x="2820" y="162" font-size="13" fill="rgba(255,255,255,0.75)" font-weight="500">About</text>
+  <!-- Nav badge -->
+  <rect x="2870" y="148" width="70" height="28" rx="14" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <text x="2905" y="167" text-anchor="middle" font-size="11" fill="white" font-weight="600">Sign In</text>
+
+  <!-- ── DESKTOP MAIN LAYOUT ── -->
+  <!-- Two-column layout: left = ayah panel, right = options panel -->
+
+  <!-- LEFT PANEL — Question & Ayah -->
+  <rect x="1580" y="212" width="700" height="830" rx="20" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+
+  <!-- Panel header gradient strip -->
+  <path d="M1580,212 Q1580,192 1600,192 L2260,192 Q2280,192 2280,212 L2280,268 L1580,268 Z" fill="url(#desktopHeader)"/>
+  <rect x="1580" y="232" width="700" height="36" fill="url(#desktopHeader)"/>
+
+  <!-- Progress row in panel header -->
+  <!-- Back btn -->
+  <rect x="1596" y="236" width="80" height="28" rx="14" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+  <polyline points="1610,250 1605,253 1610,256" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1638" y="255" font-size="11" fill="white" font-weight="500">Back</text>
+
+  <!-- Progress center  → 13px -->
+  <text x="1930" y="244" text-anchor="middle" font-size="13" fill="white" opacity="0.9" font-weight="500">Question 3 of 10</text>
+  <line x1="2000" y1="244" x2="2040" y2="244" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+  <text x="2043" y="248" font-size="9" fill="white" opacity="0.65" font-weight="600">13px / Medium / #FFFFFF</text>
+
+  <!-- Progress bar  desktop -->
+  <rect x="1750" y="254" width="360" height="6" rx="3" fill="rgba(255,255,255,0.22)"/>
+  <rect x="1750" y="254" width="108" height="6" rx="3" fill="#FCD34D"/>
+
+  <!-- Skip button top-right of panel -->
+  <rect x="2182" y="236" width="80" height="28" rx="14" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+  <text x="2222" y="255" text-anchor="middle" font-size="11" fill="rgba(255,255,255,0.7)" font-weight="500">Skip</text>
+
+  <!-- Surah badge -->
+  <rect x="1600" y="282" width="100" height="22" rx="11" fill="rgba(255,255,255,0.12)"/>
+  <text x="1650" y="297" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.8)" font-weight="600">Al-Fatiha · 7</text>
+
+  <!-- Question eyebrow  → 11px -->
+  <text x="1600" y="336" font-size="11" font-weight="700" fill="#6EE7B7" letter-spacing="1.2">WHAT IS THE NEXT VERSE?</text>
+  <line x1="1780" y1="336" x2="1820" y2="336" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <text x="1823" y="340" font-size="9" fill="white" opacity="0.6" font-weight="600">11px / Bold / #6EE7B7</text>
+
+  <!-- Ayah display area -->
+  <rect x="1596" y="348" width="668" height="200" rx="16" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+  <!-- Large Arabic ayah  → 34px desktop -->
+  <text x="2240" y="415" text-anchor="end" font-size="34" fill="white" font-weight="500" opacity="0.95">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</text>
+  <line x1="1820" y1="420" x2="1820" y2="460" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <line x1="1820" y1="460" x2="1780" y2="460" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <text x="1778" y="464" text-anchor="end" font-size="9" fill="white" opacity="0.65" font-weight="600">34px / Medium / #FFFFFF</text>
+
+  <!-- Verse reference badge -->
+  <rect x="1612" y="490" width="120" height="26" rx="13" fill="rgba(255,255,255,0.1)"/>
+  <text x="1672" y="508" text-anchor="middle" font-size="10.5" fill="white" opacity="0.7">Surah 1 : Ayah 2</text>
+
+  <!-- Explanation hint  → 12px -->
+  <text x="1600" y="580" font-size="12" fill="rgba(255,255,255,0.55)">The verse shown above is from Al-Fatiha. Choose the verse that comes next.</text>
+  <line x1="1600" y1="595" x2="1600" y2="615" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <line x1="1600" y1="615" x2="1565" y2="615" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="1563" y="619" text-anchor="end" font-size="9" fill="white" opacity="0.55" font-weight="600">12px / Regular / rgba(white,55%)</text>
+
+  <!-- Decorative divider -->
+  <line x1="1600" y1="638" x2="2264" y2="638" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+
+  <!-- Stats row -->
+  <!-- Stat 1 -->
+  <text x="1660" y="680" text-anchor="middle" font-size="26" font-weight="700" fill="white">7</text>
+  <text x="1660" y="700" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.5)" font-weight="500">Ayahs</text>
+  <!-- Stat 2 -->
+  <text x="1800" y="680" text-anchor="middle" font-size="26" font-weight="700" fill="#FCD34D">3</text>
+  <text x="1800" y="700" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.5)" font-weight="500">Current</text>
+  <!-- Stat 3 -->
+  <text x="1940" y="680" text-anchor="middle" font-size="26" font-weight="700" fill="#6EE7B7">2</text>
+  <text x="1940" y="700" text-anchor="middle" font-size="10" fill="rgba(255,255,255,0.5)" font-weight="500">Correct</text>
+  <!-- stat annotation  → 26px -->
+  <line x1="1980" y1="675" x2="2040" y2="675" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <text x="2043" y="679" font-size="9" fill="white" opacity="0.55" font-weight="600">26px / Bold / #FFFFFF</text>
+
+  <!-- Timer row -->
+  <rect x="1596" y="730" width="668" height="60" rx="14" fill="rgba(255,255,255,0.06)"/>
+  <text x="1624" y="767" font-size="13" fill="rgba(255,255,255,0.7)" font-weight="500">⏱ Time remaining</text>
+  <rect x="1900" y="743" width="340" height="8" rx="4" fill="rgba(255,255,255,0.15)"/>
+  <rect x="1900" y="743" width="200" height="8" rx="4" fill="#FCD34D"/>
+  <text x="2252" y="768" text-anchor="end" font-size="12" fill="#FCD34D" font-weight="600">0:24</text>
+
+  <!-- Keyboard shortcut hints -->
+  <rect x="1596" y="810" width="668" height="52" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="1624" y="840" font-size="10.5" fill="rgba(255,255,255,0.4)">Press</text>
+  <rect x="1666" y="824" width="18" height="18" rx="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="1675" y="837" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)" font-weight="600">1</text>
+  <rect x="1692" y="824" width="18" height="18" rx="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="1701" y="837" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)" font-weight="600">2</text>
+  <rect x="1718" y="824" width="18" height="18" rx="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="1727" y="837" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)" font-weight="600">3</text>
+  <rect x="1744" y="824" width="18" height="18" rx="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="1753" y="837" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)" font-weight="600">4</text>
+  <text x="1772" y="840" font-size="10.5" fill="rgba(255,255,255,0.4)">to select · </text>
+  <rect x="1850" y="824" width="36" height="18" rx="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+  <text x="1868" y="837" text-anchor="middle" font-size="9" fill="rgba(255,255,255,0.6)" font-weight="600">→</text>
+  <text x="1896" y="840" font-size="10.5" fill="rgba(255,255,255,0.4)">next</text>
+
+  <!-- RIGHT PANEL — Options -->
+  <rect x="1306" y="212" width="700" height="830" rx="20" fill="white" filter="url(#cardShadow)"/>
+  <!-- shift right panel to after left panel -->
+  <!-- Actually reposition: left panel x=1580 w=700 ends at 2280, right panel x=2308 -->
+
+  <!-- Remove incorrect panel, draw correct right panel -->
+  <rect x="2308" y="212" width="800" height="830" rx="20" fill="white" filter="url(#cardShadow)"/>
+
+  <!-- Right panel header -->
+  <rect x="2308" y="212" width="800" height="64" rx="0" fill="#F9FAFB"/>
+  <path d="M2308,212 Q2308,192 2328,192 L3088,192 Q3108,192 3108,212 L3108,276 L2308,276 Z" fill="#F9FAFB"/>
+  <rect x="2308" y="252" width="800" height="24" fill="#F9FAFB"/>
+
+  <!-- Right header label  → 11px -->
+  <text x="2336" y="238" font-size="11" font-weight="700" fill="#6B7280" letter-spacing="1.2">CHOOSE THE CORRECT ANSWER</text>
+  <line x1="2600" y1="238" x2="2640" y2="238" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="2643" y="242" font-size="9" fill="#6B7280" font-weight="600">11px / Bold / #6B7280</text>
+
+  <!-- Question number badge -->
+  <rect x="2950" y="224" width="140" height="26" rx="13" fill="#ECFDF5"/>
+  <text x="3020" y="241" text-anchor="middle" font-size="11" fill="#059669" font-weight="700">3 / 10 Questions</text>
+
+  <!-- Divider -->
+  <line x1="2308" y1="278" x2="3108" y2="278" stroke="#F3F4F6" stroke-width="1.5"/>
+
+  <!-- Option rows — desktop sized -->
+  <!-- Option A — Default -->
+  <rect x="2330" y="298" width="756" height="84" rx="14" fill="white" stroke="#E5E7EB" stroke-width="1.5"/>
+  <rect x="2355" y="326" width="22" height="22" rx="11" fill="white" stroke="#D1D5DB" stroke-width="2"/>
+  <text x="2366" y="342" text-anchor="middle" font-size="10" fill="#9CA3AF" font-weight="700">A</text>
+  <!-- Option text  → 18px desktop -->
+  <text x="3062" y="335" text-anchor="end" font-size="18" fill="#1F2937" font-weight="400">الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ</text>
+  <line x1="2600" y1="358" x2="2640" y2="358" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="2643" y="362" font-size="9" fill="#6B7280" font-weight="600">18px / Regular / #1F2937</text>
+  <text x="2395" y="370" font-size="10" fill="#9CA3AF">Option A</text>
+
+  <!-- Option B — Hovered -->
+  <rect x="2330" y="396" width="756" height="84" rx="14" fill="#ECFDF5" stroke="#6EE7B7" stroke-width="2"/>
+  <rect x="2355" y="424" width="22" height="22" rx="11" fill="white" stroke="#10B981" stroke-width="2"/>
+  <text x="2366" y="440" text-anchor="middle" font-size="10" fill="#10B981" font-weight="700">B</text>
+  <text x="3062" y="433" text-anchor="end" font-size="18" fill="#064E3B" font-weight="400">الرَّحْمَٰنِ الرَّحِيمِ</text>
+  <rect x="2395" y="455" width="52" height="16" rx="8" fill="#D1FAE5"/>
+  <text x="2421" y="467" text-anchor="middle" font-size="8" fill="#065F46" font-weight="700">HOVER</text>
+
+  <!-- Option C — Correct -->
+  <rect x="2330" y="494" width="756" height="84" rx="14" fill="#ECFDF5" stroke="#10B981" stroke-width="2.5"/>
+  <rect x="2355" y="522" width="22" height="22" rx="11" fill="#10B981" stroke="#10B981" stroke-width="2"/>
+  <text x="2366" y="538" text-anchor="middle" font-size="11" fill="white" font-weight="700">✓</text>
+  <text x="3062" y="531" text-anchor="end" font-size="18" fill="#065F46" font-weight="500">مَالِكِ يَوْمِ الدِّينِ</text>
+  <rect x="2395" y="552" width="64" height="16" rx="8" fill="#D1FAE5"/>
+  <text x="2427" y="564" text-anchor="middle" font-size="8" fill="#065F46" font-weight="700">CORRECT ✓</text>
+
+  <!-- Option D — Wrong -->
+  <rect x="2330" y="592" width="756" height="84" rx="14" fill="#FEF2F2" stroke="#F87171" stroke-width="2"/>
+  <rect x="2355" y="620" width="22" height="22" rx="11" fill="#EF4444" stroke="#EF4444" stroke-width="2"/>
+  <text x="2366" y="636" text-anchor="middle" font-size="11" fill="white" font-weight="700">✕</text>
+  <text x="3062" y="629" text-anchor="end" font-size="18" fill="#991B1B" font-weight="400">إِيَّاكَ نَعْبُدُ وَإِيَّاكَ</text>
+  <rect x="2395" y="650" width="56" height="16" rx="8" fill="#FEE2E2"/>
+  <text x="2423" y="662" text-anchor="middle" font-size="8" fill="#991B1B" font-weight="700">WRONG ✕</text>
+
+  <!-- Divider -->
+  <line x1="2330" y1="694" x2="3090" y2="694" stroke="#F3F4F6" stroke-width="1.5"/>
+
+  <!-- Explanation box (desktop extra) -->
+  <rect x="2330" y="710" width="756" height="90" rx="14" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1.5"/>
+  <text x="2358" y="738" font-size="11" font-weight="700" fill="#059669" letter-spacing="0.8">EXPLANATION</text>
+  <text x="2358" y="758" font-size="12" fill="#374151">This verse (3:1) follows immediately after بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</text>
+  <text x="2358" y="778" font-size="12" fill="#374151">in Surah Al-Fatiha. It praises Allah as Lord of all worlds.</text>
+  <line x1="2600" y1="758" x2="2640" y2="758" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="2643" y="762" font-size="9" fill="#6B7280" font-weight="600">12px / Regular / #374151</text>
+
+  <!-- Desktop nav buttons -->
+  <rect x="2330" y="822" width="180" height="52" rx="14" fill="white" stroke="#A7F3D0" stroke-width="2"/>
+  <polyline points="2362,850 2355,848 2362,845" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- desktop btn text  → 15px -->
+  <text x="2390" y="852" font-size="15" fill="#059669" font-weight="600">← Previous</text>
+  <line x1="2330" y1="884" x2="2330" y2="900" stroke="#D1D5DB" stroke-width="1"/>
+  <line x1="2330" y1="900" x2="2290" y2="900" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="2288" y="904" text-anchor="end" font-size="9" fill="#6B7280" font-weight="600">15px / SemiBold / #059669</text>
+
+  <rect x="2526" y="822" width="168" height="52" rx="14" fill="white" stroke="#E5E7EB" stroke-width="2"/>
+  <text x="2610" y="852" text-anchor="middle" font-size="15" fill="#9CA3AF" font-weight="500">Skip</text>
+
+  <!-- Next btn (primary desktop) -->
+  <rect x="2710" y="822" width="376" height="52" rx="14" fill="url(#desktopBtn)" filter="url(#btnShadow)"/>
+  <text x="2890" y="852" text-anchor="middle" font-size="15" fill="white" font-weight="600">Next Question →</text>
+
+  <!-- Desktop screen label -->
+  <text x="2340" y="1076" font-size="10" fill="#6B7280" font-weight="700" letter-spacing="1.2">DESKTOP  ·  QUIZ ANSWERING  ·  1440px</text>
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!--   DESIGN TOKENS — COLOR PALETTE + TYPOGRAPHY SCALE                 -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+
+  <!-- Section bg -->
+  <rect x="0" y="1100" width="3200" height="1100" fill="#F8F9FB"/>
+
+  <!-- ── COLOR PALETTE ── -->
+  <text x="80" y="1160" font-size="13" font-weight="800" fill="#111827" letter-spacing="2">COLOR PALETTE</text>
+  <line x1="80" y1="1168" x2="400" y2="1168" stroke="#E5E7EB" stroke-width="1.5"/>
+
+  <!-- Swatch size 100x100, with label below -->
+
+  <!-- Swatch 1 -->
+  <rect x="80" y="1185" width="100" height="100" rx="14" fill="#064E3B"/>
+  <text x="130" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#064E3B</text>
+  <text x="130" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Green 900</text>
+  <text x="130" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Headings · Dark BG</text>
+
+  <!-- Swatch 2 -->
+  <rect x="200" y="1185" width="100" height="100" rx="14" fill="#065F46"/>
+  <text x="250" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#065F46</text>
+  <text x="250" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Green 800</text>
+  <text x="250" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Header Gradient</text>
+
+  <!-- Swatch 3 -->
+  <rect x="320" y="1185" width="100" height="100" rx="14" fill="#047857"/>
+  <text x="370" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#047857</text>
+  <text x="370" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Green 700</text>
+  <text x="370" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">BG Gradient Mid</text>
+
+  <!-- Swatch 4 -->
+  <rect x="440" y="1185" width="100" height="100" rx="14" fill="#059669"/>
+  <text x="490" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#059669</text>
+  <text x="490" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Green 600</text>
+  <text x="490" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Primary Actions</text>
+
+  <!-- Swatch 5 -->
+  <rect x="560" y="1185" width="100" height="100" rx="14" fill="#10B981"/>
+  <text x="610" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#10B981</text>
+  <text x="610" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Green 500</text>
+  <text x="610" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">BG Gradient End</text>
+
+  <!-- Swatch 6 -->
+  <rect x="680" y="1185" width="100" height="100" rx="14" fill="#6EE7B7"/>
+  <text x="730" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#6EE7B7</text>
+  <text x="730" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Green 300</text>
+  <text x="730" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Hover Borders</text>
+
+  <!-- Swatch 7 -->
+  <rect x="800" y="1185" width="100" height="100" rx="14" fill="#A7F3D0"/>
+  <text x="850" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#A7F3D0</text>
+  <text x="850" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Green 200</text>
+  <text x="850" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Correct Borders</text>
+
+  <!-- Swatch 8 -->
+  <rect x="920" y="1185" width="100" height="100" rx="14" fill="#D1FAE5"/>
+  <text x="970" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#D1FAE5</text>
+  <text x="970" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Green 100</text>
+  <text x="970" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Correct Fill BG</text>
+
+  <!-- Swatch 9 -->
+  <rect x="1040" y="1185" width="100" height="100" rx="14" fill="#ECFDF5"/>
+  <text x="1090" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#ECFDF5</text>
+  <text x="1090" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Green 50</text>
+  <text x="1090" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Ayah Box BG</text>
+
+  <!-- Divider neutral -->
+  <line x1="1160" y1="1185" x2="1160" y2="1340" stroke="#E5E7EB" stroke-width="1.5"/>
+
+  <!-- Swatch 10 — Gold -->
+  <rect x="1180" y="1185" width="100" height="100" rx="14" fill="#FCD34D"/>
+  <text x="1230" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#FCD34D</text>
+  <text x="1230" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Amber 300</text>
+  <text x="1230" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Progress Bar Fill</text>
+
+  <!-- Swatch 11 — Error -->
+  <rect x="1300" y="1185" width="100" height="100" rx="14" fill="#EF4444"/>
+  <text x="1350" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#EF4444</text>
+  <text x="1350" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Red 500</text>
+  <text x="1350" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Wrong Answer Dot</text>
+
+  <!-- Swatch 12 — Error border -->
+  <rect x="1420" y="1185" width="100" height="100" rx="14" fill="#F87171"/>
+  <text x="1470" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#F87171</text>
+  <text x="1470" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Red 400</text>
+  <text x="1470" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Wrong Border</text>
+
+  <!-- Swatch 13 — Error fill -->
+  <rect x="1540" y="1185" width="100" height="100" rx="14" fill="#FEF2F2"/>
+  <text x="1590" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#FEF2F2</text>
+  <text x="1590" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Red 50</text>
+  <text x="1590" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Wrong Answer BG</text>
+
+  <!-- Divider neutral 2 -->
+  <line x1="1660" y1="1185" x2="1660" y2="1340" stroke="#E5E7EB" stroke-width="1.5"/>
+
+  <!-- Swatch 14 — Dark -->
+  <rect x="1680" y="1185" width="100" height="100" rx="14" fill="#111827"/>
+  <text x="1730" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#111827</text>
+  <text x="1730" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Gray 900</text>
+  <text x="1730" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Phone Frame</text>
+
+  <!-- Swatch 15 -->
+  <rect x="1800" y="1185" width="100" height="100" rx="14" fill="#1F2937"/>
+  <text x="1850" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#1F2937</text>
+  <text x="1850" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Gray 800</text>
+  <text x="1850" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Body Text</text>
+
+  <!-- Swatch 16 -->
+  <rect x="1920" y="1185" width="100" height="100" rx="14" fill="#374151"/>
+  <text x="1970" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#374151</text>
+  <text x="1970" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Gray 700</text>
+  <text x="1970" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Select Value</text>
+
+  <!-- Swatch 17 -->
+  <rect x="2040" y="1185" width="100" height="100" rx="14" fill="#4B5563"/>
+  <text x="2090" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#4B5563</text>
+  <text x="2090" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Gray 600</text>
+  <text x="2090" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Form Labels</text>
+
+  <!-- Swatch 18 -->
+  <rect x="2160" y="1185" width="100" height="100" rx="14" fill="#9CA3AF"/>
+  <text x="2210" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#9CA3AF</text>
+  <text x="2210" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Gray 400</text>
+  <text x="2210" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Subtitles · Hints</text>
+
+  <!-- Swatch 19 -->
+  <rect x="2280" y="1185" width="100" height="100" rx="14" fill="#E5E7EB"/>
+  <text x="2330" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#E5E7EB</text>
+  <text x="2330" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Gray 200</text>
+  <text x="2330" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Input Borders</text>
+
+  <!-- Swatch 20 -->
+  <rect x="2400" y="1185" width="100" height="100" rx="14" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="2450" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#F9FAFB</text>
+  <text x="2450" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">Gray 50</text>
+  <text x="2450" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Input Background</text>
+
+  <!-- Swatch 21 — White -->
+  <rect x="2520" y="1185" width="100" height="100" rx="14" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="2570" y="1305" text-anchor="middle" font-size="10.5" fill="#374151" font-weight="700">#FFFFFF</text>
+  <text x="2570" y="1320" text-anchor="middle" font-size="9.5" fill="#9CA3AF">White</text>
+  <text x="2570" y="1334" text-anchor="middle" font-size="9" fill="#9CA3AF">Cards · Panels</text>
+
+
+  <!-- ── TYPOGRAPHY SCALE ── -->
+  <text x="80" y="1390" font-size="13" font-weight="800" fill="#111827" letter-spacing="2">TYPOGRAPHY SCALE</text>
+  <line x1="80" y1="1398" x2="500" y2="1398" stroke="#E5E7EB" stroke-width="1.5"/>
+  <text x="2700" y="1390" font-size="10" fill="#9CA3AF" font-weight="600">Font: Inter (body) · Alyamama (Arabic)</text>
+
+  <!-- Type rows: size swatch | size label | sample text | usage -->
+
+  <!-- Row headers -->
+  <text x="80" y="1420" font-size="9" fill="#9CA3AF" font-weight="700" letter-spacing="1">SIZE</text>
+  <text x="160" y="1420" font-size="9" fill="#9CA3AF" font-weight="700" letter-spacing="1">WEIGHT</text>
+  <text x="280" y="1420" font-size="9" fill="#9CA3AF" font-weight="700" letter-spacing="1">COLOR</text>
+  <text x="450" y="1420" font-size="9" fill="#9CA3AF" font-weight="700" letter-spacing="1">SAMPLE</text>
+  <text x="1000" y="1420" font-size="9" fill="#9CA3AF" font-weight="700" letter-spacing="1">USAGE</text>
+  <line x1="80" y1="1428" x2="1400" y2="1428" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Row 1: 34px -->
+  <rect x="80" y="1436" width="52" height="24" rx="6" fill="#ECFDF5"/>
+  <text x="106" y="1453" text-anchor="middle" font-size="9.5" fill="#059669" font-weight="700">34px</text>
+  <text x="160" y="1453" font-size="9.5" fill="#4B5563">Medium / 500</text>
+  <text x="280" y="1453" font-size="9.5" fill="#4B5563" font-family="monospace">#FFFFFF</text>
+  <text x="450" y="1462" font-size="34" fill="#064E3B" font-weight="500">بِسْمِ اللَّهِ</text>
+  <text x="1000" y="1458" font-size="11" fill="#6B7280">Desktop Arabic ayah display</text>
+  <line x1="80" y1="1500" x2="1400" y2="1500" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Row 2: 26px -->
+  <rect x="80" y="1508" width="52" height="24" rx="6" fill="#ECFDF5"/>
+  <text x="106" y="1525" text-anchor="middle" font-size="9.5" fill="#059669" font-weight="700">26px</text>
+  <text x="160" y="1525" font-size="9.5" fill="#4B5563">Bold / 700</text>
+  <text x="280" y="1525" font-size="9.5" fill="#4B5563" font-family="monospace">#FFFFFF · #FCD34D</text>
+  <text x="450" y="1534" font-size="26" fill="#064E3B" font-weight="700">7</text>
+  <text x="1000" y="1530" font-size="11" fill="#6B7280">Desktop stat numbers</text>
+  <line x1="80" y1="1548" x2="1400" y2="1548" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Row 3: 22px -->
+  <rect x="80" y="1556" width="52" height="24" rx="6" fill="#ECFDF5"/>
+  <text x="106" y="1573" text-anchor="middle" font-size="9.5" fill="#059669" font-weight="700">22px</text>
+  <text x="160" y="1573" font-size="9.5" fill="#4B5563">Bold / 700</text>
+  <text x="280" y="1573" font-size="9.5" fill="#4B5563" font-family="monospace">#064E3B</text>
+  <text x="450" y="1578" font-size="22" fill="#064E3B" font-weight="700">Quran Quiz</text>
+  <text x="1000" y="1574" font-size="11" fill="#6B7280">Mobile card title</text>
+  <line x1="80" y1="1590" x2="1400" y2="1590" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Row 4: 20px -->
+  <rect x="80" y="1598" width="52" height="24" rx="6" fill="#ECFDF5"/>
+  <text x="106" y="1615" text-anchor="middle" font-size="9.5" fill="#059669" font-weight="700">20px</text>
+  <text x="160" y="1615" font-size="9.5" fill="#4B5563">Bold / 700</text>
+  <text x="280" y="1615" font-size="9.5" fill="#4B5563" font-family="monospace">#FFFFFF</text>
+  <text x="450" y="1620" font-size="20" fill="#064E3B" font-weight="700">☪ Quran Quiz</text>
+  <text x="1000" y="1616" font-size="11" fill="#6B7280">Desktop navbar logo</text>
+  <line x1="80" y1="1632" x2="1400" y2="1632" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Row 5: 18px -->
+  <rect x="80" y="1640" width="52" height="24" rx="6" fill="#F0FDF4"/>
+  <text x="106" y="1657" text-anchor="middle" font-size="9.5" fill="#059669" font-weight="700">18px</text>
+  <text x="160" y="1657" font-size="9.5" fill="#4B5563">Regular / 400</text>
+  <text x="280" y="1657" font-size="9.5" fill="#4B5563" font-family="monospace">#1F2937</text>
+  <text x="450" y="1662" font-size="18" fill="#1F2937">الْحَمْدُ لِلَّهِ رَبِّ</text>
+  <text x="1000" y="1658" font-size="11" fill="#6B7280">Desktop option text (Arabic)</text>
+  <line x1="80" y1="1674" x2="1400" y2="1674" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Row 6: 16px -->
+  <rect x="80" y="1682" width="52" height="24" rx="6" fill="#F0FDF4"/>
+  <text x="106" y="1699" text-anchor="middle" font-size="9.5" fill="#059669" font-weight="700">16px</text>
+  <text x="160" y="1699" font-size="9.5" fill="#4B5563">Medium / 500</text>
+  <text x="280" y="1699" font-size="9.5" fill="#4B5563" font-family="monospace">#064E3B</text>
+  <text x="450" y="1703" font-size="16" fill="#064E3B" font-weight="500">الرَّحِيمِ</text>
+  <text x="1000" y="1700" font-size="11" fill="#6B7280">Mobile Arabic ayah display</text>
+  <line x1="80" y1="1716" x2="1400" y2="1716" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Row 7: 15px -->
+  <rect x="80" y="1724" width="52" height="24" rx="6" fill="#F9FAFB"/>
+  <text x="106" y="1741" text-anchor="middle" font-size="9.5" fill="#6B7280" font-weight="700">15px</text>
+  <text x="160" y="1741" font-size="9.5" fill="#4B5563">SemiBold / 600</text>
+  <text x="280" y="1741" font-size="9.5" fill="#4B5563" font-family="monospace">#059669 · #FFFFFF</text>
+  <text x="450" y="1745" font-size="15" fill="#059669" font-weight="600">← Previous   Next Question →</text>
+  <text x="1000" y="1742" font-size="11" fill="#6B7280">Desktop nav buttons</text>
+  <line x1="80" y1="1758" x2="1400" y2="1758" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Row 8: 14px -->
+  <rect x="80" y="1766" width="52" height="24" rx="6" fill="#F9FAFB"/>
+  <text x="106" y="1783" text-anchor="middle" font-size="9.5" fill="#6B7280" font-weight="700">14px</text>
+  <text x="160" y="1783" font-size="9.5" fill="#4B5563">SemiBold / 600</text>
+  <text x="280" y="1783" font-size="9.5" fill="#4B5563" font-family="monospace">#FFFFFF</text>
+  <text x="450" y="1787" font-size="14" fill="#FFFFFF" font-weight="600" style="background:#10B981">▶ Start Quiz</text>
+  <rect x="447" y="1770" width="110" height="24" rx="6" fill="#10B981"/>
+  <text x="502" y="1787" text-anchor="middle" font-size="14" fill="white" font-weight="600">▶ Start Quiz</text>
+  <text x="1000" y="1784" font-size="11" fill="#6B7280">Mobile CTA button · Loading text</text>
+  <line x1="80" y1="1800" x2="1400" y2="1800" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Row 9: 13px -->
+  <rect x="80" y="1808" width="52" height="24" rx="6" fill="#F9FAFB"/>
+  <text x="106" y="1825" text-anchor="middle" font-size="9.5" fill="#6B7280" font-weight="700">13px</text>
+  <text x="160" y="1825" font-size="9.5" fill="#4B5563">Regular / 400</text>
+  <text x="280" y="1825" font-size="9.5" fill="#4B5563" font-family="monospace">#374151</text>
+  <text x="450" y="1829" font-size="13" fill="#374151">Al-Fatiha · 10 Questions</text>
+  <text x="1000" y="1826" font-size="11" fill="#6B7280">Select values · Nav links</text>
+  <line x1="80" y1="1842" x2="1400" y2="1842" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Row 10: 12px -->
+  <rect x="80" y="1850" width="52" height="24" rx="6" fill="#F9FAFB"/>
+  <text x="106" y="1867" text-anchor="middle" font-size="9.5" fill="#6B7280" font-weight="700">12px</text>
+  <text x="160" y="1867" font-size="9.5" fill="#4B5563">SemiBold / 600</text>
+  <text x="280" y="1867" font-size="9.5" fill="#4B5563" font-family="monospace">#059669</text>
+  <text x="450" y="1871" font-size="12" fill="#059669" font-weight="600">← Prev   Skip   Next →</text>
+  <text x="1000" y="1868" font-size="11" fill="#6B7280">Mobile nav buttons</text>
+  <line x1="80" y1="1884" x2="1400" y2="1884" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Row 11: 11px -->
+  <rect x="80" y="1892" width="52" height="24" rx="6" fill="#F9FAFB"/>
+  <text x="106" y="1909" text-anchor="middle" font-size="9.5" fill="#6B7280" font-weight="700">11px</text>
+  <text x="160" y="1909" font-size="9.5" fill="#4B5563">Regular / 400</text>
+  <text x="280" y="1909" font-size="9.5" fill="#4B5563" font-family="monospace">#9CA3AF</text>
+  <text x="450" y="1913" font-size="11" fill="#9CA3AF">Test your knowledge of the Holy Quran</text>
+  <text x="1000" y="1910" font-size="11" fill="#6B7280">Card subtitle · Progress text</text>
+  <line x1="80" y1="1926" x2="1400" y2="1926" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Row 12: 10px -->
+  <rect x="80" y="1934" width="52" height="24" rx="6" fill="#F9FAFB"/>
+  <text x="106" y="1951" text-anchor="middle" font-size="9.5" fill="#6B7280" font-weight="700">10px</text>
+  <text x="160" y="1951" font-size="9.5" fill="#4B5563">Bold / 700</text>
+  <text x="280" y="1951" font-size="9.5" fill="#4B5563" font-family="monospace">#059669</text>
+  <text x="450" y="1955" font-size="10" fill="#059669" font-weight="700">Tap to Retry · 114 Surahs available</text>
+  <text x="1000" y="1952" font-size="11" fill="#6B7280">Pill CTAs · Hint text</text>
+  <line x1="80" y1="1968" x2="1400" y2="1968" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Row 13: 9px -->
+  <rect x="80" y="1976" width="52" height="24" rx="6" fill="#F9FAFB"/>
+  <text x="106" y="1993" text-anchor="middle" font-size="9.5" fill="#6B7280" font-weight="700">9px</text>
+  <text x="160" y="1993" font-size="9.5" fill="#4B5563">Bold / 700</text>
+  <text x="280" y="1993" font-size="9.5" fill="#4B5563" font-family="monospace">#4B5563 · #059669</text>
+  <text x="450" y="1997" font-size="9" fill="#4B5563" font-weight="700" letter-spacing="0.9">SELECT SURAH   ·   WHAT IS THE NEXT VERSE?</text>
+  <text x="1000" y="1994" font-size="11" fill="#6B7280">ALL-CAPS form labels · Question eyebrow</text>
+  <line x1="80" y1="2010" x2="1400" y2="2010" stroke="#F3F4F6" stroke-width="1"/>
+
+  <!-- Footer -->
+  <text x="1600" y="2170" text-anchor="middle" font-size="10" fill="#9CA3AF" font-weight="500" letter-spacing="1.5">QURAN QUIZ  ·  FIGMA UI CANVAS  ·  DESIGNED FOR DEVELOPMENT HANDOFF</text>
+
+</svg>
