@@ -36,6 +36,8 @@
   --font-arabic: 'Alyamama', serif;
 
   --transition: 0.2s ease;
+  --bg-gradient: linear-gradient(to left, var(--green-900), var(--green-300));
+  --gradient: linear-gradient(to left, var(--green-900), var(--green-600))
 }
 
 
@@ -47,13 +49,30 @@
 
 body{
 
-  background: linear-gradient(to left, var(--green-900), var(--green-300));
+  background: var(--bg-gradient);
   height: 100vh;
 display: flex;
   justify-content: center;
   align-items: center;
 }
 
+
+.progress__container {
+  width: 10rem;
+  height: 10px;
+  background: var(--green-50);
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+}
+
+.progress__bar {
+  background: var(--gold-400);
+  height: 100%;
+  transition: var(--transition);
+}
+.error__text{
+  color: red;
+}
 .btn{
   padding: .7rem;
   border-radius: var(--radius-md);
@@ -66,12 +85,29 @@ select{
   border: 1px solid var(--gray-400);
   padding: .8rem ;
   border-radius: var(--radius-sm);
+  outline: none;
 }
 
-.container{  
-  width: 70%;
+.container{
+  
+  width: 90%;
   margin: 0 auto;
   }
+
+.start__tittle{
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.start__pg__icon{
+  background: var(--green-50);
+  padding: 1rem;
+  border-radius: 50%;
+}
+
 
 .start__page__container{
 display: flex;
@@ -84,44 +120,70 @@ display: flex;
   padding: 10rem 0;
   /* background: red; */
   background: var(--white);
-  /* border: 1rem solid var(--green-300); */
   border-radius: var(--radius-lg);
-}
-
-.start__page__container form{
-  display: flex;
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
   border-radius: var(--radius-lg);
 }
 
-.quiz__wrapper{
+.selectForm{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  
+}
+
+.quiz__page{
   /* background: green; */
 
-  height: 100vh;
+  
+  background: var(--gray-50);
+  border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   gap: 2rem;
   justify-content: center;
   align-items: center;
+  
 }
 
 
 .quiz__container{
-  background: lawngreen;
+  
 padding: 0.5rem;
 width: 20rem;
 }
 
 .quiz__top{
+  
+  font-size: 0.8rem;
+  width: 100%;
+  border-top-left-radius: var(--radius-md);
+  border-top-right-radius: var(--radius-md);
+  
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: forestgreen;
+  
+  
+  border: 1px solid var(--gray-100);
+  border-bottom: none;
+  background: var(--gradient);
+  color: var(--white);
   padding: 1rem 0.3rem;
 }
 
+.quiz__top span{
+font-size: 1rem;
+  font-style: italic;
+}
+
+.num__answerd, .score{
+  
+  color: var(--gold-300);
+  font-weight: 700;
+}
 
 .options{
   display: flex;
@@ -129,20 +191,22 @@ width: 20rem;
   gap: 1rem;
   padding: 1rem;
   background: red;
+  font-family: var(--font-arabic);
+  
 }
 
 .options .option__div{
   background: white;
-  padding: .2rem;
-  text-align: right;
-  border: 1px brown;
-  border-radius: 14px;
+  padding: .5rem .3rem;
+  
+
+  border-radius: var(--radius-sm);
   color: black;
   
   display: flex;
   flex-direction: row-reverse;
   gap: 1rem;
-  justify-content: left;
+  justify-content: space-between;
   align-items: center;
   font-size: .8rem;
 }
@@ -181,3 +245,54 @@ width: 20rem;
 .hidden{
   display: none;
 }
+
+
+.navigator .btn{
+  border-radius: var(--radius-lg);
+  width: 5rem;
+  background: var(--white);
+  color: var(--green-900);
+}
+
+
+.submit__enquiry{
+  display: flex;
+  justify-content: center;
+align-items: center;
+text-align: center;
+gap: 1rem;
+  flex-direction: column;
+  background: var(--gradient);
+  color: var(--white);
+  padding: 1rem;
+  /* border: 1px solid var(--gold-300); */
+  border-radius: var(--radius-md);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+ transform: translate(-50%, -50%);
+  width: fit-content;
+  z-index: 10;
+
+  .yesOrNo{
+    display: flex;
+    gap: 1rem;
+  }
+
+  input{
+    padding: .5rem;
+    border-radius: var(--radius-sm);
+    border: none;
+    outline: none;
+    width: 5rem;
+
+   
+  }
+
+  .yesOrNo input:last-child{
+      background: var(--green-900);
+      color: var(--gold-300);
+    } 
+}
+
+ 

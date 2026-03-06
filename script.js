@@ -1,5 +1,14 @@
 const quesTion = document.querySelector('.ques__ayah')
 
+const startPage = document.querySelector('.start__page')
+const resultPage = document.querySelector('.result__page')
+const quizPage = document.querySelector('.quiz__page')
+
+const errorText = document.querySelector('.error__text')
+
+const progressBar = document.querySelector('.progress__bar')
+const numOfQuesAnswered = document.querySelector('.num__answerd')
+
 const surahSelectOptions = document.querySelector('#surahs__options');
 const numOfQuestionSelectOptions = document.querySelector('#NumberOfQuestions')
 
@@ -7,7 +16,7 @@ const numOfQuestionSelectOptions = document.querySelector('#NumberOfQuestions')
 const questionOptions = document.querySelector('.options')
 
 const selectForm = document.querySelector('.selectForm')
-const quizContainer = document.querySelector('.quiz__container')
+
 const loadingText = document.querySelector('.load')
 const totalQuestionNum = document.querySelector('.total__ques')
 
@@ -27,6 +36,7 @@ console.log('loading...')
 let SURAH_INDEX;
 let CUR_QUES_NUM = 1;
 let CUR_AYAH_QUES;
+let numberOfQuestions;
 
 async function getAllSurahs() {
   try {
@@ -36,8 +46,8 @@ async function getAllSurahs() {
     addAllSurahToSelectOption(allSurahs)
   } catch (e) {
     console.error(e.message, 'and')
-    loadingText.classList.remove('hidden');
-    loadingText.innerHTML = 'Connect to Internet 🛜'
+    errorText.classList.remove('hidden');
+    errorText.innerHTML = 'Connect to Internet 🛜'
   }
 }
 
@@ -83,9 +93,9 @@ selectForm.addEventListener('submit', (e) => {
   console.log(SURAH_INDEX)
   
   getQuranFromAPI(SURAH_INDEX);
-  
-  quizContainer.classList.remove('hidden');
-  
+  updateProgress()
+  quizPage.classList.remove('hidden');
+  startPage.classList.add('hidden');
   totalQuestionNum.textContent = numOfQuestionSelectOptions.value
 })
 
@@ -223,16 +233,82 @@ function getNextAyah() {
   return nextAyah = quranQuiz.ayahs[indexOfAyahQues + 1]
 }
 
-document.querySelector('.next__ques').addEventListener('click', (e) => {
-  +CUR_QUES_NUM++
+function updateProgress(curQuesNum = 1) {
+  numOfQuesAnswered.textContent = curQuesNum;
+  numberOfQuestions = numOfQuestionSelectOptions.value;
+  totalQuestionNum.textContent = numberOfQuestions;
+ let progressPercentage = (curQuesNum / numberOfQuestions) * 100;
+ progressBar.style.width = `${progressPercentage}%`;
+}
+
+function storeDataToLocalStorage() {
+  localStorage.setItem('quranQuiz', quranQuiz)
+}
+
+function getDataFromLocalStorage() {
+  return localStorage.getItem('quranQuiz')
+}
+
+
+function submitQuiz() {
+  storeDataToLocalStorage()
+  
+ const deleteEnquiry =  document.querySelector('.submit__enquiry')
+ 
+ deleteEnquiry.classList.remove('hidden')
+  
+  document.querySelector('.yesOrNo').addEventListener('click', (e) => {
+    if(e.target.value === 'Yes'){
+      
+      setTimeout(() => {
+    quizPage.classList.add('hidden')
+    resultPage.classList.remove('hidden')
+  }, 2000)
+  
+    }
+    
+    if(e.target.value === 'No'){
+      deleteEnquiry.classList.add('hidden')
+    }
+  })
+  
+  
+  
+  
+  
+}
+
+
+function NextQuestion() {
+     +CUR_QUES_NUM++
+  updateProgress(CUR_QUES_NUM)
   questionOptions.innerHTML = '';
   getAyah(quranQuiz.ayahs)
   renderAyahQuestion(quranQuiz.ayahs)
   console.log(CUR_AYAH_QUES)
   
-  console.log('okay')
+  if(+CUR_QUES_NUM === +numberOfQuestions){
+    document.querySelector('.next__ques__btn').remove()
+  }
+}
+
+const navigator = document.querySelector('.navigator')
+
+navigator.addEventListener('click', (e) => {
+
+  if(e.target.classList.contains('next__ques__btn')){
+    NextQuestion()
+  }
+  
+  if (e.target.classList.contains('submit__btn')) {
+  submitQuiz()
+}
 })
 
 
 
 fetch('https://apis-prelive.quran.foundation/content/api/v4').then(res => res.json).then(data => console.log(data))
+
+document.addEventListener('load', ()=>{
+  console.log(getDataFromLocalStorage)
+})
