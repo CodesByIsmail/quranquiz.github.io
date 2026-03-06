@@ -45,7 +45,9 @@
   box-sizing: border-box;
 }
 
-
+.container{
+  
+}
 
 .quiz__wrapper{
   background: green;
