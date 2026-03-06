@@ -17,12 +17,13 @@
   </head>
 
   <body>
+   
     <sectiion class="start__page container">
       <div class="start__page__container">
-
+ <p class="error__text"></p>
         <div class="start__tittle">
-          <span class="start__pg__icon"></span>
-          <h2>Quran Quiz</h2>
+          <span class="start__pg__icon"><i class="uil uil-book-open"></i></span>
+          <h1>Quran Quiz</h1>
           <p>Test your knowledge of the Quran</p>
         </div>
 
@@ -37,10 +38,10 @@
           </select>
 
           <select name="NumberOfQuestions" id="NumberOfQuestions">
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
+            <option value="5">5 Questions</option>
+            <option value="10">10 Questions</option>
+            <option value="15">15 Questions</option>
+            <option value="20">20 Questions</option>
           </select>
           <button class="btn start__quiz" type="submit">Start Quiz</button>
         </form>
@@ -48,18 +49,23 @@
     </sectiion>
 
     
-    <div class="quiz__wrapper">
-      <span class="load hidden">Loading...</span>
-
-      <div class="quiz__container hidden">
+    <section class="container quiz__page hidden">
         <div class="quiz__top">
-          <button type=""><</button>
-          <span
-            ><span class="num__answerd">1</span> /
-            <span class="total__ques">5</span></span
-          >
+  
+                      <p>
+            <span class="num__answerd">1</span> of
+            <span class="total__ques">5</span>
+            questions
+<div class="progress">
 
-          <button type="">></button>
+          </p>
+          <div class="progress__container">
+            <div class="progress__bar" style="width: 50%;"></div>
+          </div>
+</div>
+
+
+          <p>Score: <span class="score">4</span></p>
         </div>
 
         <div class="quiz__body">
@@ -70,16 +76,33 @@
           </div>
 
           <div class="options">
-            <span>Ismail</span>
+            
           </div>
 
           <div class="navigator">
-            <button type="" class="prev__ques">Previous</button>
-            <button type="">Skip</button>
-            <button class="next__ques" type="">Next</button>
+            
+            <button type="" class="prev__ques__btn btn"><i class="uil uil-arrow-left"></i>Previous</button>
+            
+            <button type="" class="submit__btn btn">Submit</button>
+            
+            <div class="submit__enquiry hidden">
+              <p>Are you sure you want to submit?</p>
+              <div class="yesOrNo">
+                 <input type="submit" value="No" />
+ <input type="submit" value="Yes" />
+              </div>
+            </div>
+            
+            <button class="next__ques__btn btn" type="">Next <i class="uil uil-arrow-right"></i></button>
           </div>
+          
         </div>
-      </div>
-    </div>
+    </section>
+    
+    
+    
+    <section class="container result__page hidden">
+      
+    </section>
   </body>
 </html>
