@@ -29,7 +29,7 @@ function rndNumber(max, min = 1) {
 console.log('loading...')
 
 let SURAH_INDEX;
-let CUR_QUES_NUM;
+let CUR_QUES_NUM = 1;
 let CUR_AYAH_QUES;
 
 async function getAllSurahs() {
