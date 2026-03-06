@@ -1,77 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <link rel="stylesheet" href="style.css" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title></title>
-  <link rel="stylesheet" href="style.css">
-  
-  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.2.0/css/line.css">
-  
-  <script defer src="script.js">script.js</script>
-</head>
+    <link
+      rel="stylesheet"
+      href="https://unicons.iconscout.com/release/v4.2.0/css/line.css"
+    />
 
-<body>
+    <script defer src="script.js">
+      script.js
+    </script>
+  </head>
 
-  <sectiion class="start__page container">
-    <div class="start__page__container">
-<form class="selectForm" action="Pick-Surah" method="get" accept-charset="utf-8">
-      <select name="Surahs" id="surahs__options">
-<!--         <option value="Fatiha">Fatiha</option> -->
-      </select>
-      
-      
-      <select name="NumberOfQuestions" id="NumberOfQuestions">
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="15">15</option>
-        <option value="20">20</option>
-      </select>
-      <button type="submit">Start</button>
-      </form>
-    </div>
-    
-  </sectiion>
-  <div class="quiz__wrapper">
-    
-    
-    <span class="load hidden">Loading...</span>
-          
-      
-    
-    
-    <div class="quiz__container hidden">
-      <div class="quiz__top">
-        <button type=""><</button>
-        <span><span class="num__answerd">1</span> / <span class="total__ques">5</span></span>
-        
-        <button type="">></button>
-      </div>
+  <body>
+    <sectiion class="start__page container">
+      <div class="start__page__container">
 
-      
-      <div class="quiz__body">
-        <h3>Question:</h3>
-        <div>
-           <h4>What is the next verse?</h4>
-           <span class="ques__ayah"></span>
+        <div class="start__tittle">
+          <span class="start__pg__icon"></span>
+          <h2>Quran Quiz</h2>
+          <p>Test your knowledge of the Quran</p>
         </div>
 
-        
-        <div class="options">
+        <form
+          class="selectForm"
+          action="Pick-Surah"
+          method="get"
+          accept-charset="utf-8"
+        >
+          <select name="Surahs" id="surahs__options">
+            <!--         <option value="Fatiha">Fatiha</option> -->
+          </select>
+
+          <select name="NumberOfQuestions" id="NumberOfQuestions">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+          <button class="btn start__quiz" type="submit">Start Quiz</button>
+        </form>
+      </div>
+    </sectiion>
+
+    
+    <div class="quiz__wrapper">
+      <span class="load hidden">Loading...</span>
+
+      <div class="quiz__container hidden">
+        <div class="quiz__top">
+          <button type=""><</button>
+          <span
+            ><span class="num__answerd">1</span> /
+            <span class="total__ques">5</span></span
+          >
+
+          <button type="">></button>
+        </div>
+
+        <div class="quiz__body">
+          <h3>Question:</h3>
+          <div>
+            <h4>What is the next verse?</h4>
+            <span class="ques__ayah"></span>
+          </div>
+
+          <div class="options">
             <span>Ismail</span>
-        </div>
-        
-        
-        <div class="navigator">
-          <button  type="" class="prev__ques">Previous</button>
-          <button type="">Skip</button>
-          <button class="next__ques" type="">Next</button>
+          </div>
+
+          <div class="navigator">
+            <button type="" class="prev__ques">Previous</button>
+            <button type="">Skip</button>
+            <button class="next__ques" type="">Next</button>
+          </div>
         </div>
       </div>
     </div>
-    
-   </div> 
-</body>
-
+  </body>
 </html>

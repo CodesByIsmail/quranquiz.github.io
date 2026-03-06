@@ -6,10 +6,6 @@ const numOfQuestionSelectOptions = document.querySelector('#NumberOfQuestions')
 
 const questionOptions = document.querySelector('.options')
 
-
-
-
-
 const selectForm = document.querySelector('.selectForm')
 const quizContainer = document.querySelector('.quiz__container')
 const loadingText = document.querySelector('.load')
