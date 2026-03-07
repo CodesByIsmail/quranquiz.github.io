@@ -270,7 +270,7 @@ border: 1px solid var(--green-100);
 
 .navigator .btn{
   border-radius: var(--radius-sm);
-  width: 5rem;
+  width: fit-content;
   background: var(--gray-100);
   color: var(--green-900);
   border: 1px solid var(--green-300);
