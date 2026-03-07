@@ -182,8 +182,7 @@ function renderOptions(optionArr, optionText) {
       const optionDiv = document.createElement('div');
       optionDiv.className = 'option__div'
       optionDiv.innerHTML = `
-   <span>${optionText[i]}</span>
-      <span>${opt}</span>`
+   <span>${optionText[i]}</span>`
       // const html =`<span>${opt}</span>`
       questionOptions.append(optionDiv)
       console.log(opt)
@@ -253,9 +252,9 @@ function getDataFromLocalStorage() {
 function submitQuiz() {
   storeDataToLocalStorage()
   
- const deleteEnquiry =  document.querySelector('.submit__enquiry')
+ const submit =  document.querySelector('.submit__enquiry')
  
- deleteEnquiry.classList.remove('hidden')
+ submit.classList.remove('hidden')
   
   document.querySelector('.yesOrNo').addEventListener('click', (e) => {
     if(e.target.value === 'Yes'){
@@ -268,7 +267,7 @@ function submitQuiz() {
     }
     
     if(e.target.value === 'No'){
-      deleteEnquiry.classList.add('hidden')
+      submit.classList.add('hidden')
     }
   })
   
@@ -286,17 +285,21 @@ function NextQuestion() {
   getAyah(quranQuiz.ayahs)
   renderAyahQuestion(quranQuiz.ayahs)
   console.log(CUR_AYAH_QUES)
-  
+  displayNavBtn()
   if(+CUR_QUES_NUM === +numberOfQuestions){
     document.querySelector('.next__ques__btn').remove()
+    submitBtn.classList.remove('invisible');
   }
 }
 
+
+
+// Event Listeners
 const navigator = document.querySelector('.navigator')
 
 navigator.addEventListener('click', (e) => {
 
-  if(e.target.classList.contains('next__ques__btn')){
+  if(e.target.classList.contains('next__ques__btn') || e.target.classList.contains('uil-arrow-right')){
     NextQuestion()
   }
   
@@ -305,6 +308,15 @@ navigator.addEventListener('click', (e) => {
 }
 })
 
+const prevBtn = document.querySelector('.prev__ques__btn')
+const submitBtn = document.querySelector('.submit__btn')
+
+function displayNavBtn() {
+  if(CUR_QUES_NUM > 1){
+    prevBtn.classList.remove('invisible');
+  }
+  
+}
 
 
 fetch('https://apis-prelive.quran.foundation/content/api/v4').then(res => res.json).then(data => console.log(data))
