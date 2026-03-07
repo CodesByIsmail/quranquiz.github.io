@@ -4,6 +4,8 @@ const startPage = document.querySelector('.start__page')
 const resultPage = document.querySelector('.result__page')
 const quizPage = document.querySelector('.quiz__page')
 
+const navigator = document.querySelector('.navigator')
+
 const errorText = document.querySelector('.error__text')
 
 const progressBar = document.querySelector('.progress__bar')
@@ -23,7 +25,9 @@ const totalQuestionNum = document.querySelector('.total__ques')
 const quranQuiz = {
   ayahs: [],
   questions: [],
-  options: []
+  options: [],
+  correctAnswers: [],
+  userAnswers: []
 }
 
 
@@ -86,10 +90,10 @@ function addAllSurahToSelectOption(surahDataApi) {
 
 selectForm.addEventListener('submit', (e) => {
   e.preventDefault()
-  const selectedAyah = surahSelectOptions.value;
-  console.log(selectedAyah)
+  const selectedSurah = surahSelectOptions.value;
+  console.log(selectedSurah)
   
-   SURAH_INDEX = allSurahs.indexOf(selectedAyah)
+   SURAH_INDEX = allSurahs.indexOf(selectedSurah)
   console.log(SURAH_INDEX)
   
   getQuranFromAPI(SURAH_INDEX);
@@ -106,11 +110,13 @@ function renderAyahQuestion(ayahArr) {
   quranQuiz.questions.push(CUR_AYAH_QUES)
   quesTion.innerHTML = CUR_AYAH_QUES;
   getOptionsForQuestion(ayahArr, CUR_QUES_NUM)
+  navigator.classList.remove('hidden')
 }
 
 
 function getAyah(ayahArr) {
-  let newRndNum = rndNumber(ayahArr.length - 1);
+  let newRndNum = rndNumber(ayahArr.length - 2);
+  
   // console.log(quranQuiz.ayah[rndNumber(ayahArr.length)])
   const ayah = quranQuiz.ayahs[newRndNum].split(' ').slice(0, 10).join(' ');
   
@@ -121,14 +127,16 @@ function getAyah(ayahArr) {
 
 function getOptionsForQuestion(ayahs, curQues = 1) {
   
-const arrayOfOptions = [];
+  const arrayOfOptions = [];
 
 
-for (let i = 0; i < 10; i++) {
-  let newAyah = getAyah(ayahs)
-  if(arrayOfOptions.includes(newAyah) || newAyah === quesTion.textContent) newAyah = getAyah(ayahs)
-  arrayOfOptions[i] = newAyah;
-}
+  for (let i = 0; i < 10; i++) {
+    let newAyah = getAyah(ayahs)
+    
+    if(arrayOfOptions.includes(newAyah) || newAyah === quesTion.textContent) newAyah = getAyah(ayahs)
+    arrayOfOptions[i] = newAyah;
+    
+  }
   console.log(arrayOfOptions)
   
   
@@ -145,33 +153,21 @@ if (!optionSet.has(anoAyah)) optionSet.add(anoAyah)
   optionSet.forEach(a =>  {
     console.log(a, '***********')
   })
-  // arrayOfOptions.push(getAyah(ayahs))
-  // arrayOfOptions.push(CUR_AYAH_QUES)
-  // arrayOfOptions.push(getAyah(ayahs))
-  // arrayOfOptions.push(getAyah(ayahs))
   
   
   quranQuiz.options[curQues] = Array.from(optionSet);
   quranQuiz.options[curQues] = quranQuiz.options[curQues].slice(0,4)
-  // quranQuiz.options[curQues][rndNumber(4)] = getNextAyah()
   
+  const correctAnswer = getCorectAnswer(CUR_AYAH_QUES);
   
-//   if (quranQuiz.options[curQues].length > 4) {
-// quranQuiz.options[curQues].pop()
-//   }
+  if(!quranQuiz.options[curQues].includes(correctAnswer)){
+    quranQuiz.options[curQues][rndNumber(4)] = correctAnswer;
+  }
   
-  const letters = ['A', 'B', 'C', 'D'];
+  console.log(correctAnswer, quranQuiz.options[curQues])
+  const optionNumbers = [1, 2, 3, 4];
   
-  renderOptions(letters, quranQuiz.options[curQues])
-  
-  // quranQuiz.options.curQues.push(getAyah(ayahs))
-  // quranQuiz.options[curQues].push(getAyah(ayahs))
-  // quranQuiz.options[curQues].push(getAyah(ayahs))
-  // quranQuiz.options[curQues].push(getAyah(ayahs))
-  
-  // console.log(quranQuiz.options, 'fjfnjfjjfjfjfkfkfk')
-  // console.log(curQues)
-  // renderOptions(quranQuiz.options[curQues])
+  renderOptions(optionNumbers, quranQuiz.options[curQues]) // minus 1 because array are zero-bases
   
 }
 
@@ -227,9 +223,14 @@ newArr.task = 'yesssss'
 
 console.log(newArr)
 
-function getNextAyah() {
-  const indexOfAyahQues = quranQuiz.ayahs.indexOf(CUR_AYAH_QUES);
-  return nextAyah = quranQuiz.ayahs[indexOfAyahQues + 1]
+function getCorectAnswer(curQuesText) {
+  const indexOfAyahQues = quranQuiz.ayahs.indexOf(curQuesText)
+  let indexOfNextAyah = indexOfAyahQues + 1;
+const nextAyah = quranQuiz.ayahs[indexOfNextAyah]
+  
+  quranQuiz.correctAnswers[CUR_QUES_NUM] = nextAyah;
+  
+  return nextAyah
 }
 
 function updateProgress(curQuesNum = 1) {
@@ -254,7 +255,7 @@ function submitQuiz() {
   
  const submit =  document.querySelector('.submit__enquiry')
  
- submit.classList.remove('hidden')
+ submit.classList.remove('invisible')
   
   document.querySelector('.yesOrNo').addEventListener('click', (e) => {
     if(e.target.value === 'Yes'){
@@ -262,12 +263,13 @@ function submitQuiz() {
       setTimeout(() => {
     quizPage.classList.add('hidden')
     resultPage.classList.remove('hidden')
+    
   }, 2000)
   
     }
     
     if(e.target.value === 'No'){
-      submit.classList.add('hidden')
+      submit.classList.add('invisible')
     }
   })
   
@@ -295,7 +297,6 @@ function NextQuestion() {
 
 
 // Event Listeners
-const navigator = document.querySelector('.navigator')
 
 navigator.addEventListener('click', (e) => {
 
@@ -324,3 +325,18 @@ fetch('https://apis-prelive.quran.foundation/content/api/v4').then(res => res.js
 document.addEventListener('load', ()=>{
   console.log(getDataFromLocalStorage)
 })
+
+function getUserAnswer(e) {
+  let answerPickedByUser = e.target.querySelector('span').innerHTML;
+  
+  console.log(answerPickedByUser)
+  
+  quranQuiz.userAnswers[CUR_QUES_NUM - 1] = answerPickedByUser;
+}
+
+questionOptions.addEventListener('click', (e)=>{
+  getUserAnswer(e);
+  console.log(getCorectAnswer(CUR_AYAH_QUES))
+})
+
+
