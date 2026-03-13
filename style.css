@@ -72,6 +72,8 @@ display: flex;
 }
 .error__text{
   color: red;
+  animation: pulse 3s ease-in-out infinite;
+  transition: var(--transition);
 }
 .btn{
   padding: .7rem;
@@ -254,9 +256,10 @@ border: 1px solid var(--green-100);
   content: url(/assests/images/circle.svg.html);
 }
 
-
-.options .correct__answer::before {
-  content: "<i class="uil uil-check-circle"></i>";
+ .answer__picked__indicator {
+  background: var(--green-100);
+  transition: var(--transition);
+  box-shadow: var(--shadow-md);
 }
 
 
@@ -347,3 +350,18 @@ box-shadow: var(--shadow-lg);
  .invisible{
    visibility: hidden;
  }
+ 
+@keyframes pulse{
+  0%{
+    opacity: 1;
+    transform: scale(1);
+    
+  }
+
+  
+  100% {
+  opacity: 0;
+  transform: scale(1.1);
+  
+}
+}

@@ -108,7 +108,7 @@ selectForm.addEventListener('submit', (e) => {
 function renderAyahQuestion(ayahArr) {
   CUR_AYAH_QUES = getAyah(ayahArr)
   quranQuiz.questions.push(CUR_AYAH_QUES)
-  quesTion.innerHTML = CUR_AYAH_QUES;
+  quesTion.innerHTML = CUR_AYAH_QUES.split(' ').slice(0, 10).join(' ');
   getOptionsForQuestion(ayahArr, CUR_QUES_NUM)
   navigator.classList.remove('hidden')
 }
@@ -118,8 +118,7 @@ function getAyah(ayahArr) {
   let newRndNum = rndNumber(ayahArr.length - 2);
   
   // console.log(quranQuiz.ayah[rndNumber(ayahArr.length)])
-  const ayah = quranQuiz.ayahs[newRndNum].split(' ').slice(0, 10).join(' ');
-  
+  const ayah = quranQuiz.ayahs[newRndNum]
   console.error(ayah)
   return ayah
 }
@@ -161,7 +160,7 @@ if (!optionSet.has(anoAyah)) optionSet.add(anoAyah)
   const correctAnswer = getCorectAnswer(CUR_AYAH_QUES);
   
   if(!quranQuiz.options[curQues].includes(correctAnswer)){
-    quranQuiz.options[curQues][rndNumber(4)] = correctAnswer;
+    quranQuiz.options[curQues][rndNumber(3)] = correctAnswer;
   }
   
   console.log(correctAnswer, quranQuiz.options[curQues])
@@ -178,7 +177,8 @@ function renderOptions(optionArr, optionText) {
       const optionDiv = document.createElement('div');
       optionDiv.className = 'option__div'
       optionDiv.innerHTML = `
-   <span>${optionText[i]}</span>`
+   <span>${optionText[i].split(' ').slice(0, 10).join(' ')
+  }</span>`
       // const html =`<span>${opt}</span>`
       questionOptions.append(optionDiv)
       console.log(opt)
@@ -195,14 +195,14 @@ const questionsArr = ['Which surah is this', 'From which Juz is this Ayah', 'Doe
 
 // const quesText = 'What is the next verse'
 // quesTion.innerHTML = quesText;
-const allAnswers = document.querySelectorAll('label')
+// const allAnswers = document.querySelectorAll('label')
 
 
-allAnswers.forEach(ans =>{
-  ans.addEventListener('click', ()=>{
-    ans.classList.add('correct__answer')
-  })
-})
+// allAnswers.forEach(ans =>{
+//   ans.addEventListener('click', ()=>{
+//     ans.classList.add('correct__answer')
+//   })
+// })
 
 
 
@@ -226,7 +226,7 @@ console.log(newArr)
 function getCorectAnswer(curQuesText) {
   const indexOfAyahQues = quranQuiz.ayahs.indexOf(curQuesText)
   let indexOfNextAyah = indexOfAyahQues + 1;
-const nextAyah = quranQuiz.ayahs[indexOfNextAyah]
+  const nextAyah = quranQuiz.ayahs[indexOfNextAyah]
   
   quranQuiz.correctAnswers[CUR_QUES_NUM] = nextAyah;
   
@@ -281,7 +281,7 @@ function submitQuiz() {
 
 
 function NextQuestion() {
-     +CUR_QUES_NUM++
+    CUR_QUES_NUM++
   updateProgress(CUR_QUES_NUM)
   questionOptions.innerHTML = '';
   getAyah(quranQuiz.ayahs)
@@ -327,12 +327,41 @@ document.addEventListener('load', ()=>{
 })
 
 function getUserAnswer(e) {
-  let answerPickedByUser = e.target.querySelector('span').innerHTML;
+  let answerDivPickedByUser = e.target.closest('.option__div');
   
+  answerPickedByUser = answerDivPickedByUser.querySelector('span')
   console.log(answerPickedByUser)
   
   quranQuiz.userAnswers[CUR_QUES_NUM - 1] = answerPickedByUser;
+  addCorrectIndicator(answerDivPickedByUser) 
+  
+  
 }
+
+
+function addCorrectIndicator(answerPickedByUser) {
+  // parmater required is the div of the answeypicked by user
+  
+  const allOptionDivs = document.querySelectorAll('.option__div')
+  
+  allOptionDivs.forEach(opt => {
+    opt.classList.remove('answer__picked__indicator')
+  })
+  
+  answerPickedByUser.classList.add('answer__picked__indicator')
+  
+  
+  // if(answerPickedByUser.querySelector('span') === quranQuiz.correctAnswers[CUR_QUES_NUM]){
+    
+  //   answerPickedByUser.classList.add('correct__answer')
+  // }
+}
+
+
+
+
+
+
 
 questionOptions.addEventListener('click', (e)=>{
   getUserAnswer(e);
