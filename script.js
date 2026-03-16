@@ -272,9 +272,9 @@ function submitQuiz() {
     if(e.target.value === 'Yes'){
       
       setTimeout(() => {
+        submit.classList.add('invisible')
     quizPage.classList.add('hidden')
     resultPage.classList.remove('hidden')
-    
   }, 2000)
   
     }
@@ -383,6 +383,13 @@ questionOptions.addEventListener('click', (e)=>{
 const restartBtn = document.querySelector('.restart__btn');
 
 restartBtn.addEventListener('click', ()=>{
+  quranQuiz.userAnswers= []
   resultPage.classList.add('hidden')
   quizPage.classList.remove('hidden');
+  submit.classList.add('invisible')
 })
+
+
+function reset(){
+  CUR_QUES_NUM = 0;
+}
