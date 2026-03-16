@@ -30,6 +30,8 @@ const quranQuiz = {
   userAnswers: []
 }
 
+let allSurahs = []
+
 
 function rndNumber(max, min = 1) {
   return Math.round((Math.random() * (max - min)) + min)
@@ -46,12 +48,13 @@ async function getAllSurahs() {
   try {
     let res = await fetch('https://api.qurani.ai/gw/qh/v1/surah?limit=2000&offset=0')
   
-    let allSurahs = await res.json();
-    addAllSurahToSelectOption(allSurahs)
+    
+    const allSurahsData = await res.json();
+    addAllSurahToSelectOption(allSurahsData)
   } catch (e) {
     console.error(e.message, 'and')
     errorText.classList.remove('hidden');
-    errorText.innerHTML = 'Connect to Internet 🛜'
+    errorText.innerHTML = 'Connect to Internet <i class="uim uim-wifi"></i>'
   }
 }
 
@@ -81,7 +84,7 @@ async function getQuranFromAPI(surahIndex) {
 
 
 function addAllSurahToSelectOption(surahDataApi) {
-  const allSurahs = surahDataApi.data.map(data => data.englishName)
+   allSurahs = surahDataApi.data.map(data => data.englishName)
   allSurahs.forEach(surah => {
   const html = `<option value="${surah}">${surah}</option>`
   surahSelectOptions.insertAdjacentHTML('beforeend', html)
@@ -90,6 +93,14 @@ function addAllSurahToSelectOption(surahDataApi) {
 
 selectForm.addEventListener('submit', (e) => {
   e.preventDefault()
+  startQuiz(allSurahs)
+})
+
+}
+
+
+
+function startQuiz(allSurahs) {
   const selectedSurah = surahSelectOptions.value;
   console.log(selectedSurah)
   document.querySelector('.quiz__tittle').innerHTML += selectedSurah;
@@ -102,9 +113,8 @@ selectForm.addEventListener('submit', (e) => {
   quizPage.classList.remove('hidden');
   startPage.classList.add('hidden');
   totalQuestionNum.textContent = numOfQuestionSelectOptions.value
-})
-
 }
+
 
 function renderAyahQuestion(ayahArr) {
   CUR_AYAH_QUES = getAyah(ayahArr)
@@ -370,3 +380,9 @@ questionOptions.addEventListener('click', (e)=>{
 })
 
 
+const restartBtn = document.querySelector('.restart__btn');
+
+restartBtn.addEventListener('click', ()=>{
+  resultPage.classList.add('hidden')
+  quizPage.classList.remove('hidden');
+})
