@@ -92,6 +92,7 @@ selectForm.addEventListener('submit', (e) => {
   e.preventDefault()
   const selectedSurah = surahSelectOptions.value;
   console.log(selectedSurah)
+  document.querySelector('.quiz__tittle').innerHTML += selectedSurah;
   
    SURAH_INDEX = allSurahs.indexOf(selectedSurah)
   console.log(SURAH_INDEX)

@@ -73,13 +73,9 @@ display: flex;
   transition: var(--transition);
 }
 .error__text{
-<<<<<<< HEAD
   color: var(--red);
-=======
-  color: red;
   animation: pulse 3s ease-in-out infinite;
   transition: var(--transition);
->>>>>>> 6cbba23b5c1e5330dddfc1c31114c0fa88dd4289
 }
 .btn{
   padding: .7rem;
@@ -92,6 +88,7 @@ display: flex;
 
 .btn:hover{
 box-shadow: var(--shadow-lg);
+background: var(--green-800);
 }
 
 .btn:focus{
@@ -153,6 +150,10 @@ display: flex;
   
 }
 
+
+
+
+/* QUIZ PAGE */
 .quiz__page{
   /* background: green; */
 
@@ -201,6 +202,15 @@ font-size: 1rem;
 .num__answerd, .score{
   color: var(--gold-300);
   font-weight: 700;
+}
+
+.quiz__tittle{
+  font-size: 1rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  color: var(--green-900);
+  font-family: var(--font-body);
+  margin-bottom: 1rem;
 }
 
 
@@ -346,14 +356,9 @@ box-shadow: var(--shadow-lg);
   }
 
   .yesOrNo input:last-child{
-<<<<<<< HEAD
-      background: var(--gold-400);
-      color: var(--gold-300);
-=======
       background: var(--green-300);
       color: var(--green-900);
       
->>>>>>> 6cbba23b5c1e5330dddfc1c31114c0fa88dd4289
     } 
 }
 
