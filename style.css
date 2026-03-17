@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Alyamama:wght@300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
 
 
 :root {
@@ -34,7 +35,7 @@
   --shadow-md: 0 4px 16px rgba(0,0,0,.15);
   --shadow-lg: 0 12px 40px rgba(0,0,0,.20);
 
-  --font-body: 'Inter', system-ui, sans-serif;
+  --font-body: 'Google Sans', sans-serif;
   --font-arabic: 'Alyamama', serif;
 
   --transition: .2s ease;
@@ -50,7 +51,7 @@
 }
 
 body{
-
+font-family: var(--font-body);
   background: var(--bg-gradient);
   height: 100vh;
 display: flex;
@@ -462,4 +463,28 @@ padding: 3rem 0;
 
 .percent__info h4{
   color: var(--gold-400);
+}
+
+
+
+.repeat__quiz{
+  padding: 3rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  
+  
+  
+.btn{
+    border-radius: var(--radius-sm);
+    width: 100%;
+  }
+  
+  
+  .btn:last-child{
+    background: var(--white);
+    color: var(--green-900);
+    border: 1px solid var(--green-50);
+  }
 }
