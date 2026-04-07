@@ -3,15 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title></title>
+    <title>Quran Quiz App</title>
     <link rel="stylesheet" href="style.css" />
-
+    <link rel="shortcut icon" href="/book-open.svg" type="image/x-icon">
     <link
       rel="stylesheet"
       href="https://unicons.iconscout.com/release/v4.2.0/css/line.css"
     />
-
-    <script defer src="script.js">
+    <script defer src="test.js">
       script.js
     </script>
   </head>
@@ -22,15 +21,15 @@
       <div class="start__page__container">
  <p class="error__text"></p>
         <div class="start__tittle">
-          <span class="start__pg__icon"><i class="uil uil-book-open"></i></span>
+        <span class="start__pg__icon"><i class="uil uil-book-open"></i></span>
           <h1>Quran Quiz</h1>
-          <p>Test your knowledge of the Quran</p>
+          <p>Test your Quran Hifdh</p>
         </div>
 
         <form
           class="selectForm"
           action="Pick-Surah"
-          method="get"
+         
           accept-charset="utf-8"
         >
           <select name="Surahs" id="surahs__options">
@@ -43,6 +42,17 @@
             <option value="15">15 Questions</option>
             <option value="20">20 Questions</option>
           </select>
+          <div class="quiz__duration">
+            <span  class="time__btn decr__dura">
+              <i class="uil uil-minus"></i>
+            </span>
+
+<p><span class="dur_min">10</span> min</p>
+            
+            <span class="time__btn incr__dura">
+              <i class="uil uil-plus"></i>
+            </span>
+          </div>
           <button class="btn start__quiz" type="submit">Start Quiz</button>
         </form>
       </div>
@@ -60,16 +70,16 @@
 
           </p>
           <div class="progress__container">
-            <div class="progress__bar" style="width: 50%;"></div>
+            <div class="progress__bar" style="width: 0%;"></div>
           </div>
 </div>
 
-<p class="timer"><span class="min">29</span>:<span class="sec">03</span> </p>
+<p class="timer"><span class="min__label">00</span>:<span class="sec__label">00</span> </p>
           <!-- <p>Score: <span class="score">0</span></p> -->
         </div>
 
         <div class="quiz__body">
-             <span class="quiz__tittle">Surah</span>
+             <span class="quiz__tittle"></span>
           <div class="ques__body">
             <h4>What is the next verse?</h4>
             <span class="ques__ayah"></span>
@@ -79,20 +89,22 @@
             
           </div>
 
-          <div class="navigator hidden">
+<!-- <div class="submit__enquiry hidden">
+              <p>Are you sure you want to submit?</p>
+
+              <div class="yesOrNo">
+                 <input class="" type="submit" value="No" />
+                  <input class="" type="submit" value="Yes" />
+              </div>
+            </div> -->
+
+
+          <div class="navigator ">
             
             <button type="" class="prev__ques__btn btn invisible"><i class="uil uil-arrow-left"></i>Previous</button>
             
-            <button type="" class="submit__btn btn invisible">Submit</button>
-            
-            <div class="submit__enquiry invisible">
-              <p>Are you sure you want to submit?</p>
-              <div class="yesOrNo">
-                 <input class="" type="submit" value="No" />
- <input class="" type="submit" value="Yes" />
-              </div>
-            </div>
-            
+            <button type="" class="submit__btn btn ">Submit</button>
+
             <button class="next__ques__btn btn" type="">Next <i class="uil uil-arrow-right"></i></button>
           </div>
           
@@ -109,13 +121,13 @@
         <div class="result__summary">
           
           <div class="trophy__div">
-            🏆
+            <i class="uil uil-trophy"></i>
           </div>
-          <h2>Excellent 🚀</h2>
+          <p class="grade__summary">Excellent</p>
           
           <div class="quiz__brief">
-            <p>Al-Fathia</p>
-            <p>10 questions</p>
+            <p class="quiz__brief__surah">Al-Fathia</p>
+            <p class="quiz__brief__questnum">10 questions</p>
           </div>
           
         </div>
@@ -126,17 +138,17 @@
                
 <div class="result__infos">
          <div class="result__info correct__info">
-              <h4>8</h4>
+              <h4 class="correct__count">8</h4>
               <span>CORRECT</span>
             </div>
             
         <div class="result__info wrong__info">
-                     <h4>8</h4>
+                     <h4 class="wrong__count">8</h4>
                      <span>WRONG</span>
             </div>
       
          <div class="result__info percent__info">
-   <h4>80%</h4>
+   <h4 class="percent__count">80%</h4>
    <span>SCORE</span>
  </div>
 
@@ -150,7 +162,7 @@
              <i class="uil uil-redo"></i> Restart Quiz
             </button>
               <button type="" class="btn new__quiz__btn">
-<i class="uil uil-arrow-right"></i> New Quiz
+New Quiz<i class="uil uil-arrow-right"></i> 
             </button>
           </div>
       </div>
