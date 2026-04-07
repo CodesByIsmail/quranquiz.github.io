@@ -256,6 +256,7 @@ function PrevQuestion() {
    render(CurNum - 1);
    nextBtn.classList.remove('hidden');
    displayNavBtn()
+       storeDataToLocalStorage();
 }
 
 function NextQuestion() {
@@ -267,6 +268,7 @@ function NextQuestion() {
     questionOptions.innerHTML = '';
    render(CurNum - 1);
     displayNavBtn();
+    storeDataToLocalStorage();
 }
 
 function storeDataToLocalStorage() {
@@ -421,6 +423,19 @@ const secLabel = document.querySelector('.sec__label')
 
     }, 1000);
 }
+
+
+const backupText = document.querySelector('.backup__text')
+
+setInterval(() => {
+    storeDataToLocalStorage();
+    backupText.textContent = 'Data Backup'
+    backupText.style.color = 'green';
+
+    setTimeout(() => {
+        backupText.classList.add('hidden');
+    }, 2000);
+}, 1000);
 
 
 localStorage.setItem('username', 'Alice');
