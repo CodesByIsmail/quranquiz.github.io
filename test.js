@@ -162,8 +162,7 @@ const quizPage = document.querySelector('.quiz__page');
 form.addEventListener('submit', (e) =>{
 
     e.preventDefault();
-    // counter(timeDur.textContent);
-    counter(1)
+    counter(timeDur.textContent);
     session.start = true;
         document.querySelector('.quiz__tittle').innerHTML = `Surah ${surahSelectOptions.value}`;
 
@@ -363,10 +362,16 @@ const newQuizBtn = document.querySelector('.new__quiz__btn');
 restartBtn.addEventListener('click', () => {
     quizPage.classList.remove('hidden');
     resultPage.classList.add('hidden');
+    questionOptions.innerHTML = '';
     CurNum = 1;
     updateProgress(CurNum);
+
   render(CurNum - 1);
   counter(timeDur.textContent);
+  session.userAnswers = [];
+  session.score = 0;
+  session.start = true;
+  session.end = false
   nextBtn.classList.remove('btn__disabled');
 })
 
@@ -416,3 +421,6 @@ const secLabel = document.querySelector('.sec__label')
 
     }, 1000);
 }
+
+
+localStorage.setItem('username', 'Alice');
