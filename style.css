@@ -169,6 +169,17 @@ display: flex;
 }
 
 
+.backup__text{
+  position: absolute;
+  z-index: 10;
+  top: 1rem;
+  font-size: .1rem;
+  background: var(--gold-300);
+  padding: .5rem;
+  border-radius: var(--radius-sm);
+  transition: 1s ease-in-out;
+}
+
 
 
 /* QUIZ PAGE */
@@ -484,8 +495,12 @@ color: var(--green-900);
     text-align: center;
     
     h4{
-      font-size: 1.5rem;
-      margin-bottom: .7rem;
+      font-size: 1rem;
+      margin-bottom: .5rem;
+    }
+    
+    span{
+      font-size: 1rem;
     }
   }
 }

@@ -273,10 +273,11 @@ function NextQuestion() {
 
 function storeDataToLocalStorage() {
     localStorage.setItem('curSession', JSON.stringify(session));
+    localStorage.setItem('appInfo', JSON.stringify(app));
 }
 
 function getDataFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('curSession'));
+    return JSON.parse(localStorage.getItem('appInfo'));
 }
 
 // document.querySelector('.option__div').addEventListener('click', (e) => {
@@ -378,7 +379,7 @@ restartBtn.addEventListener('click', () => {
 })
 
 newQuizBtn.addEventListener('click', () => {
-    localStorage.removeItem('curSession');
+    
     location.reload();
     addAllSurahToSelectOption(app.allSurahs)
 })
@@ -429,13 +430,11 @@ const backupText = document.querySelector('.backup__text')
 
 setInterval(() => {
     storeDataToLocalStorage();
-    backupText.textContent = 'Data Backup'
+    backupText.classList.remove('hidden');
+    backupText.textContent = 'Backup Sync'
     backupText.style.color = 'green';
 
     setTimeout(() => {
         backupText.classList.add('hidden');
     }, 2000);
-}, 1000);
-
-
-localStorage.setItem('username', 'Alice');
+}, 10000);
