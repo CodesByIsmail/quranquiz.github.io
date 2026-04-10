@@ -224,17 +224,20 @@ quizNavigator.addEventListener('click', (e) => {
         PrevQuestion();
     }
 
-    if (e.target.classList.contains('submit__btn')) {
-        if(!answerDivPickedByUser){
-            session.userAnswers[CurNum - 1] = null;
-        };
-        submitQuiz();
-    }
+    
 });
 
 const prevBtn = document.querySelector('.prev__ques__btn');
 const nextBtn = document.querySelector('.next__ques__btn');
 const submitBtn = document.querySelector('.submit__btn');
+
+submitBtn.addEventListener('click', ()=>{
+    if (!answerDivPickedByUser) {
+        session.userAnswers[CurNum - 1] = null;
+    };
+    submitQuiz();
+}) 
+
 
 function displayNavBtn() {
     if (CurNum > 1 && CurNum < +session.questions.length) {
@@ -291,6 +294,9 @@ answerDivPickedByUser = '';
    render(CurNum - 1);
     displayNavBtn();
     storeDataToLocalStorage();
+    
+    
+    
 }
 
 function storeDataToLocalStorage() {
@@ -466,23 +472,18 @@ setInterval(() => {
 
 
 
-const questionReview = document.querySelectorAll('.question__review')
+
 const questionReviewContainer = document.querySelector('.question__review__container');
 
 
-questionReview.forEach(wrapper => {
-    wrapper.addEventListener('click', ()=>{
-        reviewWrappers = wrapper.querySelector('.review__wrapper')
-        reviewWrappers.classList.toggle('hidden')
-    })
-})
+
 
 function addQuestionReview(questions) {
     questions.forEach((ques, i) => {
        let quesStatus;
-       if(session.userAnswers[i] === null) quesStatus = 'skipped';
+       if(!session.userAnswers[i]) quesStatus = 'skipped';
        if (ques === session.userAnswers[i]) quesStatus ='correct' ;
-     if (session.userAnswers[i] !== null && ques !== session.userAnswers[i]) quesStatus ='wrong' ;
+     if (session.userAnswers[i] && ques !== session.userAnswers[i]) quesStatus ='wrong' ;
 
        const html = `
         <div class="question__review ${quesStatus}__answer">
@@ -491,17 +492,32 @@ function addQuestionReview(questions) {
                 <i class="uil uil-angle-down"></i>
               </div>
               
-              <div class="review__wrapper">
-                <p>Question: <span class="question">${session.questions[i]}</span> </p>
+              <div class="review__wrapper hidden">
+                <p>Q: <span class="question">${session.questions[i]}</span> </p>
                 
-                 <div class="review__wrapper">
-                <p>Your Answer: <span class="question">${session.userAnswers[i] === null ? 'No answer picked' : session.userAnswers[i]}</span> </p>
+                <p>A: <span class="answer">${session.correctAnswers[i]}</span></p> 
+
                 
-                <p>Correct Answer: <span class="answer">${session.correctAnswers[i]}</span></p>
-                </div>
+                
+                <p>Your Answer: <span class="question">${!session.userAnswers[i] ? 'No answer picked' : session.userAnswers[i]}</span> </p>
+            </div>
+
             </div>`
+            
+            
+
+
             
             questionReviewContainer.insertAdjacentHTML("beforeend", html)
        
     })
+    
+    
+    const questionReview = document.querySelectorAll('.question__review')
+    questionReview.forEach(wrapper => {
+        console.log(wrapper)
+    wrapper.addEventListener('click', () => {
+        wrapper.querySelector('.review__wrapper').classList.toggle('hidden')
+    })
+})
 }
