@@ -55,7 +55,7 @@ async function getQuranFromAPI(surahIndex) {
     } catch (e) {
          errorText.classList.remove('hidden');
                 errorText.innerHTML =
-                    'Connect to Internet <i class="uim uim-wifi"></i>';
+                    'Connect to Internet <i class="uil uil-wifi"></i>';
     }
 }
 
@@ -426,15 +426,6 @@ const secLabel = document.querySelector('.sec__label')
 }
 
 
-const backupText = document.querySelector('.backup__text')
-
 setInterval(() => {
     storeDataToLocalStorage();
-    backupText.classList.remove('hidden');
-    backupText.textContent = 'Backup Sync'
-    backupText.style.color = 'green';
-
-    setTimeout(() => {
-        backupText.classList.add('hidden');
-    }, 2000);
 }, 10000);
