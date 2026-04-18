@@ -16,26 +16,34 @@ const session = {
     quesGottenCorrectly: []
 };
 
-
+console.log('alkdfjadfaslj')
 let answerPickedByUser;
 let answerDivPickedByUser;
 
+const errorText = document.querySelector('.error__text');
+
+
 async function allTheSurahs() {
-    let data = await fetch(
-        'https://api.qurani.ai/gw/qh/v1/surah?limit=2000&offset=0',
-    );
-    let res = await data.json();
-    console.log(res);
-    app.allSurahs = res.data.map(surah => `${surah.englishName}  (${surah.name})`);
-    addAllSurahToSelectOption(app.allSurahs)
+    try {
+        
+        let data = await fetch(
+            'https://api.qurani.ai/gw/qh/v1/surah?limit=2000&offset=0',
+        );
+        let res = await data.json();
+        console.log(res);
+        app.allSurahs = res.data.map(surah => `${surah.englishName}  (${surah.name})`);
+        addAllSurahToSelectOption(app.allSurahs)
+    } catch (e) {
+         errorText.classList.remove('hidden');
+        errorText.innerHTML = 'Connect to Internet <i class="uil uil-wifi"></i>';
+    }
 
 }
 
 allTheSurahs();
 
 let CurNum = 1;
-let numOfQuestions;
-const errorText = document.querySelector('.error__text');
+let numOfQuestionsSelected;
 
 
 async function getQuranFromAPI(surahIndex) {
@@ -53,13 +61,12 @@ async function getQuranFromAPI(surahIndex) {
 
         });
 
-  setRandomQuestions(numOfQuestions);
+  setRandomQuestions(numOfQuestionsSelected);
       
         render(CurNum - 1);
     } catch (e) {
          errorText.classList.remove('hidden');
-                errorText.innerHTML =
-                    'Connect to Internet <i class="uil uil-wifi"></i>';
+        errorText.innerHTML = 'Connect to Internet <i class="uil uil-wifi"></i>';
     }
 }
 
@@ -88,6 +95,8 @@ function setRandomQuestions(numOfQues) {
         getCorrectAnswer(ques);
         setOptions(i)
     })
+
+    session.totalQuestionsNum = session.questions.length;
 } //what this function does is that: it get random questions and stores it inside the session.questions array
 
 
@@ -166,31 +175,41 @@ const quizPage = document.querySelector('.quiz__page');
 form.addEventListener('submit', (e) =>{
 
     e.preventDefault();
+
+    document.querySelector('.quiz__tittle').innerHTML = `Surah ${surahSelectOptions.value}`;
+    numOfQuestionsSelected = +numOfQuestionSelectOptions.value
     
-   counter(timeDur.textContent);
-
-
-    session.start = true;
-        document.querySelector('.quiz__tittle').innerHTML = `Surah ${surahSelectOptions.value}`;
-
-        totalQuestionNum.textContent = numOfQuestionSelectOptions.value;
-
-    app.curSurah = surahSelectOptions.value;
-    numOfQuestions = +numOfQuestionSelectOptions.value
     let indexOfSurah = app.allSurahs.indexOf(app.curSurah) + 1;
-        getQuranFromAPI(indexOfSurah);
 
 
-    if(app.curSurah){
-        startPage.classList.add('hidden');
-    quizPage.classList.remove('hidden');
-    }
-
+   getAyahsFromQuranApi(indexOfSurah)
+   start()
+console.log('start')
     storeDataToLocalStorage()
 // emptyAppState(app)
     // getQuranFromAPI(indexOfSurah);
     
 })
+
+function getAyahsFromQuranApi(indexOfSurah){
+    app.curSurah = surahSelectOptions.value;
+    getQuranFromAPI(indexOfSurah);
+    console.log('quran fetched')
+
+}
+
+
+function start(){
+    session.start = true;
+    if(session.questions.length > 1){
+        counter(timeDur.textContent);
+            startPage.classList.add('hidden');
+        quizPage.classList.remove('hidden');
+        }
+
+    console.log('quiz started')
+
+}
 
 const numOfQuesAnswered = document.querySelector('.num__answerd');
 const totalQuestionNum = document.querySelector('.total__ques');
@@ -198,7 +217,7 @@ const progressBar = document.querySelector('.progress__bar');
 
 function updateProgress(curQuesNum = 1) {
     numOfQuesAnswered.textContent = curQuesNum;
-    const totalQues = +totalQuestionNum.textContent;
+    const totalQues = +session.totalQuestionsNum;
     let progressPercentage = (curQuesNum / totalQues) * 100;
     progressBar.style.width = `${progressPercentage}%`;
 }
