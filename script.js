@@ -16,6 +16,10 @@ const session = {
     quesGottenCorrectly: []
 };
 
+
+let answerPickedByUser;
+let answerDivPickedByUser;
+
 async function allTheSurahs() {
     let data = await fetch(
         'https://api.qurani.ai/gw/qh/v1/surah?limit=2000&offset=0',
@@ -162,7 +166,10 @@ const quizPage = document.querySelector('.quiz__page');
 form.addEventListener('submit', (e) =>{
 
     e.preventDefault();
-    counter(timeDur.textContent);
+    
+   counter(timeDur.textContent);
+
+
     session.start = true;
         document.querySelector('.quiz__tittle').innerHTML = `Surah ${surahSelectOptions.value}`;
 
@@ -203,7 +210,11 @@ quizNavigator.addEventListener('click', (e) => {
         e.target.classList.contains('next__ques__btn') ||
         e.target.classList.contains('uil-arrow-right')
     ) {
+        if(!answerDivPickedByUser){
+            session.userAnswers[CurNum - 1] = null;
+        }
         NextQuestion();
+        
     }
 
     if (
@@ -213,14 +224,20 @@ quizNavigator.addEventListener('click', (e) => {
         PrevQuestion();
     }
 
-    if (e.target.classList.contains('submit__btn')) {
-        submitQuiz();
-    }
+    
 });
 
 const prevBtn = document.querySelector('.prev__ques__btn');
 const nextBtn = document.querySelector('.next__ques__btn');
 const submitBtn = document.querySelector('.submit__btn');
+
+submitBtn.addEventListener('click', ()=>{
+    if (!answerDivPickedByUser) {
+        session.userAnswers[CurNum - 1] = null;
+    };
+    submitQuiz();
+}) 
+
 
 function displayNavBtn() {
     if (CurNum > 1 && CurNum < +session.questions.length) {
@@ -236,12 +253,15 @@ const gradeSummary = document.querySelector('.grade__summary')
 
 
 function submitQuiz() {
+    updateScore()
     session.end = true;
     storeDataToLocalStorage();
     quizPage.classList.add('hidden');
     resultPage.classList.remove('hidden');
     calcResult();
     updateResultPageBrief();
+    addQuestionReview(session.correctAnswers)
+    
 }
 
 
@@ -259,9 +279,14 @@ function PrevQuestion() {
        storeDataToLocalStorage();
 }
 
+
+
 function NextQuestion() {
     if (CurNum === +session.questions.length) return;
     if (CurNum === +session.questions.length - 1) nextBtn.classList.add('btn__disabled');
+    answerPickedByUser = '';
+answerDivPickedByUser = '';
+    updateScore();
     CurNum++;
     prevBtn.classList.remove('btn__disabled');
     updateProgress(CurNum);
@@ -269,6 +294,9 @@ function NextQuestion() {
    render(CurNum - 1);
     displayNavBtn();
     storeDataToLocalStorage();
+    
+    
+    
 }
 
 function storeDataToLocalStorage() {
@@ -280,9 +308,7 @@ function getDataFromLocalStorage() {
     return JSON.parse(localStorage.getItem('appInfo'));
 }
 
-// document.querySelector('.option__div').addEventListener('click', (e) => {
-//     getUserAnswer(e);
-// });
+
 
 function addCorrectIndicator(answerPickedByUser) {
     // parmater required is the div of the answeypicked by user
@@ -297,26 +323,29 @@ function addCorrectIndicator(answerPickedByUser) {
 }
 
 function getUserAnswer(e) {
-    let answerDivPickedByUser = e.target.closest('.option__div');
+     answerDivPickedByUser = e.target.closest('.option__div');
 
-    const answerPickedByUser = answerDivPickedByUser.querySelector('span');
+    answerPickedByUser = answerDivPickedByUser.querySelector('span').innerHTML;
     console.log(answerPickedByUser);
 
-        if(!answerDivPickedByUser){
-                session.userAnswers[CurNum - 1] = 'NIL';
-            session.score = session.score;
-            return
-        }
+        // if(!answerDivPickedByUser){
+        //         session.userAnswers[CurNum - 1] = 'NIL';
+        //     session.score = session.score;
+        //     return
+        // }
 
-    session.userAnswers[CurNum - 1] = answerPickedByUser.innerHTML;
+    session.userAnswers[CurNum - 1] = answerPickedByUser;
     addCorrectIndicator(answerDivPickedByUser);
+}
 
-    if(session.userAnswers[CurNum - 1] === session.correctAnswers[CurNum - 1]){
+function updateScore() {
+if(session.userAnswers[CurNum - 1] === session.correctAnswers[CurNum - 1]){
         session.score++
         session.quesGottenCorrectly.push(session.questions[CurNum - 1]);
         session.ansGottenCorrectly.push(session.correctAnswers[CurNum - 1])
     }
 }
+
 
 const correctCount = document.querySelector('.correct__count')
  const wrongCount = document.querySelector('.wrong__count');
@@ -366,6 +395,7 @@ restartBtn.addEventListener('click', () => {
     quizPage.classList.remove('hidden');
     resultPage.classList.add('hidden');
     questionOptions.innerHTML = '';
+    questionReviewContainer.innerHTML = '';
     CurNum = 1;
     updateProgress(CurNum);
 
@@ -409,7 +439,7 @@ const secLabel = document.querySelector('.sec__label')
 
     const timer = setInterval(() => {
         totalSeconds--
-        console.log(totalSeconds)
+        
         min = Math.floor(totalSeconds / 60);
         sec = (totalSeconds % 60);
 
@@ -429,3 +459,56 @@ const secLabel = document.querySelector('.sec__label')
 setInterval(() => {
     storeDataToLocalStorage();
 }, 10000);
+
+
+
+
+
+const questionReviewContainer = document.querySelector('.question__review__container');
+
+
+
+
+function addQuestionReview(questions) {
+    questions.forEach((ques, i) => {
+       let quesStatus;
+       if(!session.userAnswers[i]) quesStatus = 'skipped';
+       if (ques === session.userAnswers[i]) quesStatus ='correct' ;
+     if (session.userAnswers[i] && ques !== session.userAnswers[i]) quesStatus ='wrong' ;
+
+       const html = `
+        <div class="question__review ${quesStatus}__answer">
+              <div class="review__top">
+                <h3>Question ${i + 1}</h3>
+                <i class="uil uil-angle-down"></i>
+              </div>
+              
+              <div class="review__wrapper hidden">
+                <p>Q: <span class="question">${session.questions[i]}</span> </p>
+                
+                <p>A: <span class="answer">${session.correctAnswers[i]}</span></p> 
+
+                
+                
+                <p>Your Answer: <span class="question">${!session.userAnswers[i] ? 'No answer picked' : session.userAnswers[i]}</span> </p>
+            </div>
+
+            </div>`
+            
+            
+
+
+            
+            questionReviewContainer.insertAdjacentHTML("beforeend", html)
+       
+    })
+    
+    
+    const questionReview = document.querySelectorAll('.question__review')
+    questionReview.forEach(wrapper => {
+        console.log(wrapper)
+    wrapper.addEventListener('click', () => {
+        wrapper.querySelector('.review__wrapper').classList.toggle('hidden')
+    })
+})
+}
