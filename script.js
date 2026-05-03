@@ -82,28 +82,16 @@ function setRandomQuestions(numOfQues) {
   let questiions = [];
   // 1. GET all the number possible questions from the array of all ayahs
   const possibleQuestions = app.ayahs.slice(0, -1);
-  console.log(possibleQuestions, "possible questions lfjasdfadslfjasadsfj");
+  
   // 2. check if all the possible question matches the number of questions given
   const maxQuestions = possibleQuestions.length;
   const actualNumOfQues = Math.min(maxQuestions, numOfQues);
   // 3. Shuffle the array of ayahs
-  possibleQuestions.sort((a, b) => a - b);
+  possibleQuestions.sort((a, b) => a.localeCompare(b));
   // 4. slice from the ayah array, beginning from 0 and stopping at the number of possible questions
   questiions = possibleQuestions.slice(0, actualNumOfQues);
-  console.log(questiions, "questions sfgsdfgsdgdsf");
-  // for (let i = 0; i < numOfQues; i++) {
-  //   let newAyah = app.ayahs[rndNumber(app.ayahs.length)];
-  //   if (
-  //     questiions.includes(newAyah) ||
-  //     newAyah === app.ayahs[app.ayahs.length - 1]
-  //   )
-  //     newAyah = app.ayahs[rndNumber(app.ayahs.length)];
-  //   if (
-  //     !questiions.includes(newAyah) ||
-  //     newAyah !== app.ayahs[app.ayahs.length - 1]
-  //   )
-  //     questiions[i] = newAyah;
-  // }
+  
+
 
   session.questions = questiions;
 
@@ -125,9 +113,11 @@ const OPTION_LENGTH = 4;
 
 function setOptions(quesNum) {
   let options = [];
+   let rd = rndNumber(OPTION_LENGTH);
+  console.log(rd, '💢💢💢💢💢💢💢💢💢💢')
 
   for (let i = 0; i < 3; i++) {
-    let newOption = app.ayahs[rndNumber(OPTION_LENGTH)];
+    let newOption = app.ayahs[rd];
     if (session.questions[i] === newOption || options.includes(newOption))
       newOption = app.ayahs[rndNumber(OPTION_LENGTH)];
     if (session.questions[i] !== newOption || !options.includes(newOption))
