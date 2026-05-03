@@ -105,14 +105,16 @@ function getCorrectAnswer(curAyah) {
   session.correctAnswers.push(correctAnswer);
 }
 
+const OPTION_LENGTH = 4;
+
 function setOptions(quesNum) {
   let options = [];
 
   for (let i = 0; i < 3; i++) {
-    let newOption = app.ayahs[rndNumber(20)];
-    if (session[i] === newOption || options.includes(newOption))
-      newOption = app.ayahs[rndNumber(20)];
-    if (!session[i] === newOption || !options.includes(newOption))
+    let newOption = app.ayahs[rndNumber(OPTION_LENGTH)];
+    if (session.questions[i] === newOption || options.includes(newOption))
+      newOption = app.ayahs[rndNumber(OPTION_LENGTH)];
+    if (session.questions[i] !== newOption || !options.includes(newOption))
       options[i] = newOption;
   }
   options = [session.correctAnswers[quesNum], ...options];
@@ -125,6 +127,7 @@ function setOptions(quesNum) {
 const quesTion = document.querySelector(".ques__ayah");
 
 function renderQuestion(curQuesNum) {
+  if (!session.questions[curQuesNum]) return;
   let curQues = session.questions[curQuesNum];
   quesTion.innerHTML = curQues;
   console.log(curQues);
@@ -139,8 +142,10 @@ questionOptions.addEventListener("click", (e) => {
 });
 
 function renderOptions(curQuesNum, optionText = ["A", "B", "C", "D"]) {
+  if (!session.options[curQuesNum]) return;
   let curQuesOpts = session.options[curQuesNum];
   curQuesOpts.forEach((opt, i) => {
+    if (!opt) return;
     const optionDiv = document.createElement("div");
     optionDiv.className = "option__div";
     optionDiv.innerHTML = `
@@ -338,7 +343,6 @@ function getUserAnswer(e) {
   answerDivPickedByUser = e.target.closest(".option__div");
 
   answerPickedByUser = answerDivPickedByUser.querySelector("span").innerHTML;
-  console.log(answerPickedByUser);
 
   // if(!answerDivPickedByUser){
   //         session.userAnswers[CurNum - 1] = 'NIL';
@@ -353,8 +357,8 @@ function getUserAnswer(e) {
 function updateScore() {
   if (session.userAnswers[CurNum - 1] === session.correctAnswers[CurNum - 1]) {
     session.score++;
-    session.quesGottenCorrectly.push(session.questions[CurNum - 1]);
-    session.ansGottenCorrectly.push(session.correctAnswers[CurNum - 1]);
+    session.quesGottenCorrectly[CurNum - 1] = session.questions[CurNum - 1];
+    session.ansGottenCorrectly[CurNum - 1] = session.correctAnswers[CurNum - 1];
   }
 }
 

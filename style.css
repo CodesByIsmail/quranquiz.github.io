@@ -304,10 +304,15 @@ width: 20rem;
   font-size: 0.8rem;
 }
 
+
 .answer__picked__indicator {
   background: var(--green-300);
   transition: var(--transition);
   box-shadow: var(--shadow-md);
+}
+
+.answer__picked__indicator::after {
+  content: "✔️";
 }
 
 .options .wrong__answer::before {
