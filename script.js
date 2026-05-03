@@ -46,7 +46,7 @@ async function getQuranFromAPI(indexOfSurah) {
   try {
     console.log(indexOfSurah);
     let res = await fetch(
-      `https://api.qurani.ai/gw/qh/v1/surah/${indexOfSurah + 1}/quran-uthmani?limit=2000&offset=0`,
+      `https://api.qurani.ai/gw/qh/v1/surah/${indexOfSurah}/quran-uthmani?limit=2000&offset=0`,
     );
 
     let chapter = await res.json();
@@ -57,8 +57,7 @@ async function getQuranFromAPI(indexOfSurah) {
     });
 
     setRandomQuestions(numOfQuestionsSelected);
-
-    render(CurNum - 1);
+    startQuiz();
   } catch (e) {
     console.log(e.message, "while fetching all ayah");
 
@@ -133,23 +132,21 @@ function renderQuestion(curQuesNum) {
 
 const questionOptions = document.querySelector(".options");
 
+questionOptions.addEventListener("click", (e) => {
+  if (e.target.classList.contains("option__div") || e.target.matches("span")) {
+    getUserAnswer(e);
+  }
+});
+
 function renderOptions(curQuesNum, optionText = ["A", "B", "C", "D"]) {
   let curQuesOpts = session.options[curQuesNum];
-  console.log(curQuesOpts);
   curQuesOpts.forEach((opt, i) => {
     const optionDiv = document.createElement("div");
-    optionDiv.addEventListener("click", (e) => {
-      getUserAnswer(e);
-    });
     optionDiv.className = "option__div";
     optionDiv.innerHTML = `
    <span>${curQuesOpts[i]}</span>`;
-    // const html =`<span>${opt}</span>`
     questionOptions.append(optionDiv);
-    console.log(opt);
   });
-
-  console.log(curQuesOpts);
 }
 
 function render(curQuesNum) {
@@ -185,12 +182,13 @@ form.addEventListener("submit", (e) => {
   let indexOfSurah = app.allSurahs.findIndex((s) => s === app.curSurah) + 1;
   console.log(indexOfSurah, "after submitting");
   getQuranFromAPI(indexOfSurah);
-  startQuiz();
   console.log("start");
   storeDataToLocalStorage();
 });
 
 function startQuiz() {
+  render(CurNum - 1);
+
   session.start = true;
 
   counter(timeDur.textContent);
@@ -218,7 +216,7 @@ quizNavigator.addEventListener("click", (e) => {
     e.target.classList.contains("next__ques__btn") ||
     e.target.classList.contains("uil-arrow-right")
   ) {
-    if (!answerDivPickedByUser) {
+    if (!answerDivPickedByUser && session.userAnswers[CurNum - 1] === null) {
       session.userAnswers[CurNum - 1] = null;
     }
     NextQuestion();
@@ -227,9 +225,8 @@ quizNavigator.addEventListener("click", (e) => {
   if (
     e.target.classList.contains("prev__ques__btn") ||
     e.target.classList.contains("uil-arrow-left")
-  ) {
+  )
     PrevQuestion();
-  }
 });
 
 const prevBtn = document.querySelector(".prev__ques__btn");
@@ -237,7 +234,7 @@ const nextBtn = document.querySelector(".next__ques__btn");
 const submitBtn = document.querySelector(".submit__btn");
 
 submitBtn.addEventListener("click", () => {
-  if (!answerDivPickedByUser) {
+  if (!answerDivPickedByUser && session.userAnswers[CurNum - 1] === null) {
     session.userAnswers[CurNum - 1] = null;
   }
   submitQuiz();
@@ -265,6 +262,15 @@ function submitQuiz() {
 }
 
 function PrevQuestion() {
+  // const alreadyPickedAnswer = session.userAnswers[CurNum - 1];
+  // if (!alreadyPickedAnswer) return;
+  // console.log("Answer already picked is", alreadyPickedAnswer);
+  // questionOptions.childNodes.forEach((opt) => {
+  //   if (opt.querySelector("span").innerHTML === alreadyPickedAnswer) {
+  //     addCorrectIndicator(opt);
+  //   }
+  // });
+
   if (CurNum === 1) return;
   if (CurNum === 2) prevBtn.classList.add("btn__disabled");
   nextBtn.classList.remove("btn__disabled");
@@ -273,12 +279,14 @@ function PrevQuestion() {
 
   updateProgress(CurNum);
   render(CurNum - 1);
-  nextBtn.classList.remove("hidden");
   displayNavBtn();
   storeDataToLocalStorage();
 }
 
 function NextQuestion() {
+  const alreadyPickedAnswer = session.userAnswers[CurNum - 1];
+
+  // if (!alreadyPickedAnswer) {
   if (CurNum === +session.questions.length) return;
   if (CurNum === +session.questions.length - 1)
     nextBtn.classList.add("btn__disabled");
@@ -292,6 +300,17 @@ function NextQuestion() {
   render(CurNum - 1);
   displayNavBtn();
   storeDataToLocalStorage();
+  // }
+
+  // if (alreadyPickedAnswer) {
+  // console.log("Answer already picked is", alreadyPickedAnswer);
+  // console.log("Answer already picked is", alreadyPickedAnswer);
+  // questionOptions.childNodes.forEach((opt) => {
+  //   if (opt.querySelector("span").innerHTML === alreadyPickedAnswer) {
+  //     addCorrectIndicator(opt);
+  //   }
+  // });
+  // }
 }
 
 function storeDataToLocalStorage() {
