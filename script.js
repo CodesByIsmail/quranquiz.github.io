@@ -1,43 +1,40 @@
 const app = {
-    allSurahs: [],
-    curSurah: '',
-    ayahs: [],
+  allSurahs: [],
+  curSurah: "",
+  ayahs: [],
 };
 
 const session = {
-    score: 0,
-    start: false,
-    end: false,
-    questions: [],
-    options: [],
-    correctAnswers: [],
-    userAnswers: [],
-    ansGottenCorrectly: [],
-    quesGottenCorrectly: []
+  score: 0,
+  start: false,
+  end: false,
+  questions: [],
+  options: [],
+  correctAnswers: [],
+  userAnswers: [],
+  ansGottenCorrectly: [],
+  quesGottenCorrectly: [],
 };
 
-console.log('alkdfjadfaslj')
 let answerPickedByUser;
 let answerDivPickedByUser;
 
-const errorText = document.querySelector('.error__text');
-
+const errorText = document.querySelector(".error__text");
 
 async function allTheSurahs() {
-    try {
-        
-        let data = await fetch(
-            'https://api.qurani.ai/gw/qh/v1/surah?limit=2000&offset=0',
-        );
-        let res = await data.json();
-        console.log(res);
-        app.allSurahs = res.data.map(surah => `${surah.englishName}  (${surah.name})`);
-        addAllSurahToSelectOption(app.allSurahs)
-    } catch (e) {
-         errorText.classList.remove('hidden');
-        errorText.innerHTML = 'Connect to Internet <i class="uil uil-wifi"></i>';
-    }
-
+  try {
+    let data = await fetch(
+      "https://api.qurani.ai/gw/qh/v1/surah?limit=2000&offset=0",
+    );
+    let res = await data.json();
+    console.log(res);
+    app.allSurahs = res.data.map((surah) => `${surah.englishName}`);
+    addAllSurahToSelectOption(app.allSurahs);
+  } catch (e) {
+    console.log(e.message, "while fetching all surahs");
+    errorText.classList.remove("hidden");
+    errorText.innerHTML = 'Connect to Internet <i class="uil uil-wifi"></i>';
+  }
 }
 
 allTheSurahs();
@@ -45,457 +42,425 @@ allTheSurahs();
 let CurNum = 1;
 let numOfQuestionsSelected;
 
+async function getQuranFromAPI(indexOfSurah) {
+  try {
+    console.log(indexOfSurah);
+    let res = await fetch(
+      `https://api.qurani.ai/gw/qh/v1/surah/${indexOfSurah + 1}/quran-uthmani?limit=2000&offset=0`,
+    );
 
-async function getQuranFromAPI(surahIndex) {
-    try {
-        let res = await fetch(
-            `https://api.qurani.ai/gw/qh/v1/surah/${surahIndex}/quran-uthmani?limit=2000&offset=0`,
-        );
+    let chapter = await res.json();
+    // app.curSurah = chapter.data.englishName;
+    console.log(chapter, app.curSurah);
+    chapter.data.ayahs.forEach((ayah) => {
+      app.ayahs.push(ayah.text);
+    });
 
-        let chapter = await res.json();
-        console.log(chapter);
-        app.curSurah = chapter.data.englishName ;
-        chapter.data.ayahs.forEach((ayah) => {
-            
-            app.ayahs.push(ayah.text);
+    setRandomQuestions(numOfQuestionsSelected);
 
-        });
+    render(CurNum - 1);
+  } catch (e) {
+    console.log(e.message, "while fetching all ayah");
 
-  setRandomQuestions(numOfQuestionsSelected);
-      
-        render(CurNum - 1);
-    } catch (e) {
-         errorText.classList.remove('hidden');
-        errorText.innerHTML = 'Connect to Internet <i class="uil uil-wifi"></i>';
-    }
+    errorText.classList.remove("hidden");
+    errorText.innerHTML = 'Connect to Internet <i class="uil uil-wifi"></i>';
+  }
 }
+
+// getQuranFromAPI();
 
 function rndNumber(max, min = 1) {
-    return Math.round(Math.random() * (max - min) + min);
+  return Math.round(Math.random() * (max - min) + min);
 }
-
-
 
 function setRandomQuestions(numOfQues) {
-    const questiions = [];
+  const questiions = [];
 
-    for (let i = 0; i < numOfQues; i++) {
-        let newAyah = app.ayahs[rndNumber(app.ayahs.length)];
-        if (questiions.includes(newAyah) || newAyah === app.ayahs[app.ayahs.length - 1]) newAyah = app.ayahs[rndNumber(app.ayahs.length)];
-        if (
-            !questiions.includes(newAyah) ||
-            newAyah !== app.ayahs[app.ayahs.length - 1]
-        )
-            questiions[i] = newAyah;
-    }
-   
-    session.questions = questiions;
+  for (let i = 0; i < numOfQues; i++) {
+    let newAyah = app.ayahs[rndNumber(app.ayahs.length)];
+    if (
+      questiions.includes(newAyah) ||
+      newAyah === app.ayahs[app.ayahs.length - 1]
+    )
+      newAyah = app.ayahs[rndNumber(app.ayahs.length)];
+    if (
+      !questiions.includes(newAyah) ||
+      newAyah !== app.ayahs[app.ayahs.length - 1]
+    )
+      questiions[i] = newAyah;
+  }
 
-    session.questions.forEach((ques, i) => {
-        getCorrectAnswer(ques);
-        setOptions(i)
-    })
+  session.questions = questiions;
 
-    session.totalQuestionsNum = session.questions.length;
+  session.questions.forEach((ques, i) => {
+    getCorrectAnswer(ques);
+    setOptions(i);
+  });
+
+  session.totalQuestionsNum = session.questions.length;
 } //what this function does is that: it get random questions and stores it inside the session.questions array
 
-
 function getCorrectAnswer(curAyah) {
-    const indexOfAnswer = app.ayahs.indexOf(curAyah) + 1;
-    let correctAnswer = app.ayahs[indexOfAnswer];
-    session.correctAnswers.push(correctAnswer);
-};
-
-function setOptions(quesNum){
-    let options = [];
-
-    for (let i = 0; i < 3; i++) {
-        let newOption = app.ayahs[rndNumber(20)];
-        if (session[i] === newOption || options.includes(newOption)) newOption = app.ayahs[rndNumber(20)];
-        if (!session[i] === newOption || !options.includes(newOption)) options[i] = newOption;
-    }
-    options = [session.correctAnswers[quesNum], ...options]
-    options.sort()
-    
-    // session.options[quesNum].push(options)
-    session.options[quesNum] = options
+  const indexOfAnswer = app.ayahs.indexOf(curAyah) + 1;
+  let correctAnswer = app.ayahs[indexOfAnswer];
+  session.correctAnswers.push(correctAnswer);
 }
 
-const quesTion = document.querySelector('.ques__ayah');
+function setOptions(quesNum) {
+  let options = [];
 
-function renderQuestion(curQuesNum){
-   let curQues = session.questions[curQuesNum]
-   quesTion.innerHTML = curQues;
-   console.log(curQues)
+  for (let i = 0; i < 3; i++) {
+    let newOption = app.ayahs[rndNumber(20)];
+    if (session[i] === newOption || options.includes(newOption))
+      newOption = app.ayahs[rndNumber(20)];
+    if (!session[i] === newOption || !options.includes(newOption))
+      options[i] = newOption;
+  }
+  options = [session.correctAnswers[quesNum], ...options];
+  options.sort();
+
+  // session.options[quesNum].push(options)
+  session.options[quesNum] = options;
 }
 
-const questionOptions = document.querySelector('.options');
+const quesTion = document.querySelector(".ques__ayah");
 
-function renderOptions(curQuesNum, optionText = ['A', 'B', 'C', 'D']){
-    let curQuesOpts = session.options[curQuesNum]
-console.log(curQuesOpts)
-    curQuesOpts.forEach((opt, i) => {
-        const optionDiv = document.createElement('div');
-        optionDiv.addEventListener('click', (e) => {
-            getUserAnswer(e);
-        });
-        optionDiv.className = 'option__div';
-        optionDiv.innerHTML = `
-   <span>${curQuesOpts[i]}</span>`;
-        // const html =`<span>${opt}</span>`
-        questionOptions.append(optionDiv);
-        console.log(opt);
+function renderQuestion(curQuesNum) {
+  let curQues = session.questions[curQuesNum];
+  quesTion.innerHTML = curQues;
+  console.log(curQues);
+}
+
+const questionOptions = document.querySelector(".options");
+
+function renderOptions(curQuesNum, optionText = ["A", "B", "C", "D"]) {
+  let curQuesOpts = session.options[curQuesNum];
+  console.log(curQuesOpts);
+  curQuesOpts.forEach((opt, i) => {
+    const optionDiv = document.createElement("div");
+    optionDiv.addEventListener("click", (e) => {
+      getUserAnswer(e);
     });
+    optionDiv.className = "option__div";
+    optionDiv.innerHTML = `
+   <span>${curQuesOpts[i]}</span>`;
+    // const html =`<span>${opt}</span>`
+    questionOptions.append(optionDiv);
+    console.log(opt);
+  });
 
-    console.log(curQuesOpts)
+  console.log(curQuesOpts);
 }
 
-function render(curQuesNum){
-    renderQuestion(curQuesNum)
-    renderOptions(curQuesNum)
+function render(curQuesNum) {
+  renderQuestion(curQuesNum);
+  renderOptions(curQuesNum);
 }
 
-const selectForm = document.querySelector('.selectForm');
-const surahSelectOptions = document.querySelector('#surahs__options');
-const numOfQuestionSelectOptions = document.querySelector('#NumberOfQuestions');
-
+const selectForm = document.querySelector(".selectForm");
+const surahSelectOptions = document.querySelector("#surahs__options");
+const numOfQuestionSelectOptions = document.querySelector("#NumberOfQuestions");
 
 function addAllSurahToSelectOption(allSurahs) {
-    allSurahs.forEach((surah) => {
-        const html = `<option value="${surah}">${surah}</option>`;
-        surahSelectOptions.insertAdjacentHTML('beforeend', html);
-    });
-
+  allSurahs.forEach((surah) => {
+    const html = `<option value="${surah}">${surah}</option>`;
+    surahSelectOptions.insertAdjacentHTML("beforeend", html);
+  });
 }
 
-const form = document.querySelector('form');
-const startPage = document.querySelector('.start__page');
-const quizPage = document.querySelector('.quiz__page');
+const form = document.querySelector("form");
+const startPage = document.querySelector(".start__page");
+const quizPage = document.querySelector(".quiz__page");
 
-form.addEventListener('submit', (e) =>{
+// QUIZ START
 
-    e.preventDefault();
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-    document.querySelector('.quiz__tittle').innerHTML = `Surah ${surahSelectOptions.value}`;
-    numOfQuestionsSelected = +numOfQuestionSelectOptions.value
-    
-    let indexOfSurah = app.allSurahs.indexOf(app.curSurah) + 1;
+  document.querySelector(".quiz__tittle").innerHTML =
+    `Surah ${surahSelectOptions.value}`;
+  numOfQuestionsSelected = +numOfQuestionSelectOptions.value;
+  app.curSurah = surahSelectOptions.value;
 
-
-   getAyahsFromQuranApi(indexOfSurah)
-   start()
-console.log('start')
-    storeDataToLocalStorage()
-// emptyAppState(app)
-    // getQuranFromAPI(indexOfSurah);
-    
-})
-
-function getAyahsFromQuranApi(indexOfSurah){
-    app.curSurah = surahSelectOptions.value;
-    getQuranFromAPI(indexOfSurah);
-    console.log('quran fetched')
-
-}
-
-
-function start(){
-    session.start = true;
-    if(session.questions.length > 1){
-        counter(timeDur.textContent);
-            startPage.classList.add('hidden');
-        quizPage.classList.remove('hidden');
-        }
-
-    console.log('quiz started')
-
-}
-
-const numOfQuesAnswered = document.querySelector('.num__answerd');
-const totalQuestionNum = document.querySelector('.total__ques');
-const progressBar = document.querySelector('.progress__bar');
-
-function updateProgress(curQuesNum = 1) {
-    numOfQuesAnswered.textContent = curQuesNum;
-    const totalQues = +session.totalQuestionsNum;
-    let progressPercentage = (curQuesNum / totalQues) * 100;
-    progressBar.style.width = `${progressPercentage}%`;
-}
-
-const quizNavigator = document.querySelector('.navigator');
-
-quizNavigator.addEventListener('click', (e) => {
-    if (
-        e.target.classList.contains('next__ques__btn') ||
-        e.target.classList.contains('uil-arrow-right')
-    ) {
-        if(!answerDivPickedByUser){
-            session.userAnswers[CurNum - 1] = null;
-        }
-        NextQuestion();
-        
-    }
-
-    if (
-        e.target.classList.contains('prev__ques__btn') ||
-        e.target.classList.contains('uil-arrow-left')
-    ) {
-        PrevQuestion();
-    }
-
-    
+  let indexOfSurah = app.allSurahs.findIndex((s) => s === app.curSurah) + 1;
+  console.log(indexOfSurah, "after submitting");
+  getQuranFromAPI(indexOfSurah);
+  startQuiz();
+  console.log("start");
+  storeDataToLocalStorage();
 });
 
-const prevBtn = document.querySelector('.prev__ques__btn');
-const nextBtn = document.querySelector('.next__ques__btn');
-const submitBtn = document.querySelector('.submit__btn');
+function startQuiz() {
+  session.start = true;
 
-submitBtn.addEventListener('click', ()=>{
+  counter(timeDur.textContent);
+  startPage.classList.add("hidden");
+  quizPage.classList.remove("hidden");
+
+  console.log("quiz started");
+}
+
+const numOfQuesAnswered = document.querySelector(".num__answerd");
+const totalQuestionNum = document.querySelector(".total__ques");
+const progressBar = document.querySelector(".progress__bar");
+
+function updateProgress(curQuesNum = 1) {
+  numOfQuesAnswered.textContent = curQuesNum;
+  const totalQues = +session.totalQuestionsNum;
+  let progressPercentage = (curQuesNum / totalQues) * 100;
+  progressBar.style.width = `${progressPercentage}%`;
+}
+
+const quizNavigator = document.querySelector(".navigator");
+
+quizNavigator.addEventListener("click", (e) => {
+  if (
+    e.target.classList.contains("next__ques__btn") ||
+    e.target.classList.contains("uil-arrow-right")
+  ) {
     if (!answerDivPickedByUser) {
-        session.userAnswers[CurNum - 1] = null;
-    };
-    submitQuiz();
-}) 
+      session.userAnswers[CurNum - 1] = null;
+    }
+    NextQuestion();
+  }
 
+  if (
+    e.target.classList.contains("prev__ques__btn") ||
+    e.target.classList.contains("uil-arrow-left")
+  ) {
+    PrevQuestion();
+  }
+});
+
+const prevBtn = document.querySelector(".prev__ques__btn");
+const nextBtn = document.querySelector(".next__ques__btn");
+const submitBtn = document.querySelector(".submit__btn");
+
+submitBtn.addEventListener("click", () => {
+  if (!answerDivPickedByUser) {
+    session.userAnswers[CurNum - 1] = null;
+  }
+  submitQuiz();
+});
 
 function displayNavBtn() {
-    if (CurNum > 1 && CurNum < +session.questions.length) {
-        prevBtn.classList.remove('invisible');
-            nextBtn.classList.remove('hidden');
-    }
+  if (CurNum > 1 && CurNum < +session.questions.length) {
+    prevBtn.classList.remove("invisible");
+    nextBtn.classList.remove("hidden");
+  }
 }
 
-const resultPage = document.querySelector('.result__page');
-const gradeSummary = document.querySelector('.grade__summary')
-
-
-
+const resultPage = document.querySelector(".result__page");
+const gradeSummary = document.querySelector(".grade__summary");
 
 function submitQuiz() {
-    updateScore()
-    session.end = true;
-    storeDataToLocalStorage();
-    quizPage.classList.add('hidden');
-    resultPage.classList.remove('hidden');
-    calcResult();
-    updateResultPageBrief();
-    addQuestionReview(session.correctAnswers)
-    
+  updateScore();
+  session.end = true;
+  storeDataToLocalStorage();
+  quizPage.classList.add("hidden");
+  resultPage.classList.remove("hidden");
+  calcResult();
+  updateResultPageBrief();
+  addQuestionReview(session.correctAnswers);
 }
-
 
 function PrevQuestion() {
-    if (CurNum === 1 ) return ;
-    if (CurNum === 2) prevBtn.classList.add('btn__disabled');
-    nextBtn.classList.remove('btn__disabled');
-    CurNum--;
-    questionOptions.innerHTML = '';
+  if (CurNum === 1) return;
+  if (CurNum === 2) prevBtn.classList.add("btn__disabled");
+  nextBtn.classList.remove("btn__disabled");
+  CurNum--;
+  questionOptions.innerHTML = "";
 
-    updateProgress(CurNum);
-   render(CurNum - 1);
-   nextBtn.classList.remove('hidden');
-   displayNavBtn()
-       storeDataToLocalStorage();
+  updateProgress(CurNum);
+  render(CurNum - 1);
+  nextBtn.classList.remove("hidden");
+  displayNavBtn();
+  storeDataToLocalStorage();
 }
 
-
-
 function NextQuestion() {
-    if (CurNum === +session.questions.length) return;
-    if (CurNum === +session.questions.length - 1) nextBtn.classList.add('btn__disabled');
-    answerPickedByUser = '';
-answerDivPickedByUser = '';
-    updateScore();
-    CurNum++;
-    prevBtn.classList.remove('btn__disabled');
-    updateProgress(CurNum);
-    questionOptions.innerHTML = '';
-   render(CurNum - 1);
-    displayNavBtn();
-    storeDataToLocalStorage();
-    
-    
-    
+  if (CurNum === +session.questions.length) return;
+  if (CurNum === +session.questions.length - 1)
+    nextBtn.classList.add("btn__disabled");
+  answerPickedByUser = "";
+  answerDivPickedByUser = "";
+  updateScore();
+  CurNum++;
+  prevBtn.classList.remove("btn__disabled");
+  updateProgress(CurNum);
+  questionOptions.innerHTML = "";
+  render(CurNum - 1);
+  displayNavBtn();
+  storeDataToLocalStorage();
 }
 
 function storeDataToLocalStorage() {
-    localStorage.setItem('curSession', JSON.stringify(session));
-    localStorage.setItem('appInfo', JSON.stringify(app));
+  localStorage.setItem("curSession", JSON.stringify(session));
+  localStorage.setItem("appInfo", JSON.stringify(app));
 }
 
 function getDataFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('appInfo'));
+  return JSON.parse(localStorage.getItem("appInfo"));
 }
 
-
-
 function addCorrectIndicator(answerPickedByUser) {
-    // parmater required is the div of the answeypicked by user
+  // parmater required is the div of the answeypicked by user
 
-    const allOptionDivs = document.querySelectorAll('.option__div');
+  const allOptionDivs = document.querySelectorAll(".option__div");
 
-    allOptionDivs.forEach((opt) => {
-        opt.classList.remove('answer__picked__indicator');
-    });
+  allOptionDivs.forEach((opt) => {
+    opt.classList.remove("answer__picked__indicator");
+  });
 
-    answerPickedByUser.classList.add('answer__picked__indicator');
+  answerPickedByUser.classList.add("answer__picked__indicator");
 }
 
 function getUserAnswer(e) {
-     answerDivPickedByUser = e.target.closest('.option__div');
+  answerDivPickedByUser = e.target.closest(".option__div");
 
-    answerPickedByUser = answerDivPickedByUser.querySelector('span').innerHTML;
-    console.log(answerPickedByUser);
+  answerPickedByUser = answerDivPickedByUser.querySelector("span").innerHTML;
+  console.log(answerPickedByUser);
 
-        // if(!answerDivPickedByUser){
-        //         session.userAnswers[CurNum - 1] = 'NIL';
-        //     session.score = session.score;
-        //     return
-        // }
+  // if(!answerDivPickedByUser){
+  //         session.userAnswers[CurNum - 1] = 'NIL';
+  //     session.score = session.score;
+  //     return
+  // }
 
-    session.userAnswers[CurNum - 1] = answerPickedByUser;
-    addCorrectIndicator(answerDivPickedByUser);
+  session.userAnswers[CurNum - 1] = answerPickedByUser;
+  addCorrectIndicator(answerDivPickedByUser);
 }
 
 function updateScore() {
-if(session.userAnswers[CurNum - 1] === session.correctAnswers[CurNum - 1]){
-        session.score++
-        session.quesGottenCorrectly.push(session.questions[CurNum - 1]);
-        session.ansGottenCorrectly.push(session.correctAnswers[CurNum - 1])
-    }
+  if (session.userAnswers[CurNum - 1] === session.correctAnswers[CurNum - 1]) {
+    session.score++;
+    session.quesGottenCorrectly.push(session.questions[CurNum - 1]);
+    session.ansGottenCorrectly.push(session.correctAnswers[CurNum - 1]);
+  }
 }
 
+const correctCount = document.querySelector(".correct__count");
+const wrongCount = document.querySelector(".wrong__count");
+const quizBriefSurah = document.querySelector(".quiz__brief__surah");
+const quizBriefQuesNum = document.querySelector(".quiz__brief__questnum");
 
-const correctCount = document.querySelector('.correct__count')
- const wrongCount = document.querySelector('.wrong__count');
- const quizBriefSurah = document.querySelector('.quiz__brief__surah');
- const quizBriefQuesNum = document.querySelector('.quiz__brief__questnum');
-
- function updateResultPageBrief(){
-    quizBriefSurah.textContent = `Surah ${app.curSurah}`;
-    quizBriefQuesNum.textContent = `${session.questions.length} questions`;
- }
+function updateResultPageBrief() {
+  quizBriefSurah.textContent = `Surah ${app.curSurah}`;
+  quizBriefQuesNum.textContent = `${session.questions.length} questions`;
+}
 
 function calcResult() {
-    correctCount.textContent = session.score;
-    wrongCount.textContent = session.questions.length - session.score;
+  correctCount.textContent = session.score;
+  wrongCount.textContent = session.questions.length - session.score;
 
-    const percentCount = document.querySelector('.percent__count');
-    let resultPercent = Math.round((session.score / session.questions.length) * 100) ;
-    percentCount.textContent = `${resultPercent}%`;
+  const percentCount = document.querySelector(".percent__count");
+  let resultPercent = Math.round(
+    (session.score / session.questions.length) * 100,
+  );
+  percentCount.textContent = `${resultPercent}%`;
 
+  switch (session.end) {
+    case resultPercent >= 70:
+      gradeSummary.textContent = "Excellent";
+      break;
+    case resultPercent <= 70 && resultPercent >= 50:
+      gradeSummary.textContent = "Fair";
+      break;
 
-    switch(session.end){
-        case resultPercent >= 70:
-            gradeSummary.textContent = 'Excellent';
-            break;
-        case resultPercent <= 70 && resultPercent >= 50:
-            gradeSummary.textContent = 'Fair';
-                    break;
+    case resultPercent >= 30 && resultPercent <= 50:
+      gradeSummary.textContent = "Poor";
+      break;
 
-        case resultPercent >= 30 && resultPercent <= 50:
-            gradeSummary.textContent = 'Poor';
-                    break;
+    case resultPercent >= 0 && resultPercent <= 30:
+      gradeSummary.textContent = "Very Poor";
+      break;
+  }
 
-        case resultPercent >= 0 && resultPercent <= 30:
-            gradeSummary.textContent = 'Very Poor';
-                    break;
-
-    }
-
-    console.log(session.quesGottenCorrectly)
+  console.log(session.quesGottenCorrectly);
 }
 
+const restartBtn = document.querySelector(".restart__btn");
+const newQuizBtn = document.querySelector(".new__quiz__btn");
 
-const restartBtn = document.querySelector('.restart__btn');
-const newQuizBtn = document.querySelector('.new__quiz__btn');
-
-restartBtn.addEventListener('click', () => {
-    quizPage.classList.remove('hidden');
-    resultPage.classList.add('hidden');
-    questionOptions.innerHTML = '';
-    questionReviewContainer.innerHTML = '';
-    CurNum = 1;
-    updateProgress(CurNum);
+restartBtn.addEventListener("click", () => {
+  quizPage.classList.remove("hidden");
+  resultPage.classList.add("hidden");
+  questionOptions.innerHTML = "";
+  questionReviewContainer.innerHTML = "";
+  CurNum = 1;
+  updateProgress(CurNum);
 
   render(CurNum - 1);
   counter(timeDur.textContent);
   session.userAnswers = [];
   session.score = 0;
   session.start = true;
-  session.end = false
-  nextBtn.classList.remove('btn__disabled');
-})
+  session.end = false;
+  nextBtn.classList.remove("btn__disabled");
+});
 
-newQuizBtn.addEventListener('click', () => {
-    
-    location.reload();
-    addAllSurahToSelectOption(app.allSurahs)
-})
+newQuizBtn.addEventListener("click", () => {
+  location.reload();
+  addAllSurahToSelectOption(app.allSurahs);
+});
 
-const timeDur = document.querySelector('.dur_min')
+const timeDur = document.querySelector(".dur_min");
 
-document.querySelector('.incr__dura').addEventListener('click', (e)=>{
-  if(+timeDur.textContent === 20) return
+document.querySelector(".incr__dura").addEventListener("click", (e) => {
+  if (+timeDur.textContent === 20) return;
   timeDur.textContent = +timeDur.textContent + 5;
-})
+});
 
-document.querySelector('.decr__dura').addEventListener('click', (e)=>{
-  if(+timeDur.textContent === 5) return
+document.querySelector(".decr__dura").addEventListener("click", (e) => {
+  if (+timeDur.textContent === 5) return;
   timeDur.textContent = +timeDur.textContent - 5;
-})
+});
 
-const minLabel = document.querySelector('.min__label')
-const secLabel = document.querySelector('.sec__label')
+const minLabel = document.querySelector(".min__label");
+const secLabel = document.querySelector(".sec__label");
 
-    function counter(quizMinute){
-    let totalQuizMunite = +quizMinute;
+function counter(quizMinute) {
+  let totalQuizMunite = +quizMinute;
 
-    let totalSeconds = totalQuizMunite * 60;
+  let totalSeconds = totalQuizMunite * 60;
 
-    let min;
-    let sec;
+  let min;
+  let sec;
 
-    const timer = setInterval(() => {
-        totalSeconds--
-        
-        min = Math.floor(totalSeconds / 60);
-        sec = (totalSeconds % 60);
+  const timer = setInterval(() => {
+    totalSeconds--;
 
-        minLabel.textContent = `${min}`.padStart(2, 0);
-        secLabel.textContent = `${sec}`.padStart(2, 0);
+    min = Math.floor(totalSeconds / 60);
+    sec = totalSeconds % 60;
 
-        if(totalSeconds === 0) {
-            clearInterval(timer)
-            submitQuiz()
-        };
-        if(session.end) clearInterval(timer)
+    minLabel.textContent = `${min}`.padStart(2, 0);
+    secLabel.textContent = `${sec}`.padStart(2, 0);
 
-    }, 1000);
+    if (totalSeconds === 0) {
+      clearInterval(timer);
+      submitQuiz();
+    }
+    if (session.end) clearInterval(timer);
+  }, 1000);
 }
 
-
 setInterval(() => {
-    storeDataToLocalStorage();
+  storeDataToLocalStorage();
 }, 10000);
 
-
-
-
-
-const questionReviewContainer = document.querySelector('.question__review__container');
-
-
-
+const questionReviewContainer = document.querySelector(
+  ".question__review__container",
+);
 
 function addQuestionReview(questions) {
-    questions.forEach((ques, i) => {
-       let quesStatus;
-       if(!session.userAnswers[i]) quesStatus = 'skipped';
-       if (ques === session.userAnswers[i]) quesStatus ='correct' ;
-     if (session.userAnswers[i] && ques !== session.userAnswers[i]) quesStatus ='wrong' ;
+  questions.forEach((ques, i) => {
+    let quesStatus;
+    if (!session.userAnswers[i]) quesStatus = "skipped";
+    if (ques === session.userAnswers[i]) quesStatus = "correct";
+    if (session.userAnswers[i] && ques !== session.userAnswers[i])
+      quesStatus = "wrong";
 
-       const html = `
+    const html = `
         <div class="question__review ${quesStatus}__answer">
               <div class="review__top">
                 <h3>Question ${i + 1}</h3>
@@ -509,25 +474,19 @@ function addQuestionReview(questions) {
 
                 
                 
-                <p>Your Answer: <span class="question">${!session.userAnswers[i] ? 'No answer picked' : session.userAnswers[i]}</span> </p>
+                <p>Your Answer: <span class="question">${!session.userAnswers[i] ? "No answer picked" : session.userAnswers[i]}</span> </p>
             </div>
 
-            </div>`
-            
-            
+            </div>`;
 
+    questionReviewContainer.insertAdjacentHTML("beforeend", html);
+  });
 
-            
-            questionReviewContainer.insertAdjacentHTML("beforeend", html)
-       
-    })
-    
-    
-    const questionReview = document.querySelectorAll('.question__review')
-    questionReview.forEach(wrapper => {
-        console.log(wrapper)
-    wrapper.addEventListener('click', () => {
-        wrapper.querySelector('.review__wrapper').classList.toggle('hidden')
-    })
-})
+  const questionReview = document.querySelectorAll(".question__review");
+  questionReview.forEach((wrapper) => {
+    console.log(wrapper);
+    wrapper.addEventListener("click", () => {
+      wrapper.querySelector(".review__wrapper").classList.toggle("hidden");
+    });
+  });
 }
