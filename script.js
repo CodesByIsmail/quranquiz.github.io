@@ -44,6 +44,7 @@ let numOfQuestionsSelected;
 
 async function getQuranFromAPI(indexOfSurah) {
   try {
+    renderSpimner(questionOptions)
     console.log(indexOfSurah);
     let res = await fetch(
       `https://api.qurani.ai/gw/qh/v1/surah/${indexOfSurah}/quran-uthmani?limit=2000&offset=0`,
@@ -67,6 +68,12 @@ async function getQuranFromAPI(indexOfSurah) {
 }
 
 // getQuranFromAPI();
+
+function renderSpimner(parentEl) {
+  const markup = ` <i class="uil spinner uil-asterisk"></i>`
+  parentEl.innerHTML='';
+  parentEl.insertAdjacentHTML('afterbegin', markup)
+}
 
 function rndNumber(max, min = 1) {
   return Math.round(Math.random() * (max - min) + min);
@@ -161,6 +168,7 @@ function renderOptions(curQuesNum, optionText = ["A", "B", "C", "D"]) {
 }
 
 function render(curQuesNum) {
+  questionOptions.innerHTML = ''
   renderQuestion(curQuesNum);
   renderOptions(curQuesNum);
 }
@@ -185,6 +193,9 @@ const quizPage = document.querySelector(".quiz__page");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   form.querySelector("button").disabled = true;
+  
+  startPage.classList.add("hidden");
+  quizPage.classList.remove("hidden");
 
   document.querySelector(".quiz__tittle").innerHTML =
     `Surah ${surahSelectOptions.value}`;
@@ -204,8 +215,7 @@ function startQuiz() {
   session.start = true;
 
   counter(timeDur.textContent);
-  startPage.classList.add("hidden");
-  quizPage.classList.remove("hidden");
+  
 
   console.log("quiz started");
 }

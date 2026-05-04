@@ -613,3 +613,24 @@ box-shadow: var(--shadow-lg); */
   justify-content: space-between;
   align-items: center;
 }
+
+
+.spinner{
+  font-size: 80px;
+  width: fit-content;
+  margin: 0 auto;
+  /* width: 5rem;
+  height: 5rem; */
+  animation: spinner 500ms infinite;
+}
+
+@keyframes spinner{
+  0%{
+    transform: rotate(0deg);
+  }
+  
+  100%{
+    transform: rotate(360deg);
+    /* transform: scaleX(1.1); */
+  }
+}
