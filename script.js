@@ -168,6 +168,7 @@ function renderOptions(curQuesNum, optionText = ["A", "B", "C", "D"]) {
 }
 
 function render(curQuesNum) {
+  totalQuestionNum.innerHTML = session.questions.length
   questionOptions.innerHTML = ''
   renderQuestion(curQuesNum);
   renderOptions(curQuesNum);
@@ -200,6 +201,7 @@ form.addEventListener("submit", (e) => {
   document.querySelector(".quiz__tittle").innerHTML =
     `Surah ${surahSelectOptions.value}`;
   numOfQuestionsSelected = +numOfQuestionSelectOptions.value;
+  
   app.curSurah = surahSelectOptions.value;
 
   let indexOfSurah = app.allSurahs.findIndex((s) => s === app.curSurah) + 1;
