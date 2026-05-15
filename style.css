@@ -314,7 +314,8 @@ width: 20rem;
 }
 
 .answer__picked__indicator::after {
-  content: "✔️";
+  content: "";
+  
 }
 
 .options .wrong__answer::before {
@@ -616,20 +617,17 @@ box-shadow: var(--shadow-lg); */
 
 
 .spinner{
-  font-size: 80px;
-  width: fit-content;
+  width: 50px;
   margin: 0 auto;
-  /* width: 5rem;
-  height: 5rem; */
-  animation: spinner 500ms infinite;
+  animation: rotate 1s infinite linear;
 }
 
-@keyframes spinner{
-  0%{
+@keyframes rotate{
+  /* from{
     transform: rotate(0deg);
   }
-  
-  100%{
+   */
+  to{
     transform: rotate(360deg);
     /* transform: scaleX(1.1); */
   }

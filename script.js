@@ -16,6 +16,9 @@ const session = {
   quesGottenCorrectly: [],
 };
 
+
+const form = document.querySelector("form");
+
 let answerPickedByUser;
 let answerDivPickedByUser;
 
@@ -30,6 +33,7 @@ async function allTheSurahs() {
     console.log(res);
     app.allSurahs = res.data.map((surah) => `${surah.englishName}`);
     addAllSurahToSelectOption(app.allSurahs);
+    form.querySelector("button").disabled = false;
   } catch (e) {
     console.log(e.message, "while fetching all surahs");
     errorText.classList.remove("hidden");
@@ -70,7 +74,10 @@ async function getQuranFromAPI(indexOfSurah) {
 // getQuranFromAPI();
 
 function renderSpimner(parentEl) {
-  const markup = ` <i class="uil spinner uil-asterisk"></i>`
+  const markup = `<svg class="spinner">
+        <use href="./images/icons.svg#icon-spinner" ></use>
+      </svg>
+      `
   parentEl.innerHTML='';
   parentEl.insertAdjacentHTML('afterbegin', markup)
 }
@@ -185,7 +192,7 @@ function addAllSurahToSelectOption(allSurahs) {
   });
 }
 
-const form = document.querySelector("form");
+
 const startPage = document.querySelector(".start__page");
 const quizPage = document.querySelector(".quiz__page");
 
@@ -216,7 +223,7 @@ function startQuiz() {
 
   session.start = true;
 
-  counter(timeDur.textContent);
+  counter(timeDur.innerHTML);
   
 
   console.log("quiz started");
@@ -227,7 +234,7 @@ const totalQuestionNum = document.querySelector(".total__ques");
 const progressBar = document.querySelector(".progress__bar");
 
 function updateProgress(curQuesNum = 1) {
-  numOfQuesAnswered.textContent = curQuesNum;
+  numOfQuesAnswered.innerHTML = curQuesNum;
   const totalQues = +session.totalQuestionsNum;
   let progressPercentage = (curQuesNum / totalQues) * 100;
   progressBar.style.width = `${progressPercentage}%`;
@@ -305,11 +312,16 @@ function PrevQuestion() {
   render(CurNum - 1);
   displayNavBtn();
   storeDataToLocalStorage();
+  
+  const alreadyPickedAnswer = session.userAnswers[CurNum - 1];
+
+if (!alreadyPickedAnswer) return
+
+addIndicatorToAnswerdQues(alreadyPickedAnswer)
 }
 
 function NextQuestion() {
-  const alreadyPickedAnswer = session.userAnswers[CurNum - 1];
-
+  
   // if (!alreadyPickedAnswer) {
   if (CurNum === +session.questions.length) return;
   if (CurNum === +session.questions.length - 1)
@@ -325,16 +337,24 @@ function NextQuestion() {
   displayNavBtn();
   storeDataToLocalStorage();
   // }
+  
+  const alreadyPickedAnswer = session.userAnswers[CurNum - 1];
 
-  // if (alreadyPickedAnswer) {
-  // console.log("Answer already picked is", alreadyPickedAnswer);
-  // console.log("Answer already picked is", alreadyPickedAnswer);
-  // questionOptions.childNodes.forEach((opt) => {
-  //   if (opt.querySelector("span").innerHTML === alreadyPickedAnswer) {
-  //     addCorrectIndicator(opt);
-  //   }
-  // });
-  // }
+if (!alreadyPickedAnswer) return
+  
+  addIndicatorToAnswerdQues(alreadyPickedAnswer)
+  
+  
+}
+
+function addIndicatorToAnswerdQues(answer) {
+  questionOptions.childNodes.forEach((opt) => {
+  if (opt.querySelector("span").innerHTML === answer) {
+    addCorrectIndicator(opt);
+    opt.insertAdjacentHTML("beforeend", ` <svg width="24" height="24" class="icon-correct">
+    <use href="./images/icons.svg#icon-circle-check"></use>
+  </svg>`);
+}})
 }
 
 function storeDataToLocalStorage() {
@@ -374,11 +394,13 @@ function getUserAnswer(e) {
 }
 
 function updateScore() {
-  if (session.userAnswers[CurNum - 1] === session.correctAnswers[CurNum - 1]) {
-    session.score++;
-    session.quesGottenCorrectly[CurNum - 1] = session.questions[CurNum - 1];
-    session.ansGottenCorrectly[CurNum - 1] = session.correctAnswers[CurNum - 1];
-  }
+  session.score = session.ansGottenCorrectly.length;
+  
+  // if (session.userAnswers[CurNum - 1] === session.correctAnswers[CurNum - 1]) {
+  //   session.score++;
+  //   session.quesGottenCorrectly[CurNum - 1] = session.questions[CurNum - 1];
+  //   session.ansGottenCorrectly[CurNum - 1] = session.correctAnswers[CurNum - 1];
+  // }
 }
 
 const correctCount = document.querySelector(".correct__count");
@@ -387,34 +409,34 @@ const quizBriefSurah = document.querySelector(".quiz__brief__surah");
 const quizBriefQuesNum = document.querySelector(".quiz__brief__questnum");
 
 function updateResultPageBrief() {
-  quizBriefSurah.textContent = `Surah ${app.curSurah}`;
-  quizBriefQuesNum.textContent = `${session.questions.length} questions`;
+  quizBriefSurah.innerHTML = `Surah ${app.curSurah}`;
+  quizBriefQuesNum.innerHTML = `${session.questions.length} questions`;
 }
 
 function calcResult() {
-  correctCount.textContent = session.score;
-  wrongCount.textContent = session.questions.length - session.score;
+  correctCount.innerHTML = session.ansGottenCorrectly.length;
+  wrongCount.innerHTML = session.questions.length - correctCount.innerHTML;
 
   const percentCount = document.querySelector(".percent__count");
   let resultPercent = Math.round(
     (session.score / session.questions.length) * 100,
   );
-  percentCount.textContent = `${resultPercent}%`;
+  percentCount.innerHTML = `${resultPercent}%`;
 
   switch (session.end) {
     case resultPercent >= 70:
-      gradeSummary.textContent = "Excellent";
+      gradeSummary.innerHTML = "Excellent";
       break;
     case resultPercent <= 70 && resultPercent >= 50:
-      gradeSummary.textContent = "Fair";
+      gradeSummary.innerHTML = "Fair";
       break;
 
     case resultPercent >= 30 && resultPercent <= 50:
-      gradeSummary.textContent = "Poor";
+      gradeSummary.innerHTML = "Poor";
       break;
 
     case resultPercent >= 0 && resultPercent <= 30:
-      gradeSummary.textContent = "Very Poor";
+      gradeSummary.innerHTML = "Very Poor";
       break;
   }
 
@@ -433,7 +455,7 @@ restartBtn.addEventListener("click", () => {
   updateProgress(CurNum);
 
   render(CurNum - 1);
-  counter(timeDur.textContent);
+  counter(timeDur.innerHTML);
   session.userAnswers = [];
   session.score = 0;
   session.start = true;
@@ -449,13 +471,13 @@ newQuizBtn.addEventListener("click", () => {
 const timeDur = document.querySelector(".dur_min");
 
 document.querySelector(".incr__dura").addEventListener("click", (e) => {
-  if (+timeDur.textContent === 20) return;
-  timeDur.textContent = +timeDur.textContent + 5;
+  if (+timeDur.innerHTML === 20) return;
+  timeDur.innerHTML = +timeDur.innerHTML + 5;
 });
 
 document.querySelector(".decr__dura").addEventListener("click", (e) => {
-  if (+timeDur.textContent === 5) return;
-  timeDur.textContent = +timeDur.textContent - 5;
+  if (+timeDur.innerHTML === 5) return;
+  timeDur.innerHTML = +timeDur.innerHTML - 5;
 });
 
 const minLabel = document.querySelector(".min__label");
@@ -475,8 +497,8 @@ function counter(quizMinute) {
     min = Math.floor(totalSeconds / 60);
     sec = totalSeconds % 60;
 
-    minLabel.textContent = `${min}`.padStart(2, 0);
-    secLabel.textContent = `${sec}`.padStart(2, 0);
+    minLabel.innerHTML = `${min}`.padStart(2, 0);
+    secLabel.innerHTML = `${sec}`.padStart(2, 0);
 
     if (totalSeconds === 0) {
       clearInterval(timer);
