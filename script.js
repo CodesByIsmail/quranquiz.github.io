@@ -16,7 +16,6 @@ const session = {
   quesGottenCorrectly: [],
 };
 
-
 const form = document.querySelector("form");
 
 let answerPickedByUser;
@@ -48,7 +47,7 @@ let numOfQuestionsSelected;
 
 async function getQuranFromAPI(indexOfSurah) {
   try {
-    renderSpimner(questionOptions)
+    renderSpimner(questionOptions);
     console.log(indexOfSurah);
     let res = await fetch(
       `https://api.qurani.ai/gw/qh/v1/surah/${indexOfSurah}/quran-uthmani?limit=2000&offset=0`,
@@ -77,13 +76,13 @@ function renderSpimner(parentEl) {
   const markup = `<svg class="spinner">
         <use href="./images/icons.svg#icon-spinner" ></use>
       </svg>
-      `
-  parentEl.innerHTML='';
-  parentEl.insertAdjacentHTML('afterbegin', markup)
+      `;
+  parentEl.innerHTML = "";
+  parentEl.insertAdjacentHTML("afterbegin", markup);
 }
 
 function rndNumber(max, min = 1) {
-  return Math.round(Math.random() * (max - min) + min);
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
 // SOLUTION FOR SETTING QUESTION
@@ -96,16 +95,14 @@ function setRandomQuestions(numOfQues) {
   let questiions = [];
   // 1. GET all the number possible questions from the array of all ayahs
   const possibleQuestions = app.ayahs.slice(0, -1);
-  
+
   // 2. check if all the possible question matches the number of questions given
   const maxQuestions = possibleQuestions.length;
   const actualNumOfQues = Math.min(maxQuestions, numOfQues);
   // 3. Shuffle the array of ayahs
-  possibleQuestions.sort((a, b) => a.localeCompare(b));
+  shuffleArray(possibleQuestions);
   // 4. slice from the ayah array, beginning from 0 and stopping at the number of possible questions
   questiions = possibleQuestions.slice(0, actualNumOfQues);
-  
-
 
   session.questions = questiions;
 
@@ -123,23 +120,33 @@ function getCorrectAnswer(curAyah) {
   session.correctAnswers.push(correctAnswer);
 }
 
-const OPTION_LENGTH = 4;
+const MAX_OPT_NUM = 4;
 
 function setOptions(quesNum) {
   let options = [];
-   let rd = rndNumber(OPTION_LENGTH);
-  console.log(rd, '💢💢💢💢💢💢💢💢💢💢')
+  const curQues = session.questions[quesNum];
+  const curAns = session.correctAnswers[quesNum];
+  // for (let i = 0; i < 3; i++) {
+  //   let newOption = app.ayahs[rd];
+  //   if (session.questions[i] === newOption || options.includes(newOption))
+  //     newOption = app.ayahs[rndNumber(MAX_OPT_NUM)];
+  //   if (session.questions[i] !== newOption || !options.includes(newOption))
+  //     options[i] = newOption;
+  // }
 
-  for (let i = 0; i < 3; i++) {
-    let newOption = app.ayahs[rd];
-    if (session.questions[i] === newOption || options.includes(newOption))
-      newOption = app.ayahs[rndNumber(OPTION_LENGTH)];
-    if (session.questions[i] !== newOption || !options.includes(newOption))
-      options[i] = newOption;
-  }
-  options = [session.correctAnswers[quesNum], ...options];
-  options.sort();
+  let i = 0;
+  let availableOpt = app.ayahs.filter((a) => a !== curQues && a !== curAns);
+  do {
+    let rd = rndNumber(availableOpt.length);
+    options[i] = availableOpt[rd];
+    console.log(rd, i);
+    availableOpt = availableOpt.filter((a) => a !== options[i]);
+    console.log(availableOpt)
+    i++;
+  } while (options[i] !== session.questions[quesNum] && i < MAX_OPT_NUM - 1);
 
+  options = [curAns, ...options];
+  shuffleArray(options);
   // session.options[quesNum].push(options)
   session.options[quesNum] = options;
 }
@@ -175,8 +182,8 @@ function renderOptions(curQuesNum, optionText = ["A", "B", "C", "D"]) {
 }
 
 function render(curQuesNum) {
-  totalQuestionNum.innerHTML = session.questions.length
-  questionOptions.innerHTML = ''
+  totalQuestionNum.innerHTML = session.questions.length;
+  questionOptions.innerHTML = "";
   renderQuestion(curQuesNum);
   renderOptions(curQuesNum);
 }
@@ -192,7 +199,6 @@ function addAllSurahToSelectOption(allSurahs) {
   });
 }
 
-
 const startPage = document.querySelector(".start__page");
 const quizPage = document.querySelector(".quiz__page");
 
@@ -201,14 +207,14 @@ const quizPage = document.querySelector(".quiz__page");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   form.querySelector("button").disabled = true;
-  
+
   startPage.classList.add("hidden");
   quizPage.classList.remove("hidden");
 
   document.querySelector(".quiz__tittle").innerHTML =
     `Surah ${surahSelectOptions.value}`;
   numOfQuestionsSelected = +numOfQuestionSelectOptions.value;
-  
+
   app.curSurah = surahSelectOptions.value;
 
   let indexOfSurah = app.allSurahs.findIndex((s) => s === app.curSurah) + 1;
@@ -224,7 +230,6 @@ function startQuiz() {
   session.start = true;
 
   counter(timeDur.innerHTML);
-  
 
   console.log("quiz started");
 }
@@ -293,15 +298,6 @@ function submitQuiz() {
 }
 
 function PrevQuestion() {
-  // const alreadyPickedAnswer = session.userAnswers[CurNum - 1];
-  // if (!alreadyPickedAnswer) return;
-  // console.log("Answer already picked is", alreadyPickedAnswer);
-  // questionOptions.childNodes.forEach((opt) => {
-  //   if (opt.querySelector("span").innerHTML === alreadyPickedAnswer) {
-  //     addCorrectIndicator(opt);
-  //   }
-  // });
-
   if (CurNum === 1) return;
   if (CurNum === 2) prevBtn.classList.add("btn__disabled");
   nextBtn.classList.remove("btn__disabled");
@@ -312,16 +308,15 @@ function PrevQuestion() {
   render(CurNum - 1);
   displayNavBtn();
   storeDataToLocalStorage();
-  
+
   const alreadyPickedAnswer = session.userAnswers[CurNum - 1];
 
-if (!alreadyPickedAnswer) return
+  if (!alreadyPickedAnswer) return;
 
-addIndicatorToAnswerdQues(alreadyPickedAnswer)
+  addIndicatorToAnswerdQues(alreadyPickedAnswer);
 }
 
 function NextQuestion() {
-  
   // if (!alreadyPickedAnswer) {
   if (CurNum === +session.questions.length) return;
   if (CurNum === +session.questions.length - 1)
@@ -337,24 +332,20 @@ function NextQuestion() {
   displayNavBtn();
   storeDataToLocalStorage();
   // }
-  
+
   const alreadyPickedAnswer = session.userAnswers[CurNum - 1];
 
-if (!alreadyPickedAnswer) return
-  
-  addIndicatorToAnswerdQues(alreadyPickedAnswer)
-  
-  
+  if (!alreadyPickedAnswer) return;
+
+  addIndicatorToAnswerdQues(alreadyPickedAnswer);
 }
 
 function addIndicatorToAnswerdQues(answer) {
   questionOptions.childNodes.forEach((opt) => {
-  if (opt.querySelector("span").innerHTML === answer) {
-    addCorrectIndicator(opt);
-    opt.insertAdjacentHTML("beforeend", ` <svg width="24" height="24" class="icon-correct">
-    <use href="./images/icons.svg#icon-circle-check"></use>
-  </svg>`);
-}})
+    if (opt.querySelector("span").innerHTML === answer) {
+      addCorrectIndicator(opt);
+    }
+  });
 }
 
 function storeDataToLocalStorage() {
@@ -383,24 +374,22 @@ function getUserAnswer(e) {
 
   answerPickedByUser = answerDivPickedByUser.querySelector("span").innerHTML;
 
-  // if(!answerDivPickedByUser){
-  //         session.userAnswers[CurNum - 1] = 'NIL';
-  //     session.score = session.score;
-  //     return
-  // }
-
+  if (answerPickedByUser === session.correctAnswers[CurNum - 1]) {
+    console.log("right");
+  }
   session.userAnswers[CurNum - 1] = answerPickedByUser;
   addCorrectIndicator(answerDivPickedByUser);
 }
 
+function getAnswerGotten() {
+  session.ansGottenCorrectly = session.correctAnswers.filter(
+    (a, i) => a === session.userAnswers[i],
+  );
+  return session.ansGottenCorrectly.length;
+}
+
 function updateScore() {
-  session.score = session.ansGottenCorrectly.length;
-  
-  // if (session.userAnswers[CurNum - 1] === session.correctAnswers[CurNum - 1]) {
-  //   session.score++;
-  //   session.quesGottenCorrectly[CurNum - 1] = session.questions[CurNum - 1];
-  //   session.ansGottenCorrectly[CurNum - 1] = session.correctAnswers[CurNum - 1];
-  // }
+  session.score = getAnswerGotten();
 }
 
 const correctCount = document.querySelector(".correct__count");
@@ -528,16 +517,13 @@ function addQuestionReview(questions) {
         <div class="question__review ${quesStatus}__answer">
               <div class="review__top">
                 <h3>Question ${i + 1}</h3>
-                <i class="uil uil-angle-down"></i>
-              </div>
+                <svg width='24', height='24px'>
+              <use href="./images/icons.svg#icon-chevron-down"></use>
+            </svg>              </div>
               
               <div class="review__wrapper hidden">
                 <p>Q: <span class="question">${session.questions[i]}</span> </p>
-                
                 <p>A: <span class="answer">${session.correctAnswers[i]}</span></p> 
-
-                
-                
                 <p>Your Answer: <span class="question">${!session.userAnswers[i] ? "No answer picked" : session.userAnswers[i]}</span> </p>
             </div>
 
@@ -545,12 +531,44 @@ function addQuestionReview(questions) {
 
     questionReviewContainer.insertAdjacentHTML("beforeend", html);
   });
-
-  const questionReview = document.querySelectorAll(".question__review");
-  questionReview.forEach((wrapper) => {
-    console.log(wrapper);
-    wrapper.addEventListener("click", () => {
-      wrapper.querySelector(".review__wrapper").classList.toggle("hidden");
-    });
-  });
 }
+
+questionReviewContainer.addEventListener("click", (e) => {
+  if (!e.target.closest(".question__review"));
+
+  questionReviewContainer
+    .querySelectorAll(".review__wrapper")
+    .forEach((r) => r.classList.add("hidden"));
+
+  e.target
+    .closest(".question__review")
+    .querySelector(".review__wrapper")
+    .classList.toggle("hidden");
+});
+
+function shuffleArray(arr) {
+  let curIndex = arr.length;
+
+  while (curIndex != 0) {
+    const rndIndex = rndNumber(arr.length);
+    curIndex--;
+
+    [arr[curIndex], arr[rndIndex]] = [arr[rndIndex], arr[curIndex]];
+  }
+}
+
+
+document.addEventListener('keydown', e =>{
+  console.log(e.key)
+  if(e.key.toLowerCase() === 'n' || e.key === 'ArrowRight'){
+    NextQuestion()
+  }
+
+  if(e.key.toLowerCase() === 'p' || e.key === 'ArrowLeft'){
+    PrevQuestion()
+  }
+
+  if(e.key.toLowerCase() === 's'){
+    submitQuiz()
+  }
+})
