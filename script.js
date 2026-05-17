@@ -8,6 +8,7 @@ const session = {
   score: 0,
   start: false,
   end: false,
+  quizDuration: 0,
   questions: [],
   options: [],
   correctAnswers: [],
@@ -34,7 +35,7 @@ async function allTheSurahs() {
     addAllSurahToSelectOption(app.allSurahs);
     form.querySelector("button").disabled = false;
   } catch (e) {
-    console.log(e.message, "while fetching all surahs");
+    console.error(e.message, "while fetching all surahs");
     errorText.classList.remove("hidden");
     errorText.innerHTML = 'Connect to Internet <i class="uil uil-wifi"></i>';
   }
@@ -63,7 +64,7 @@ async function getQuranFromAPI(indexOfSurah) {
     setRandomQuestions(numOfQuestionsSelected);
     startQuiz();
   } catch (e) {
-    console.log(e.message, "while fetching all ayah");
+    console.error(e.message, "while fetching all ayah");
 
     errorText.classList.remove("hidden");
     errorText.innerHTML = 'Connect to Internet <i class="uil uil-wifi"></i>';
@@ -126,22 +127,13 @@ function setOptions(quesNum) {
   let options = [];
   const curQues = session.questions[quesNum];
   const curAns = session.correctAnswers[quesNum];
-  // for (let i = 0; i < 3; i++) {
-  //   let newOption = app.ayahs[rd];
-  //   if (session.questions[i] === newOption || options.includes(newOption))
-  //     newOption = app.ayahs[rndNumber(MAX_OPT_NUM)];
-  //   if (session.questions[i] !== newOption || !options.includes(newOption))
-  //     options[i] = newOption;
-  // }
-
+  
   let i = 0;
   let availableOpt = app.ayahs.filter((a) => a !== curQues && a !== curAns);
   do {
     let rd = rndNumber(availableOpt.length);
     options[i] = availableOpt[rd];
-    console.log(rd, i);
     availableOpt = availableOpt.filter((a) => a !== options[i]);
-    console.log(availableOpt)
     i++;
   } while (options[i] !== session.questions[quesNum] && i < MAX_OPT_NUM - 1);
 
@@ -157,7 +149,6 @@ function renderQuestion(curQuesNum) {
   if (!session.questions[curQuesNum]) return;
   let curQues = session.questions[curQuesNum];
   quesTion.innerHTML = curQues;
-  console.log(curQues);
 }
 
 const questionOptions = document.querySelector(".options");
@@ -216,6 +207,7 @@ form.addEventListener("submit", (e) => {
   numOfQuestionsSelected = +numOfQuestionSelectOptions.value;
 
   app.curSurah = surahSelectOptions.value;
+  session.quizDuration = timeDur.innerHTML;
 
   let indexOfSurah = app.allSurahs.findIndex((s) => s === app.curSurah) + 1;
   console.log(indexOfSurah, "after submitting");
@@ -226,12 +218,10 @@ form.addEventListener("submit", (e) => {
 
 function startQuiz() {
   render(CurNum - 1);
-
   session.start = true;
-
-  counter(timeDur.innerHTML);
-
-  console.log("quiz started");
+  unDisableBtns([submitBtn, nextBtn, prevBtn])
+  counter(session.quizDuration);
+  updateProgress();
 }
 
 const numOfQuesAnswered = document.querySelector(".num__answerd");
@@ -244,6 +234,8 @@ function updateProgress(curQuesNum = 1) {
   let progressPercentage = (curQuesNum / totalQues) * 100;
   progressBar.style.width = `${progressPercentage}%`;
 }
+
+
 
 const quizNavigator = document.querySelector(".navigator");
 
@@ -373,10 +365,6 @@ function getUserAnswer(e) {
   answerDivPickedByUser = e.target.closest(".option__div");
 
   answerPickedByUser = answerDivPickedByUser.querySelector("span").innerHTML;
-
-  if (answerPickedByUser === session.correctAnswers[CurNum - 1]) {
-    console.log("right");
-  }
   session.userAnswers[CurNum - 1] = answerPickedByUser;
   addCorrectIndicator(answerDivPickedByUser);
 }
@@ -429,7 +417,7 @@ function calcResult() {
       break;
   }
 
-  console.log(session.quesGottenCorrectly);
+  
 }
 
 const restartBtn = document.querySelector(".restart__btn");
@@ -444,7 +432,7 @@ restartBtn.addEventListener("click", () => {
   updateProgress(CurNum);
 
   render(CurNum - 1);
-  counter(timeDur.innerHTML);
+  counter(session.quizDuration);
   session.userAnswers = [];
   session.score = 0;
   session.start = true;
@@ -534,11 +522,11 @@ function addQuestionReview(questions) {
 }
 
 questionReviewContainer.addEventListener("click", (e) => {
-  if (!e.target.closest(".question__review"));
+  if (!e.target.closest(".question__review")) return
 
-  questionReviewContainer
-    .querySelectorAll(".review__wrapper")
-    .forEach((r) => r.classList.add("hidden"));
+  // questionReviewContainer
+  //   .querySelectorAll(".review__wrapper")
+  //   .forEach((r) => r.classList.add("hidden"));
 
   e.target
     .closest(".question__review")
@@ -559,7 +547,6 @@ function shuffleArray(arr) {
 
 
 document.addEventListener('keydown', e =>{
-  console.log(e.key)
   if(e.key.toLowerCase() === 'n' || e.key === 'ArrowRight'){
     NextQuestion()
   }
@@ -572,3 +559,7 @@ document.addEventListener('keydown', e =>{
     submitQuiz()
   }
 })
+
+function unDisableBtns(btns) {
+  btns.forEach(btn => btn.disabled = false)
+}
