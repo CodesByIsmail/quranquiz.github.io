@@ -426,6 +426,7 @@ const newQuizBtn = document.querySelector(".new__quiz__btn");
 restartBtn.addEventListener("click", () => {
   quizPage.classList.remove("hidden");
   resultPage.classList.add("hidden");
+  shuffleArray(session.questions)
   questionOptions.innerHTML = "";
   questionReviewContainer.innerHTML = "";
   CurNum = 1;
