@@ -22,21 +22,23 @@ let answerPickedByUser;
 let answerDivPickedByUser;
 
 const errorText = document.querySelector(".error__text");
-
+console.log("how na");
 async function allTheSurahs() {
   try {
     let data = await fetch(
       "https://api.qurani.ai/gw/qh/v1/surah?limit=2000&offset=0",
     );
     let res = await data.json();
-    console.log(res);
+    console.log(res, data);
     app.allSurahs = res.data.map((surah) => `${surah.englishName}`);
     addAllSurahToSelectOption(app.allSurahs);
     form.querySelector("button").disabled = false;
+
+    if (!res.ok) throw new Error("Failed to fetch");
   } catch (e) {
     console.log(e.message, "while fetching all surahs");
     errorText.classList.remove("hidden");
-    errorText.innerHTML = 'Connect to Internet <i class="uil uil-wifi"></i>';
+    errorText.innerHTML = `${e.message}  <i class="uil uil-exclamation-triangle"></i>`;
   }
 }
 
@@ -141,7 +143,7 @@ function setOptions(quesNum) {
     options[i] = availableOpt[rd];
     console.log(rd, i);
     availableOpt = availableOpt.filter((a) => a !== options[i]);
-    console.log(availableOpt)
+    console.log(availableOpt);
     i++;
   } while (options[i] !== session.questions[quesNum] && i < MAX_OPT_NUM - 1);
 
@@ -557,18 +559,16 @@ function shuffleArray(arr) {
   }
 }
 
-
-document.addEventListener('keydown', e =>{
-  console.log(e.key)
-  if(e.key.toLowerCase() === 'n' || e.key === 'ArrowRight'){
-    NextQuestion()
+document.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === "n" || e.key === "ArrowRight") {
+    NextQuestion();
   }
 
-  if(e.key.toLowerCase() === 'p' || e.key === 'ArrowLeft'){
-    PrevQuestion()
+  if (e.key.toLowerCase() === "p" || e.key === "ArrowLeft") {
+    PrevQuestion();
   }
 
-  if(e.key.toLowerCase() === 's'){
-    submitQuiz()
+  if (e.key.toLowerCase() === "s") {
+    submitQuiz();
   }
-})
+});
