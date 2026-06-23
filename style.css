@@ -40,7 +40,7 @@
   --font-arabic: "Noto Sans Arabic", sans-serif;
   --font-arabic-2: "Alyamama", serif;
 
-  --transition: 0.2s ease;
+  --transition: 0.5s;
   --bg-gradient: linear-gradient(to left, var(--green-900), var(--green-300));
   --gradient: linear-gradient(to left, var(--green-900), var(--green-600));
 }
@@ -115,6 +115,10 @@ nav {
   background: var(--green-500);
   color: var(--white);
   transition: var(--transition);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .2rem;
 }
 
 .btn:hover {
@@ -132,6 +136,7 @@ select {
   border-radius: var(--radius-sm);
   outline: none;
   font-family: var(--font-body);
+  background: #FBFFFD;
 
   option {
     font-family: var(--font-body);
@@ -301,8 +306,10 @@ width: 20rem;
   text-align: right;
   width: 100%;
   color: var(--green-900);
-  padding: 0.1rem;
+  padding: .8rem;
+  border-radius: var(--radius-md);
   font-family: "Alyamama", serif;
+  background: var(--green-100);
 }
 
 .options {
@@ -331,13 +338,15 @@ width: 20rem;
   justify-content: space-between;
   align-items: center;
   font-size: 0.8rem;
+  transition: var(--transition);
 }
 
 .answer__picked__indicator {
   /* background: var(--green-300); */
   border: 2px solid var(--green-300);
-  transition: var(--transition);
+  
   box-shadow: var(--shadow-md);
+  transform: scale(1.02);
 }
 
 .answer__picked__indicator::after {

@@ -28,7 +28,11 @@
         <p class="error__text hidden"></p>
 
         <div class="start__tittle">
-        <span class="start__pg__icon"><i class="uil uil-book-open"></i></span>
+        <span class="start__pg__icon">
+    <svg width="24" height="24">
+  <use href="/images/icons.svg#icon-book-open"></use>
+</svg>
+          </span>
           <h1>Quran Quiz</h1>
           <p>Test your Quran Hifdh</p>
         </div>
@@ -62,7 +66,13 @@
               <i class="uil uil-plus"></i>
             </span>
           </div>
-          <button class="btn start__quiz" disabled="true" type="submit">Start Quiz</button>
+          <button class="btn start__quiz" disabled="true" type="submit">
+            <svg width="10px" height="10px" fill="white">
+              <use href="/images/icons.svg#icon-play">
+                
+              </use>
+            </svg>
+            Start Quiz</button>
         </form>
       </div>
     </sectiion>
@@ -91,7 +101,7 @@
           
           <div class="quiz__title__wrapper">
              <span class="quiz__tittle"></span>
-             <button type="" class="submit__btn btn ">Submit</button>
+             <button disabled class="submit__btn btn ">Submit</button>
           </div>
 
 
@@ -117,10 +127,10 @@
 
           <div class="navigator ">
             
-            <button type="" class="prev__ques__btn btn invisible"><i class="uil uil-angle-left"></i>Previous</button>
+            <button disabled class="prev__ques__btn btn invisible"><i class="uil uil-angle-left"></i>Previous</button>
 
 
-            <button class="next__ques__btn btn" type="">Next <i class="uil uil-angle-right"></i></button>
+            <button class="next__ques__btn btn" disabled>Next <i class="uil uil-angle-right"></i></button>
           </div>
           
         </div>
