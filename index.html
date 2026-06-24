@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Quran Quiz App</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="shortcut icon" href="./images/book-open.svg" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="./images/book-open.svg"
+      type="image/x-icon"
+    />
     <link
       rel="stylesheet"
       href="https://unicons.iconscout.com/release/v4.2.0/css/line.css"
@@ -16,106 +20,95 @@
   <body>
     <nav>
       <div class="nav__bar container">
-        <h1 class="logo"><span class="logo__icon"><i class="uil uil-book-open"></i></span>Tahfidh</h1>
+        <h1 class="logo">
+          <span class="logo__icon"><i class="uil uil-book-open"></i></span
+          >Tahfidh
+        </h1>
       </div>
     </nav>
 
+    <main class="wrapper">
+      <sectiion class="start__page">
+        <div class="start__page__container">
+          <p class="error__text hidden"></p>
 
-   
-    <sectiion class=" start__page">
-      <div class="container start__page__container">
-        
-        <p class="error__text hidden"></p>
-
-        <div class="start__tittle">
-        <span class="start__pg__icon">
-    <svg width="24" height="24">
-  <use href="/images/icons.svg#icon-book-open"></use>
-</svg>
-          </span>
-          <h1>Quran Quiz</h1>
-          <p>Test your Quran Hifdh</p>
-        </div>
-        
-        
-
-        <form
-          class="selectForm"
-          action="Pick-Surah"
-         
-          accept-charset="utf-8"
-        >
-          <select name="Surahs" id="surahs__options">
-            <!--         <option value="Fatiha">Fatiha</option> -->
-          </select>
-
-          <select name="NumberOfQuestions" id="NumberOfQuestions">
-            <option value="5">5 Questions</option>
-            <option value="10">10 Questions</option>
-            <option value="15">15 Questions</option>
-            <option value="20">20 Questions</option>
-          </select>
-          <div class="quiz__duration">
-            <span  class="time__btn decr__dura">
-              <i class="uil uil-minus"></i>
+          <div class="start__tittle">
+            <span class="start__pg__icon">
+              <svg width="24" height="24">
+                <use href="/images/icons.svg#icon-book-open"></use>
+              </svg>
             </span>
-
-<p><span class="dur_min">10</span> min</p>
-            
-            <span class="time__btn incr__dura">
-              <i class="uil uil-plus"></i>
-            </span>
+            <h1>Quran Quiz</h1>
+            <p>Test your Quran Hifdh</p>
           </div>
-          <button class="btn start__quiz" disabled="true" type="submit">
-            <svg width="10px" height="10px" fill="white">
-              <use href="/images/icons.svg#icon-play">
-                
-              </use>
-            </svg>
-            Start Quiz</button>
-        </form>
-      </div>
-    </sectiion>
 
-    
-    <section class="container quiz__page hidden">
+          <form class="selectForm" action="Pick-Surah" accept-charset="utf-8">
+            <select name="Surahs" id="surahs__options">
+              <!--         <option value="Fatiha">Fatiha</option> -->
+            </select>
+
+            <select name="NumberOfQuestions" id="NumberOfQuestions">
+              <option value="5">5 Questions</option>
+              <option value="10">10 Questions</option>
+              <option value="15">15 Questions</option>
+              <option value="20">20 Questions</option>
+            </select>
+            <div class="quiz__duration">
+              <span class="time__btn decr__dura">
+                <i class="uil uil-minus"></i>
+              </span>
+
+              <p><span class="dur_min">10</span> min</p>
+
+              <span class="time__btn incr__dura">
+                <i class="uil uil-plus"></i>
+              </span>
+            </div>
+            <button class="btn start__quiz" disabled="true" type="submit">
+              <svg width="10px" height="10px" fill="white">
+                <use href="/images/icons.svg#icon-play"></use>
+              </svg>
+              Start Quiz
+            </button>
+          </form>
+        </div>
+      </sectiion>
+
+      <section class="quiz__page hidden">
         <div class="quiz__top">
-  
-                      <p>
+          <p>
             <span class="num__answerd">1</span> of
             <span class="total__ques">5</span>
             questions
-<div class="progress">
-
           </p>
-          <div class="progress__container">
-            <div class="progress__bar" style="width: 0%;"></div>
+          <div class="progress">
+            <div class="progress__container">
+              <div class="progress__bar" style="width: 0%"></div>
+            </div>
           </div>
-</div>
 
-<p class="timer"><span class="min__label">00</span>:<span class="sec__label">00</span> </p>
+          <p class="timer">
+            <span class="min__label">00</span>:<span class="sec__label"
+              >00</span
+            >
+          </p>
           <!-- <p>Score: <span class="score">0</span></p> -->
         </div>
 
         <div class="quiz__body">
-          
           <div class="quiz__title__wrapper">
-             <span class="quiz__tittle"></span>
-             <button disabled class="submit__btn btn ">Submit</button>
+            <span class="quiz__tittle"></span>
+            <button disabled class="submit__btn btn">Submit</button>
           </div>
-
-
 
           <div class="ques__body">
-              <h4>What is the next verse?</h4>
-              <span class="ques__ayah"></span>
+            <h4>What is the next verse?</h4>
+            <span class="ques__ayah"></span>
           </div>
 
-          <div class="options">
-            
-          </div>
+          <div class="options"></div>
 
-<!-- <div class="submit__enquiry hidden">
+          <!-- <div class="submit__enquiry hidden">
               <p>Are you sure you want to submit?</p>
 
               <div class="yesOrNo">
@@ -124,90 +117,85 @@
               </div>
             </div> -->
 
+          <div class="navigator">
+            <button disabled class="prev__ques__btn btn invisible">
+              <i class="uil uil-angle-left"></i>Previous
+            </button>
 
-          <div class="navigator ">
-            
-            <button disabled class="prev__ques__btn btn invisible"><i class="uil uil-angle-left"></i>Previous</button>
-
-
-            <button class="next__ques__btn btn" disabled>Next <i class="uil uil-angle-right"></i></button>
+            <button class="next__ques__btn btn" disabled>
+              Next <i class="uil uil-angle-right"></i>
+            </button>
           </div>
-          
         </div>
-    </section>
+      </section>
 
+      <!-- RESULT PAGE -->
+      <section class="result__page hidden">
+        <div class="result__page__container">
+          <div class="quiz__summary">
+            <div class="result__summary">
+              <div class="trophy__div">
+                <svg width="24px" height="24px">
+                  <use href="./images/check-circle.svg"></use>
+                </svg>
+              </div>
+              <h1 class="grade__summary">Excellent</h1>
+              <div class="quiz__brief">
+                <p class="quiz__brief__surah">Al-Fathia</p>
+                <p class="quiz__brief__questnum">10 questions</p>
+              </div>
+            </div>
 
-    <!-- RESULT PAGE -->
-    <section class="container result__page hidden">
-      
-      <div class="result__page__container">
-        <div class="result__summary">
-          <div class="trophy__div">
-            <i class="uil uil-trophy"></i>
-          </div>
-          <p class="grade__summary">Excellent</p>
-          
-          <div class="quiz__brief">
-            <p class="quiz__brief__surah">Al-Fathia</p>
-            <p class="quiz__brief__questnum">10 questions</p>
-          </div>
-          
-        </div>
-        
-        <div class="result__brief">
-               
-          <div class="result__infos">
-            <div class="result__info correct__info">
-              <h4 class="correct__count">8</h4>
-              <span>CORRECT</span>
-            </div>
-            
-            <div class="result__info wrong__info">
-              <h4 class="wrong__count">8</h4>
-              <span>WRONG</span>
-            </div>
-      
-            <div class="result__info percent__info">
-              <h4 class="percent__count">80%</h4>
-              <span>SCORE</span>
+            <div class="result__brief">
+              <div class="result__infos">
+                <div class="result__info correct__info">
+                  <h4 class="correct__count">8</h4>
+                  <span>CORRECT</span>
+                </div>
+
+                <div class="result__info wrong__info">
+                  <h4 class="wrong__count">8</h4>
+                  <span>WRONG</span>
+                </div>
+
+                <div class="result__info percent__info">
+                  <h4 class="percent__count">80%</h4>
+                  <span>SCORE</span>
+                </div>
+              </div>
             </div>
           </div>
 
-        </div>
-        
-          
           <div class="question__review__container">
-            
             <h2>Question Review</h2>
-            
-            
-           <!--  <div class="question__review correct__answer">
-             <div class="review__top">
-               <h3>Question 1</h3>
-               <svg>
-              <use href="./images/icons.svg#icon-chevron-down"></use>
-            </svg>             </div>
-             
-             <div class="review__wrapper hidden">
-               <p>Question: <span class="question"></span> </p>
-               
-               <p>Correct Answer: <span class="answer"></span></p>
-               </div>
-           </div>
-            -->
+
+            <!-- <div class="question__review correct__answer">
+              <div class="review__top">
+                <h3>Question 1</h3>
+                <svg width="20px" height="20px">
+                  <use href="./images/icons.svg#icon-chevron-down"></use>
+                </svg>
+              </div>
+
+              <div class="review__wrapper hidden">
+                <p>Question: <span class="question"></span></p>
+
+                <p>Correct Answer: <span class="answer"></span></p>
+              </div>
+            </div> -->
           </div>
-          
-          
+
           <div class="repeat__quiz">
             <button type="" class="btn restart__btn">
-             <i class="uil uil-redo"></i> Restart Quiz
+              <i class="uil uil-redo"></i> Restart Quiz
             </button>
-            <button type="" class="btn new__quiz__btn">New Quiz<i class="uil uil-arrow-right"></i> 
+            <button type="" class="btn new__quiz__btn">
+              New Quiz<i class="uil uil-arrow-right"></i>
             </button>
           </div>
-      </div>
-    
-    </section>
- 
+        </div>
+      </section>
+
+    </main>
   </body>
 </html>

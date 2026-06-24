@@ -23,20 +23,15 @@ let answerPickedByUser;
 let answerDivPickedByUser;
 
 const errorText = document.querySelector(".error__text");
-console.log("how na");
 async function allTheSurahs() {
   try {
     let data = await fetch(
       "https://api.qurani.ai/gw/qh/v1/surah?limit=2000&offset=0",
     );
     let res = await data.json();
-    console.log(res);
     app.allSurahs = res.data.map((surah) => `${surah.englishName}`);
     addAllSurahToSelectOption(app.allSurahs);
     form.querySelector("button").disabled = false;
-    
-
-    if (!data.ok) throw new Error("Failed to fetch");
   } catch (e) {
     console.error(e.message, "while fetching all surahs");
     errorText.classList.remove("hidden");
@@ -52,14 +47,12 @@ let numOfQuestionsSelected;
 async function getQuranFromAPI(indexOfSurah) {
   try {
     renderSpimner(questionOptions);
-    console.log(indexOfSurah);
     let res = await fetch(
       `https://api.qurani.ai/gw/qh/v1/surah/${indexOfSurah}/quran-uthmani?limit=2000&offset=0`,
     );
 
     let chapter = await res.json();
     // app.curSurah = chapter.data.englishName;
-    console.log(chapter, app.curSurah);
     chapter.data.ayahs.forEach((ayah) => {
       app.ayahs.push(ayah.text);
     });
@@ -130,7 +123,7 @@ function setOptions(quesNum) {
   let options = [];
   const curQues = session.questions[quesNum];
   const curAns = session.correctAnswers[quesNum];
-  
+
   let i = 0;
   let availableOpt = app.ayahs.filter((a) => a !== curQues && a !== curAns);
   do {
@@ -213,16 +206,14 @@ form.addEventListener("submit", (e) => {
   session.quizDuration = timeDur.innerHTML;
 
   let indexOfSurah = app.allSurahs.findIndex((s) => s === app.curSurah) + 1;
-  console.log(indexOfSurah, "after submitting");
   getQuranFromAPI(indexOfSurah);
-  console.log("start");
   storeDataToLocalStorage();
 });
 
 function startQuiz() {
   render(CurNum - 1);
   session.start = true;
-  unDisableBtns([submitBtn, nextBtn, prevBtn])
+  unDisableBtns([submitBtn, nextBtn, prevBtn]);
   counter(session.quizDuration);
   updateProgress();
 }
@@ -237,8 +228,6 @@ function updateProgress(curQuesNum = 1) {
   let progressPercentage = (curQuesNum / totalQues) * 100;
   progressBar.style.width = `${progressPercentage}%`;
 }
-
-
 
 const quizNavigator = document.querySelector(".navigator");
 
@@ -419,8 +408,6 @@ function calcResult() {
       gradeSummary.innerHTML = "Very Poor";
       break;
   }
-
-  
 }
 
 const restartBtn = document.querySelector(".restart__btn");
@@ -429,7 +416,7 @@ const newQuizBtn = document.querySelector(".new__quiz__btn");
 restartBtn.addEventListener("click", () => {
   quizPage.classList.remove("hidden");
   resultPage.classList.add("hidden");
-  shuffleArray(session.questions)
+  shuffleArray(session.questions);
   questionOptions.innerHTML = "";
   questionReviewContainer.innerHTML = "";
   CurNum = 1;
@@ -526,7 +513,7 @@ function addQuestionReview(questions) {
 }
 
 questionReviewContainer.addEventListener("click", (e) => {
-  if (!e.target.closest(".question__review")) return
+  if (!e.target.closest(".question__review")) return;
 
   // questionReviewContainer
   //   .querySelectorAll(".review__wrapper")
@@ -549,10 +536,9 @@ function shuffleArray(arr) {
   }
 }
 
-
-document.addEventListener('keydown', e =>{
-  if(e.key.toLowerCase() === 'n' || e.key === 'ArrowRight'){
-    NextQuestion()
+document.addEventListener("keydown", (e) => {
+  if (e.key.toLowerCase() === "n" || e.key === "ArrowRight") {
+    NextQuestion();
   }
 
   if (e.key.toLowerCase() === "p" || e.key === "ArrowLeft") {
@@ -562,8 +548,8 @@ document.addEventListener('keydown', e =>{
   if (e.key.toLowerCase() === "s") {
     submitQuiz();
   }
-})
+});
 
 function unDisableBtns(btns) {
-  btns.forEach(btn => btn.disabled = false)
+  btns.forEach((btn) => (btn.disabled = false));
 }
