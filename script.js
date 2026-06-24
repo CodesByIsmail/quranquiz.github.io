@@ -30,12 +30,13 @@ async function allTheSurahs() {
       "https://api.qurani.ai/gw/qh/v1/surah?limit=2000&offset=0",
     );
     let res = await data.json();
-    console.log(res, data);
+    console.log(res);
     app.allSurahs = res.data.map((surah) => `${surah.englishName}`);
     addAllSurahToSelectOption(app.allSurahs);
     form.querySelector("button").disabled = false;
+    
 
-    if (!res.ok) throw new Error("Failed to fetch");
+    if (!data.ok) throw new Error("Failed to fetch");
   } catch (e) {
     console.error(e.message, "while fetching all surahs");
     errorText.classList.remove("hidden");
