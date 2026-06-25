@@ -391,21 +391,26 @@ function calcResult() {
     (session.score / session.questions.length) * 100,
   );
   percentCount.innerHTML = `${resultPercent}%`;
-
+  const quizSummaryCont = document.querySelector(".quiz__summary");
   switch (session.end) {
     case resultPercent >= 70:
       gradeSummary.innerHTML = "Excellent";
       break;
     case resultPercent <= 70 && resultPercent >= 50:
       gradeSummary.innerHTML = "Fair";
+      quizSummaryCont.classList.add("fair__background");
       break;
 
     case resultPercent >= 30 && resultPercent <= 50:
       gradeSummary.innerHTML = "Poor";
+      quizSummaryCont.classList.add("poor__background");
+
       break;
 
     case resultPercent >= 0 && resultPercent <= 30:
       gradeSummary.innerHTML = "Very Poor";
+      quizSummaryCont.classList.add("poor__background");
+
       break;
   }
 }
@@ -496,7 +501,7 @@ function addQuestionReview(questions) {
         <div class="question__review ${quesStatus}__answer">
               <div class="review__top">
                 <h3>Question ${i + 1}</h3>
-                <svg width='24', height='24px'>
+                <svg class='chevron' width='24', height='24px'>
               <use href="./images/icons.svg#icon-chevron-down"></use>
             </svg>              </div>
               
@@ -515,14 +520,16 @@ function addQuestionReview(questions) {
 questionReviewContainer.addEventListener("click", (e) => {
   if (!e.target.closest(".question__review")) return;
 
-  // questionReviewContainer
-  //   .querySelectorAll(".review__wrapper")
-  //   .forEach((r) => r.classList.add("hidden"));
 
   e.target
     .closest(".question__review")
     .querySelector(".review__wrapper")
     .classList.toggle("hidden");
+
+     e.target
+    .closest(".question__review")
+    .querySelector(".chevron")
+    .classList.toggle("rotate__chevron");
 });
 
 function shuffleArray(arr) {

@@ -71,6 +71,7 @@ body {
 .start__page,
 .result__page {
   width: 90%;
+  max-width: 50rem;
 }
 
 main {
@@ -86,8 +87,8 @@ main {
 nav {
   background: var(--white);
   height: 4rem;
-  /* position: sticky; */
-  /* top: 0; */
+  position: sticky;
+  top: 0;
 }
 
 .nav__bar {
@@ -474,11 +475,6 @@ box-shadow: var(--shadow-lg); */
   }
 }
 
-.trophy__div {
-  /* font-size: 2.5rem; */
-  /* border-radius: 50%; */
-}
-
 .quiz__summary {
   background: var(--green-600);
   color: var(--white);
@@ -501,6 +497,14 @@ box-shadow: var(--shadow-lg); */
     background: var(--white);
     padding: 1.5rem 0;
   }
+}
+
+.quiz__summary.poor__background{
+  background: var(--red-50);
+}
+
+.quiz__summary.fair__background{
+  background: var(--gold-300);
 }
 
 .quiz__brief {
@@ -607,17 +611,14 @@ box-shadow: var(--shadow-lg); */
   }
 
   .correct__answer {
-    border: var(--green-100);
     border-left: 4px solid var(--green-700);
   }
 
-    .wrong__answer {
-    background: var(--red-50);
+  .wrong__answer {
     border-left: 4px solid var(--red);
   }
 
   .skipped__answer {
-    background: var(--gold-50);
     border-left: 4px solid var(--gold-300);
   }
 
@@ -625,7 +626,7 @@ box-shadow: var(--shadow-lg); */
   .correct__answer::before,
   .skipped__answer::before {
     padding: 0.1rem 0.9rem;
-     border-radius: 2px;
+    border-radius: 2px;
     font-size: 0.6rem;
   }
 
@@ -633,24 +634,19 @@ box-shadow: var(--shadow-lg); */
     content: "Wrong";
     color: var(--white);
     background: var(--red);
-    
   }
 
   .skipped__answer::before {
     content: "Skipped";
     color: var(--white);
     background: var(--gold-300);
-   
   }
 
   .correct__answer::before {
     content: "Correct";
     color: var(--white);
     background: var(--green-800);
-  
   }
-
-
 }
 
 .user__answer,
@@ -675,6 +671,15 @@ box-shadow: var(--shadow-lg); */
   width: 50px;
   margin: 0 auto;
   animation: rotate 1s infinite linear;
+}
+
+.chevron{
+  transition: .7s;
+}
+
+.rotate__chevron{
+  
+  transform: rotate(0.5turn);
 }
 
 @keyframes rotate {
